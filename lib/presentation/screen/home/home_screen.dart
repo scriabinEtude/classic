@@ -6,6 +6,7 @@ import 'package:classic/presentation/color/light_color.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
 import 'package:classic/presentation/screen/link/link_screen.dart';
 import 'package:classic/presentation/screen/login/login_screen.dart';
+import 'package:classic/presentation/screen/user_info/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -56,7 +57,17 @@ class _GoUser extends StatelessWidget {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         if (state.isLogin) {
-          return const SizedBox.shrink();
+          return InkWell(
+            onTap: () {
+              context.goNamed(UserScreen.routeName);
+            },
+            child: Row(
+              children: const [
+                Icon(Icons.person),
+                SizedBox(width: 20),
+              ],
+            ),
+          );
         }
 
         return InkWell(

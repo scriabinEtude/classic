@@ -19,6 +19,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserEventSetUser>(_setUser);
     on<UserEventLogin>(_login);
     on<UserEventLogout>(_logout);
+    on<UserEventSendVerifiedEmail>(_sendVerifiedEmail);
     firebaseUserListner();
   }
 
@@ -65,12 +66,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }
   }
 
-  _logout(UserEventLogout event, Emitter emit) {
+  _logout(UserEventLogout event, Emitter emit) async {
+    await auth.FirebaseAuth.instance.signOut();
     emit(UserState(status: StatusInit()));
   }
 
   _setUser(UserEventSetUser event, Emitter emit) {
     emit(state.copyWith(user: event.user));
+  }
+
+  _sendVerifiedEmail(UserEventSendVerifiedEmail event, Emitter emit) {
+    auth.FirebaseAuth.instance.currentUser?.sendEmailVerification();
   }
 
   firebaseUserListner() {
@@ -79,7 +85,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         if (user == null) {
           add(const UserEventLogout());
         } else {
-          add(UserEvent.loginFromFirebase(User(
+          add(UserEvent.setUser(User(
             email: user.email!,
             emailVerified: user.emailVerified,
             nickname: user.displayName ?? user.email!,
@@ -87,5 +93,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         }
       },
     );
+  }
+
+  @override
+  Future<void> close() {
+    firebaseAuthSubscription.cancel();
+    return super.close();
   }
 }

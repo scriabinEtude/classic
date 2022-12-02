@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:classic/bloc/register/register_event.dart';
 import 'package:classic/common/config/di.dart';
 import 'package:classic/common/module/api/result.dart';
+import 'package:classic/common/module/logger/logger.dart';
 import 'package:classic/data/common/status/status.dart';
 import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/user.dart';
@@ -43,10 +44,12 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           );
         },
         failure: (failure) {
-          emit(state.copyWith(status: Status.fail(message: "이미 가입한 유저입니다.")));
+          l.e(failure.message);
+          emit(state.copyWith(status: Status.fail(message: failure.message)));
         },
       );
     } catch (e) {
+      l.e(e);
       emit(state.copyWith(status: Status.fail(message: "회원 가입에 실패했습니다.")));
     }
   }

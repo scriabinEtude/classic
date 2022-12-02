@@ -1,4 +1,6 @@
 import 'package:classic/data/common/status/status.dart';
+import 'package:classic/data/const/code.dart';
+import 'package:classic/presentation/screen/login/email_validation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,6 +9,8 @@ import 'package:classic/bloc/register/register_event.dart';
 import 'package:classic/bloc/register/register_state.dart';
 import 'package:classic/presentation/components/logo.dart';
 import 'package:classic/presentation/screen/login/components/filled_button.dart';
+
+import 'package:go_router/go_router.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -36,7 +40,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: BlocConsumer<RegisterBloc, RegisterState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          state.status.whenOrNull(success: (code) {
+            if (code == CODE_USER_REGISTER_SUCCESS) {
+              context.pushNamed(EmailValidationScreen.routeName);
+            }
+          });
+        },
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(),
@@ -128,8 +138,6 @@ class _NamePasswordForm extends StatelessWidget {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "아이디를 입력해 주세요";
-              } else if (value.length < 4 || value.length > 16) {
-                return "닉네임은 4 ~ 16자 사이에서 정해주세요.";
               } else {
                 return null;
               }

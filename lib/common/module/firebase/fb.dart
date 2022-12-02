@@ -1,5 +1,4 @@
 import 'package:classic/firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class FB {
@@ -15,6 +14,6 @@ class FB {
   }
 
   static _auth() async {
-    FirebaseAuth.instance.useAuthEmulator("10.0.2.2", 9099);
+    // FirebaseAuth.instance.useAuthEmulator("10.0.2.2", 9099);
   }
 }

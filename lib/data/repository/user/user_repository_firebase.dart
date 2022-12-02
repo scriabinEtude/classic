@@ -1,3 +1,4 @@
+import 'package:classic/common/module/logger/logger.dart';
 import 'package:classic/common/util/encoding_util.dart';
 import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/user.dart';
@@ -25,10 +26,12 @@ class UserRepositoryFirebase implements UserRepository {
   @override
   Future<Result<bool>> register(User user) async {
     try {
-      await auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
+      auth.UserCredential authUser =
+          await auth.FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: user.email,
         password: EncodingUtil.passwordEncode(user.password!),
       );
+      await authUser.user?.sendEmailVerification();
 
       return Result.success(true);
     } on auth.FirebaseAuthException catch (e) {
@@ -44,11 +47,12 @@ class UserRepositoryFirebase implements UserRepository {
             CODE_USER_REGISTER_OPERATION_NOT_ALLOWED, "권한이 없습니다.");
       } else if (e.code == 'invalid-email') {
         return Result.failure(
-            CODE_USER_REGISTER_INVALID_EMAIL, "가입이 제한된 이메일입니다.");
+            CODE_USER_REGISTER_INVALID_EMAIL, "이메일 형식에 맞지 않습니다.");
       } else {
         rethrow;
       }
     } catch (e) {
+      l.e(e);
       return Result.failure(Result.CODE_FAILURE, '회원 가입에 실패하였습니다.');
     }
   }

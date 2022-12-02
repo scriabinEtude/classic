@@ -70,7 +70,6 @@ class UserRepositoryMongo implements UserRepository {
       if (result.isSuccess) {
         return Result.success(true);
       } else {
-        print(result.errmsg);
         return Result.failure(Result.CODE_FAILURE, "회원가입에 실패하였습니다.");
       }
     }

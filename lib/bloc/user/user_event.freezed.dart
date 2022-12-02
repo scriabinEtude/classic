@@ -19,51 +19,51 @@ mixin _$UserEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
-    required TResult Function(User user) loginFromFirebase,
     required TResult Function(User user) setUser,
     required TResult Function() logout,
+    required TResult Function() sendVerifiedEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
-    TResult? Function(User user)? loginFromFirebase,
     TResult? Function(User user)? setUser,
     TResult? Function()? logout,
+    TResult? Function()? sendVerifiedEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
-    TResult Function(User user)? loginFromFirebase,
     TResult Function(User user)? setUser,
     TResult Function()? logout,
+    TResult Function()? sendVerifiedEmail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(UserEventLogin value) login,
-    required TResult Function(UserEventLoginFromFirebase value)
-        loginFromFirebase,
     required TResult Function(UserEventSetUser value) setUser,
     required TResult Function(UserEventLogout value) logout,
+    required TResult Function(UserEventSendVerifiedEmail value)
+        sendVerifiedEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UserEventLogin value)? login,
-    TResult? Function(UserEventLoginFromFirebase value)? loginFromFirebase,
     TResult? Function(UserEventSetUser value)? setUser,
     TResult? Function(UserEventLogout value)? logout,
+    TResult? Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UserEventLogin value)? login,
-    TResult Function(UserEventLoginFromFirebase value)? loginFromFirebase,
     TResult Function(UserEventSetUser value)? setUser,
     TResult Function(UserEventLogout value)? logout,
+    TResult Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -160,9 +160,9 @@ class _$UserEventLogin implements UserEventLogin {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
-    required TResult Function(User user) loginFromFirebase,
     required TResult Function(User user) setUser,
     required TResult Function() logout,
+    required TResult Function() sendVerifiedEmail,
   }) {
     return login(email, password);
   }
@@ -171,9 +171,9 @@ class _$UserEventLogin implements UserEventLogin {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
-    TResult? Function(User user)? loginFromFirebase,
     TResult? Function(User user)? setUser,
     TResult? Function()? logout,
+    TResult? Function()? sendVerifiedEmail,
   }) {
     return login?.call(email, password);
   }
@@ -182,9 +182,9 @@ class _$UserEventLogin implements UserEventLogin {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
-    TResult Function(User user)? loginFromFirebase,
     TResult Function(User user)? setUser,
     TResult Function()? logout,
+    TResult Function()? sendVerifiedEmail,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -197,10 +197,10 @@ class _$UserEventLogin implements UserEventLogin {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(UserEventLogin value) login,
-    required TResult Function(UserEventLoginFromFirebase value)
-        loginFromFirebase,
     required TResult Function(UserEventSetUser value) setUser,
     required TResult Function(UserEventLogout value) logout,
+    required TResult Function(UserEventSendVerifiedEmail value)
+        sendVerifiedEmail,
   }) {
     return login(this);
   }
@@ -209,9 +209,9 @@ class _$UserEventLogin implements UserEventLogin {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UserEventLogin value)? login,
-    TResult? Function(UserEventLoginFromFirebase value)? loginFromFirebase,
     TResult? Function(UserEventSetUser value)? setUser,
     TResult? Function(UserEventLogout value)? logout,
+    TResult? Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
   }) {
     return login?.call(this);
   }
@@ -220,9 +220,9 @@ class _$UserEventLogin implements UserEventLogin {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UserEventLogin value)? login,
-    TResult Function(UserEventLoginFromFirebase value)? loginFromFirebase,
     TResult Function(UserEventSetUser value)? setUser,
     TResult Function(UserEventLogout value)? logout,
+    TResult Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -241,166 +241,6 @@ abstract class UserEventLogin implements UserEvent {
   @JsonKey(ignore: true)
   _$$UserEventLoginCopyWith<_$UserEventLogin> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UserEventLoginFromFirebaseCopyWith<$Res> {
-  factory _$$UserEventLoginFromFirebaseCopyWith(
-          _$UserEventLoginFromFirebase value,
-          $Res Function(_$UserEventLoginFromFirebase) then) =
-      __$$UserEventLoginFromFirebaseCopyWithImpl<$Res>;
-  @useResult
-  $Res call({User user});
-
-  $UserCopyWith<$Res> get user;
-}
-
-/// @nodoc
-class __$$UserEventLoginFromFirebaseCopyWithImpl<$Res>
-    extends _$UserEventCopyWithImpl<$Res, _$UserEventLoginFromFirebase>
-    implements _$$UserEventLoginFromFirebaseCopyWith<$Res> {
-  __$$UserEventLoginFromFirebaseCopyWithImpl(
-      _$UserEventLoginFromFirebase _value,
-      $Res Function(_$UserEventLoginFromFirebase) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? user = null,
-  }) {
-    return _then(_$UserEventLoginFromFirebase(
-      null == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res> get user {
-    return $UserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
-    });
-  }
-}
-
-/// @nodoc
-
-class _$UserEventLoginFromFirebase implements UserEventLoginFromFirebase {
-  const _$UserEventLoginFromFirebase(this.user);
-
-  @override
-  final User user;
-
-  @override
-  String toString() {
-    return 'UserEvent.loginFromFirebase(user: $user)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UserEventLoginFromFirebase &&
-            (identical(other.user, user) || other.user == user));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, user);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UserEventLoginFromFirebaseCopyWith<_$UserEventLoginFromFirebase>
-      get copyWith => __$$UserEventLoginFromFirebaseCopyWithImpl<
-          _$UserEventLoginFromFirebase>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String email, String password) login,
-    required TResult Function(User user) loginFromFirebase,
-    required TResult Function(User user) setUser,
-    required TResult Function() logout,
-  }) {
-    return loginFromFirebase(user);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email, String password)? login,
-    TResult? Function(User user)? loginFromFirebase,
-    TResult? Function(User user)? setUser,
-    TResult? Function()? logout,
-  }) {
-    return loginFromFirebase?.call(user);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email, String password)? login,
-    TResult Function(User user)? loginFromFirebase,
-    TResult Function(User user)? setUser,
-    TResult Function()? logout,
-    required TResult orElse(),
-  }) {
-    if (loginFromFirebase != null) {
-      return loginFromFirebase(user);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(UserEventLogin value) login,
-    required TResult Function(UserEventLoginFromFirebase value)
-        loginFromFirebase,
-    required TResult Function(UserEventSetUser value) setUser,
-    required TResult Function(UserEventLogout value) logout,
-  }) {
-    return loginFromFirebase(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(UserEventLogin value)? login,
-    TResult? Function(UserEventLoginFromFirebase value)? loginFromFirebase,
-    TResult? Function(UserEventSetUser value)? setUser,
-    TResult? Function(UserEventLogout value)? logout,
-  }) {
-    return loginFromFirebase?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(UserEventLogin value)? login,
-    TResult Function(UserEventLoginFromFirebase value)? loginFromFirebase,
-    TResult Function(UserEventSetUser value)? setUser,
-    TResult Function(UserEventLogout value)? logout,
-    required TResult orElse(),
-  }) {
-    if (loginFromFirebase != null) {
-      return loginFromFirebase(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class UserEventLoginFromFirebase implements UserEvent {
-  const factory UserEventLoginFromFirebase(final User user) =
-      _$UserEventLoginFromFirebase;
-
-  User get user;
-  @JsonKey(ignore: true)
-  _$$UserEventLoginFromFirebaseCopyWith<_$UserEventLoginFromFirebase>
-      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -478,9 +318,9 @@ class _$UserEventSetUser implements UserEventSetUser {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
-    required TResult Function(User user) loginFromFirebase,
     required TResult Function(User user) setUser,
     required TResult Function() logout,
+    required TResult Function() sendVerifiedEmail,
   }) {
     return setUser(user);
   }
@@ -489,9 +329,9 @@ class _$UserEventSetUser implements UserEventSetUser {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
-    TResult? Function(User user)? loginFromFirebase,
     TResult? Function(User user)? setUser,
     TResult? Function()? logout,
+    TResult? Function()? sendVerifiedEmail,
   }) {
     return setUser?.call(user);
   }
@@ -500,9 +340,9 @@ class _$UserEventSetUser implements UserEventSetUser {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
-    TResult Function(User user)? loginFromFirebase,
     TResult Function(User user)? setUser,
     TResult Function()? logout,
+    TResult Function()? sendVerifiedEmail,
     required TResult orElse(),
   }) {
     if (setUser != null) {
@@ -515,10 +355,10 @@ class _$UserEventSetUser implements UserEventSetUser {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(UserEventLogin value) login,
-    required TResult Function(UserEventLoginFromFirebase value)
-        loginFromFirebase,
     required TResult Function(UserEventSetUser value) setUser,
     required TResult Function(UserEventLogout value) logout,
+    required TResult Function(UserEventSendVerifiedEmail value)
+        sendVerifiedEmail,
   }) {
     return setUser(this);
   }
@@ -527,9 +367,9 @@ class _$UserEventSetUser implements UserEventSetUser {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UserEventLogin value)? login,
-    TResult? Function(UserEventLoginFromFirebase value)? loginFromFirebase,
     TResult? Function(UserEventSetUser value)? setUser,
     TResult? Function(UserEventLogout value)? logout,
+    TResult? Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
   }) {
     return setUser?.call(this);
   }
@@ -538,9 +378,9 @@ class _$UserEventSetUser implements UserEventSetUser {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UserEventLogin value)? login,
-    TResult Function(UserEventLoginFromFirebase value)? loginFromFirebase,
     TResult Function(UserEventSetUser value)? setUser,
     TResult Function(UserEventLogout value)? logout,
+    TResult Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
     required TResult orElse(),
   }) {
     if (setUser != null) {
@@ -598,9 +438,9 @@ class _$UserEventLogout implements UserEventLogout {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
-    required TResult Function(User user) loginFromFirebase,
     required TResult Function(User user) setUser,
     required TResult Function() logout,
+    required TResult Function() sendVerifiedEmail,
   }) {
     return logout();
   }
@@ -609,9 +449,9 @@ class _$UserEventLogout implements UserEventLogout {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
-    TResult? Function(User user)? loginFromFirebase,
     TResult? Function(User user)? setUser,
     TResult? Function()? logout,
+    TResult? Function()? sendVerifiedEmail,
   }) {
     return logout?.call();
   }
@@ -620,9 +460,9 @@ class _$UserEventLogout implements UserEventLogout {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
-    TResult Function(User user)? loginFromFirebase,
     TResult Function(User user)? setUser,
     TResult Function()? logout,
+    TResult Function()? sendVerifiedEmail,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -635,10 +475,10 @@ class _$UserEventLogout implements UserEventLogout {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(UserEventLogin value) login,
-    required TResult Function(UserEventLoginFromFirebase value)
-        loginFromFirebase,
     required TResult Function(UserEventSetUser value) setUser,
     required TResult Function(UserEventLogout value) logout,
+    required TResult Function(UserEventSendVerifiedEmail value)
+        sendVerifiedEmail,
   }) {
     return logout(this);
   }
@@ -647,9 +487,9 @@ class _$UserEventLogout implements UserEventLogout {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(UserEventLogin value)? login,
-    TResult? Function(UserEventLoginFromFirebase value)? loginFromFirebase,
     TResult? Function(UserEventSetUser value)? setUser,
     TResult? Function(UserEventLogout value)? logout,
+    TResult? Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
   }) {
     return logout?.call(this);
   }
@@ -658,9 +498,9 @@ class _$UserEventLogout implements UserEventLogout {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(UserEventLogin value)? login,
-    TResult Function(UserEventLoginFromFirebase value)? loginFromFirebase,
     TResult Function(UserEventSetUser value)? setUser,
     TResult Function(UserEventLogout value)? logout,
+    TResult Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -672,4 +512,122 @@ class _$UserEventLogout implements UserEventLogout {
 
 abstract class UserEventLogout implements UserEvent {
   const factory UserEventLogout() = _$UserEventLogout;
+}
+
+/// @nodoc
+abstract class _$$UserEventSendVerifiedEmailCopyWith<$Res> {
+  factory _$$UserEventSendVerifiedEmailCopyWith(
+          _$UserEventSendVerifiedEmail value,
+          $Res Function(_$UserEventSendVerifiedEmail) then) =
+      __$$UserEventSendVerifiedEmailCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UserEventSendVerifiedEmailCopyWithImpl<$Res>
+    extends _$UserEventCopyWithImpl<$Res, _$UserEventSendVerifiedEmail>
+    implements _$$UserEventSendVerifiedEmailCopyWith<$Res> {
+  __$$UserEventSendVerifiedEmailCopyWithImpl(
+      _$UserEventSendVerifiedEmail _value,
+      $Res Function(_$UserEventSendVerifiedEmail) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$UserEventSendVerifiedEmail implements UserEventSendVerifiedEmail {
+  const _$UserEventSendVerifiedEmail();
+
+  @override
+  String toString() {
+    return 'UserEvent.sendVerifiedEmail()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserEventSendVerifiedEmail);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email, String password) login,
+    required TResult Function(User user) setUser,
+    required TResult Function() logout,
+    required TResult Function() sendVerifiedEmail,
+  }) {
+    return sendVerifiedEmail();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, String password)? login,
+    TResult? Function(User user)? setUser,
+    TResult? Function()? logout,
+    TResult? Function()? sendVerifiedEmail,
+  }) {
+    return sendVerifiedEmail?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, String password)? login,
+    TResult Function(User user)? setUser,
+    TResult Function()? logout,
+    TResult Function()? sendVerifiedEmail,
+    required TResult orElse(),
+  }) {
+    if (sendVerifiedEmail != null) {
+      return sendVerifiedEmail();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UserEventLogin value) login,
+    required TResult Function(UserEventSetUser value) setUser,
+    required TResult Function(UserEventLogout value) logout,
+    required TResult Function(UserEventSendVerifiedEmail value)
+        sendVerifiedEmail,
+  }) {
+    return sendVerifiedEmail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(UserEventLogin value)? login,
+    TResult? Function(UserEventSetUser value)? setUser,
+    TResult? Function(UserEventLogout value)? logout,
+    TResult? Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
+  }) {
+    return sendVerifiedEmail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UserEventLogin value)? login,
+    TResult Function(UserEventSetUser value)? setUser,
+    TResult Function(UserEventLogout value)? logout,
+    TResult Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
+    required TResult orElse(),
+  }) {
+    if (sendVerifiedEmail != null) {
+      return sendVerifiedEmail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UserEventSendVerifiedEmail implements UserEvent {
+  const factory UserEventSendVerifiedEmail() = _$UserEventSendVerifiedEmail;
 }
