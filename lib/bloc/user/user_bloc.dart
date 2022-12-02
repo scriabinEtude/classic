@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:classic/bloc/user/user_event.dart';
 import 'package:classic/bloc/user/user_state.dart';
@@ -6,9 +8,9 @@ import 'package:classic/common/module/api/result.dart';
 import 'package:classic/common/module/secure_storage/secure_storage.dart';
 import 'package:classic/data/common/status/status.dart';
 import 'package:classic/data/dto/login_dto.dart';
-import 'package:classic/data/model/jwt.dart';
 import 'package:classic/data/model/user.dart';
 import 'package:classic/data/repository/user/user_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc()
@@ -17,17 +19,21 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserEventSetUser>(_setUser);
     on<UserEventLogin>(_login);
     on<UserEventLogout>(_logout);
+    firebaseUserListner();
   }
 
   final UserRepository _userRepository;
+  User? get user => state.user;
+  late StreamSubscription<auth.User?> firebaseAuthSubscription;
 
   _login(UserEventLogin event, Emitter emit) async {
-    if (event.id == "123" || event.password == "123123123") {
+    if (event.email == "123" || event.password == "123123123") {
       emit(
         state.copyWith(
           user: User(
-            id: event.id,
+            email: event.email,
             nickname: 'tester',
+            emailVerified: true,
           ),
           status: Status.success(),
         ),
@@ -38,7 +44,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(state.copyWith(status: Status.loading()));
 
       Result<LoginDTO> result =
-          await _userRepository.login(event.id, event.password);
+          await _userRepository.login(event.email, event.password);
 
       result.map(
         success: (success) {
@@ -67,5 +73,19 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emit(state.copyWith(user: event.user));
   }
 
-  User? get user => state.user;
+  firebaseUserListner() {
+    firebaseAuthSubscription = auth.FirebaseAuth.instance.userChanges().listen(
+      (auth.User? user) {
+        if (user == null) {
+          add(const UserEventLogout());
+        } else {
+          add(UserEvent.loginFromFirebase(User(
+            email: user.email!,
+            emailVerified: user.emailVerified,
+            nickname: user.displayName ?? user.email!,
+          )));
+        }
+      },
+    );
+  }
 }

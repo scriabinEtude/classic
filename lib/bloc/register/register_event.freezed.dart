@@ -16,23 +16,23 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RegisterEvent {
-  String get id => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String id, String nickname, String password)
+    required TResult Function(String email, String nickname, String password)
         regist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String id, String nickname, String password)? regist,
+    TResult? Function(String email, String nickname, String password)? regist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String nickname, String password)? regist,
+    TResult Function(String email, String nickname, String password)? regist,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -64,7 +64,7 @@ abstract class $RegisterEventCopyWith<$Res> {
           RegisterEvent value, $Res Function(RegisterEvent) then) =
       _$RegisterEventCopyWithImpl<$Res, RegisterEvent>;
   @useResult
-  $Res call({String id, String nickname, String password});
+  $Res call({String email, String nickname, String password});
 }
 
 /// @nodoc
@@ -80,14 +80,14 @@ class _$RegisterEventCopyWithImpl<$Res, $Val extends RegisterEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? email = null,
     Object? nickname = null,
     Object? password = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       nickname: null == nickname
           ? _value.nickname
@@ -109,7 +109,7 @@ abstract class _$$RegisterEventRegistCopyWith<$Res>
       __$$RegisterEventRegistCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String nickname, String password});
+  $Res call({String email, String nickname, String password});
 }
 
 /// @nodoc
@@ -123,14 +123,14 @@ class __$$RegisterEventRegistCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? email = null,
     Object? nickname = null,
     Object? password = null,
   }) {
     return _then(_$RegisterEventRegist(
-      null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       null == nickname
           ? _value.nickname
@@ -147,10 +147,10 @@ class __$$RegisterEventRegistCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RegisterEventRegist implements RegisterEventRegist {
-  const _$RegisterEventRegist(this.id, this.nickname, this.password);
+  const _$RegisterEventRegist(this.email, this.nickname, this.password);
 
   @override
-  final String id;
+  final String email;
   @override
   final String nickname;
   @override
@@ -158,7 +158,7 @@ class _$RegisterEventRegist implements RegisterEventRegist {
 
   @override
   String toString() {
-    return 'RegisterEvent.regist(id: $id, nickname: $nickname, password: $password)';
+    return 'RegisterEvent.regist(email: $email, nickname: $nickname, password: $password)';
   }
 
   @override
@@ -166,7 +166,7 @@ class _$RegisterEventRegist implements RegisterEventRegist {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RegisterEventRegist &&
-            (identical(other.id, id) || other.id == id) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.nickname, nickname) ||
                 other.nickname == nickname) &&
             (identical(other.password, password) ||
@@ -174,7 +174,7 @@ class _$RegisterEventRegist implements RegisterEventRegist {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, nickname, password);
+  int get hashCode => Object.hash(runtimeType, email, nickname, password);
 
   @JsonKey(ignore: true)
   @override
@@ -186,28 +186,28 @@ class _$RegisterEventRegist implements RegisterEventRegist {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String id, String nickname, String password)
+    required TResult Function(String email, String nickname, String password)
         regist,
   }) {
-    return regist(id, nickname, password);
+    return regist(email, nickname, password);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String id, String nickname, String password)? regist,
+    TResult? Function(String email, String nickname, String password)? regist,
   }) {
-    return regist?.call(id, nickname, password);
+    return regist?.call(email, nickname, password);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String id, String nickname, String password)? regist,
+    TResult Function(String email, String nickname, String password)? regist,
     required TResult orElse(),
   }) {
     if (regist != null) {
-      return regist(id, nickname, password);
+      return regist(email, nickname, password);
     }
     return orElse();
   }
@@ -243,11 +243,11 @@ class _$RegisterEventRegist implements RegisterEventRegist {
 
 abstract class RegisterEventRegist implements RegisterEvent {
   const factory RegisterEventRegist(
-          final String id, final String nickname, final String password) =
+          final String email, final String nickname, final String password) =
       _$RegisterEventRegist;
 
   @override
-  String get id;
+  String get email;
   @override
   String get nickname;
   @override

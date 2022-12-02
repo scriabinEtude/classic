@@ -49,6 +49,10 @@ dependencies:
   mongo_dart: ^0.8.1
   crypto: ^3.0.2
 
+  # firebase
+  firebase_core: ^2.3.0
+  firebase_auth: ^4.1.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

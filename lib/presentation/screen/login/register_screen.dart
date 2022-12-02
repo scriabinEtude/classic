@@ -35,66 +35,68 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child:
-          BlocBuilder<RegisterBloc, RegisterState>(builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(),
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: LoginScreenFilledButton(
-              onPressed: () {
-                if (_formKey.currentState?.validate() == true) {
-                  BlocProvider.of<RegisterBloc>(context)
-                      .add(RegisterEvent.regist(
-                    _idController.text,
-                    _nicknameController.text,
-                    _passwordController.text,
-                  ));
-                }
-              },
-              text: '완료',
-              status: state.status,
+      child: BlocConsumer<RegisterBloc, RegisterState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(),
+            floatingActionButton: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: LoginScreenFilledButton(
+                onPressed: () {
+                  if (_formKey.currentState?.validate() == true) {
+                    BlocProvider.of<RegisterBloc>(context)
+                        .add(RegisterEvent.regist(
+                      _idController.text,
+                      _nicknameController.text,
+                      _passwordController.text,
+                    ));
+                  }
+                },
+                text: '완료',
+                status: state.status,
+              ),
             ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Column(
-                  children: [
-                    const Logo(),
-                    const Text(
-                      '회원 가입',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    if (state.status is StatusFail)
-                      Container(
-                        margin: const EdgeInsets.only(top: 20),
-                        child: Text(
-                          (state.status as StatusFail).message ?? "",
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: Colors.red,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      const Logo(),
+                      const Text(
+                        '회원 가입',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      if (state.status is StatusFail)
+                        Container(
+                          margin: const EdgeInsets.only(top: 20),
+                          child: Text(
+                            (state.status as StatusFail).message ?? "",
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.red,
+                            ),
                           ),
                         ),
-                      ),
-                  ],
-                ),
-                _NamePasswordForm(
-                  formKey: _formKey,
-                  idController: _idController,
-                  nicknameController: _nicknameController,
-                  passwordController: _passwordController,
-                ),
-                const SizedBox.shrink(),
-              ],
+                    ],
+                  ),
+                  _NamePasswordForm(
+                    formKey: _formKey,
+                    idController: _idController,
+                    nicknameController: _nicknameController,
+                    passwordController: _passwordController,
+                  ),
+                  const SizedBox.shrink(),
+                ],
+              ),
             ),
-          ),
-        );
-      }),
+          );
+        },
+      ),
     );
   }
 }

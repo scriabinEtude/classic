@@ -7,6 +7,4 @@ abstract class UserRepository {
   Future<Result<bool>> register(User user);
   Future<Result<bool>> isUniqueId(String id);
   Future<Result<bool>> isUniqueNickname(String nickname);
-
-  static const int CODE_DUPLICATED_USER = 1000;
 }

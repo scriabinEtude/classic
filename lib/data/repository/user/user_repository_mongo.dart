@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:classic/common/util/encoding_util.dart';
+import 'package:classic/data/const/code.dart';
 import 'package:classic/data/dto/login_dto.dart';
 import 'package:classic/data/model/user.dart';
 import 'package:classic/data/model/jwt.dart';
@@ -59,12 +60,11 @@ class UserRepositoryMongo implements UserRepository {
     );
 
     final alreadyOne = await collection.findOne({
-      'id': user.id,
+      'id': user.email,
       "password": user.password,
     });
     if (alreadyOne != null) {
-      return Result.failure(
-          UserRepository.CODE_DUPLICATED_USER, "이미 가입된 유저입니다.");
+      return Result.failure(CODE_USER_REGISTER_DUPLICATED, "이미 가입된 유저입니다.");
     } else {
       final result = await collection.insertOne(user.toJson());
       if (result.isSuccess) {
