@@ -21,6 +21,7 @@ mixin _$UserEvent {
     required TResult Function(String email, String password) login,
     required TResult Function(User user) setUser,
     required TResult Function() logout,
+    required TResult Function() initStatus,
     required TResult Function() sendVerifiedEmail,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,6 +30,7 @@ mixin _$UserEvent {
     TResult? Function(String email, String password)? login,
     TResult? Function(User user)? setUser,
     TResult? Function()? logout,
+    TResult? Function()? initStatus,
     TResult? Function()? sendVerifiedEmail,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,6 +39,7 @@ mixin _$UserEvent {
     TResult Function(String email, String password)? login,
     TResult Function(User user)? setUser,
     TResult Function()? logout,
+    TResult Function()? initStatus,
     TResult Function()? sendVerifiedEmail,
     required TResult orElse(),
   }) =>
@@ -46,6 +49,7 @@ mixin _$UserEvent {
     required TResult Function(UserEventLogin value) login,
     required TResult Function(UserEventSetUser value) setUser,
     required TResult Function(UserEventLogout value) logout,
+    required TResult Function(UserEventInitStatus value) initStatus,
     required TResult Function(UserEventSendVerifiedEmail value)
         sendVerifiedEmail,
   }) =>
@@ -55,6 +59,7 @@ mixin _$UserEvent {
     TResult? Function(UserEventLogin value)? login,
     TResult? Function(UserEventSetUser value)? setUser,
     TResult? Function(UserEventLogout value)? logout,
+    TResult? Function(UserEventInitStatus value)? initStatus,
     TResult? Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
   }) =>
       throw _privateConstructorUsedError;
@@ -63,6 +68,7 @@ mixin _$UserEvent {
     TResult Function(UserEventLogin value)? login,
     TResult Function(UserEventSetUser value)? setUser,
     TResult Function(UserEventLogout value)? logout,
+    TResult Function(UserEventInitStatus value)? initStatus,
     TResult Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
     required TResult orElse(),
   }) =>
@@ -162,6 +168,7 @@ class _$UserEventLogin implements UserEventLogin {
     required TResult Function(String email, String password) login,
     required TResult Function(User user) setUser,
     required TResult Function() logout,
+    required TResult Function() initStatus,
     required TResult Function() sendVerifiedEmail,
   }) {
     return login(email, password);
@@ -173,6 +180,7 @@ class _$UserEventLogin implements UserEventLogin {
     TResult? Function(String email, String password)? login,
     TResult? Function(User user)? setUser,
     TResult? Function()? logout,
+    TResult? Function()? initStatus,
     TResult? Function()? sendVerifiedEmail,
   }) {
     return login?.call(email, password);
@@ -184,6 +192,7 @@ class _$UserEventLogin implements UserEventLogin {
     TResult Function(String email, String password)? login,
     TResult Function(User user)? setUser,
     TResult Function()? logout,
+    TResult Function()? initStatus,
     TResult Function()? sendVerifiedEmail,
     required TResult orElse(),
   }) {
@@ -199,6 +208,7 @@ class _$UserEventLogin implements UserEventLogin {
     required TResult Function(UserEventLogin value) login,
     required TResult Function(UserEventSetUser value) setUser,
     required TResult Function(UserEventLogout value) logout,
+    required TResult Function(UserEventInitStatus value) initStatus,
     required TResult Function(UserEventSendVerifiedEmail value)
         sendVerifiedEmail,
   }) {
@@ -211,6 +221,7 @@ class _$UserEventLogin implements UserEventLogin {
     TResult? Function(UserEventLogin value)? login,
     TResult? Function(UserEventSetUser value)? setUser,
     TResult? Function(UserEventLogout value)? logout,
+    TResult? Function(UserEventInitStatus value)? initStatus,
     TResult? Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
   }) {
     return login?.call(this);
@@ -222,6 +233,7 @@ class _$UserEventLogin implements UserEventLogin {
     TResult Function(UserEventLogin value)? login,
     TResult Function(UserEventSetUser value)? setUser,
     TResult Function(UserEventLogout value)? logout,
+    TResult Function(UserEventInitStatus value)? initStatus,
     TResult Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
     required TResult orElse(),
   }) {
@@ -320,6 +332,7 @@ class _$UserEventSetUser implements UserEventSetUser {
     required TResult Function(String email, String password) login,
     required TResult Function(User user) setUser,
     required TResult Function() logout,
+    required TResult Function() initStatus,
     required TResult Function() sendVerifiedEmail,
   }) {
     return setUser(user);
@@ -331,6 +344,7 @@ class _$UserEventSetUser implements UserEventSetUser {
     TResult? Function(String email, String password)? login,
     TResult? Function(User user)? setUser,
     TResult? Function()? logout,
+    TResult? Function()? initStatus,
     TResult? Function()? sendVerifiedEmail,
   }) {
     return setUser?.call(user);
@@ -342,6 +356,7 @@ class _$UserEventSetUser implements UserEventSetUser {
     TResult Function(String email, String password)? login,
     TResult Function(User user)? setUser,
     TResult Function()? logout,
+    TResult Function()? initStatus,
     TResult Function()? sendVerifiedEmail,
     required TResult orElse(),
   }) {
@@ -357,6 +372,7 @@ class _$UserEventSetUser implements UserEventSetUser {
     required TResult Function(UserEventLogin value) login,
     required TResult Function(UserEventSetUser value) setUser,
     required TResult Function(UserEventLogout value) logout,
+    required TResult Function(UserEventInitStatus value) initStatus,
     required TResult Function(UserEventSendVerifiedEmail value)
         sendVerifiedEmail,
   }) {
@@ -369,6 +385,7 @@ class _$UserEventSetUser implements UserEventSetUser {
     TResult? Function(UserEventLogin value)? login,
     TResult? Function(UserEventSetUser value)? setUser,
     TResult? Function(UserEventLogout value)? logout,
+    TResult? Function(UserEventInitStatus value)? initStatus,
     TResult? Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
   }) {
     return setUser?.call(this);
@@ -380,6 +397,7 @@ class _$UserEventSetUser implements UserEventSetUser {
     TResult Function(UserEventLogin value)? login,
     TResult Function(UserEventSetUser value)? setUser,
     TResult Function(UserEventLogout value)? logout,
+    TResult Function(UserEventInitStatus value)? initStatus,
     TResult Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
     required TResult orElse(),
   }) {
@@ -440,6 +458,7 @@ class _$UserEventLogout implements UserEventLogout {
     required TResult Function(String email, String password) login,
     required TResult Function(User user) setUser,
     required TResult Function() logout,
+    required TResult Function() initStatus,
     required TResult Function() sendVerifiedEmail,
   }) {
     return logout();
@@ -451,6 +470,7 @@ class _$UserEventLogout implements UserEventLogout {
     TResult? Function(String email, String password)? login,
     TResult? Function(User user)? setUser,
     TResult? Function()? logout,
+    TResult? Function()? initStatus,
     TResult? Function()? sendVerifiedEmail,
   }) {
     return logout?.call();
@@ -462,6 +482,7 @@ class _$UserEventLogout implements UserEventLogout {
     TResult Function(String email, String password)? login,
     TResult Function(User user)? setUser,
     TResult Function()? logout,
+    TResult Function()? initStatus,
     TResult Function()? sendVerifiedEmail,
     required TResult orElse(),
   }) {
@@ -477,6 +498,7 @@ class _$UserEventLogout implements UserEventLogout {
     required TResult Function(UserEventLogin value) login,
     required TResult Function(UserEventSetUser value) setUser,
     required TResult Function(UserEventLogout value) logout,
+    required TResult Function(UserEventInitStatus value) initStatus,
     required TResult Function(UserEventSendVerifiedEmail value)
         sendVerifiedEmail,
   }) {
@@ -489,6 +511,7 @@ class _$UserEventLogout implements UserEventLogout {
     TResult? Function(UserEventLogin value)? login,
     TResult? Function(UserEventSetUser value)? setUser,
     TResult? Function(UserEventLogout value)? logout,
+    TResult? Function(UserEventInitStatus value)? initStatus,
     TResult? Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
   }) {
     return logout?.call(this);
@@ -500,6 +523,7 @@ class _$UserEventLogout implements UserEventLogout {
     TResult Function(UserEventLogin value)? login,
     TResult Function(UserEventSetUser value)? setUser,
     TResult Function(UserEventLogout value)? logout,
+    TResult Function(UserEventInitStatus value)? initStatus,
     TResult Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
     required TResult orElse(),
   }) {
@@ -512,6 +536,127 @@ class _$UserEventLogout implements UserEventLogout {
 
 abstract class UserEventLogout implements UserEvent {
   const factory UserEventLogout() = _$UserEventLogout;
+}
+
+/// @nodoc
+abstract class _$$UserEventInitStatusCopyWith<$Res> {
+  factory _$$UserEventInitStatusCopyWith(_$UserEventInitStatus value,
+          $Res Function(_$UserEventInitStatus) then) =
+      __$$UserEventInitStatusCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UserEventInitStatusCopyWithImpl<$Res>
+    extends _$UserEventCopyWithImpl<$Res, _$UserEventInitStatus>
+    implements _$$UserEventInitStatusCopyWith<$Res> {
+  __$$UserEventInitStatusCopyWithImpl(
+      _$UserEventInitStatus _value, $Res Function(_$UserEventInitStatus) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$UserEventInitStatus implements UserEventInitStatus {
+  const _$UserEventInitStatus();
+
+  @override
+  String toString() {
+    return 'UserEvent.initStatus()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$UserEventInitStatus);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email, String password) login,
+    required TResult Function(User user) setUser,
+    required TResult Function() logout,
+    required TResult Function() initStatus,
+    required TResult Function() sendVerifiedEmail,
+  }) {
+    return initStatus();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email, String password)? login,
+    TResult? Function(User user)? setUser,
+    TResult? Function()? logout,
+    TResult? Function()? initStatus,
+    TResult? Function()? sendVerifiedEmail,
+  }) {
+    return initStatus?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email, String password)? login,
+    TResult Function(User user)? setUser,
+    TResult Function()? logout,
+    TResult Function()? initStatus,
+    TResult Function()? sendVerifiedEmail,
+    required TResult orElse(),
+  }) {
+    if (initStatus != null) {
+      return initStatus();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(UserEventLogin value) login,
+    required TResult Function(UserEventSetUser value) setUser,
+    required TResult Function(UserEventLogout value) logout,
+    required TResult Function(UserEventInitStatus value) initStatus,
+    required TResult Function(UserEventSendVerifiedEmail value)
+        sendVerifiedEmail,
+  }) {
+    return initStatus(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(UserEventLogin value)? login,
+    TResult? Function(UserEventSetUser value)? setUser,
+    TResult? Function(UserEventLogout value)? logout,
+    TResult? Function(UserEventInitStatus value)? initStatus,
+    TResult? Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
+  }) {
+    return initStatus?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(UserEventLogin value)? login,
+    TResult Function(UserEventSetUser value)? setUser,
+    TResult Function(UserEventLogout value)? logout,
+    TResult Function(UserEventInitStatus value)? initStatus,
+    TResult Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
+    required TResult orElse(),
+  }) {
+    if (initStatus != null) {
+      return initStatus(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UserEventInitStatus implements UserEvent {
+  const factory UserEventInitStatus() = _$UserEventInitStatus;
 }
 
 /// @nodoc
@@ -558,6 +703,7 @@ class _$UserEventSendVerifiedEmail implements UserEventSendVerifiedEmail {
     required TResult Function(String email, String password) login,
     required TResult Function(User user) setUser,
     required TResult Function() logout,
+    required TResult Function() initStatus,
     required TResult Function() sendVerifiedEmail,
   }) {
     return sendVerifiedEmail();
@@ -569,6 +715,7 @@ class _$UserEventSendVerifiedEmail implements UserEventSendVerifiedEmail {
     TResult? Function(String email, String password)? login,
     TResult? Function(User user)? setUser,
     TResult? Function()? logout,
+    TResult? Function()? initStatus,
     TResult? Function()? sendVerifiedEmail,
   }) {
     return sendVerifiedEmail?.call();
@@ -580,6 +727,7 @@ class _$UserEventSendVerifiedEmail implements UserEventSendVerifiedEmail {
     TResult Function(String email, String password)? login,
     TResult Function(User user)? setUser,
     TResult Function()? logout,
+    TResult Function()? initStatus,
     TResult Function()? sendVerifiedEmail,
     required TResult orElse(),
   }) {
@@ -595,6 +743,7 @@ class _$UserEventSendVerifiedEmail implements UserEventSendVerifiedEmail {
     required TResult Function(UserEventLogin value) login,
     required TResult Function(UserEventSetUser value) setUser,
     required TResult Function(UserEventLogout value) logout,
+    required TResult Function(UserEventInitStatus value) initStatus,
     required TResult Function(UserEventSendVerifiedEmail value)
         sendVerifiedEmail,
   }) {
@@ -607,6 +756,7 @@ class _$UserEventSendVerifiedEmail implements UserEventSendVerifiedEmail {
     TResult? Function(UserEventLogin value)? login,
     TResult? Function(UserEventSetUser value)? setUser,
     TResult? Function(UserEventLogout value)? logout,
+    TResult? Function(UserEventInitStatus value)? initStatus,
     TResult? Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
   }) {
     return sendVerifiedEmail?.call(this);
@@ -618,6 +768,7 @@ class _$UserEventSendVerifiedEmail implements UserEventSendVerifiedEmail {
     TResult Function(UserEventLogin value)? login,
     TResult Function(UserEventSetUser value)? setUser,
     TResult Function(UserEventLogout value)? logout,
+    TResult Function(UserEventInitStatus value)? initStatus,
     TResult Function(UserEventSendVerifiedEmail value)? sendVerifiedEmail,
     required TResult orElse(),
   }) {

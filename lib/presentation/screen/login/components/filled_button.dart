@@ -1,5 +1,5 @@
+import 'package:classic/common/object/status/status.dart';
 import 'package:flutter/material.dart';
-import 'package:classic/data/common/status/status.dart';
 import 'package:classic/presentation/color/light_color.dart';
 
 class LoginScreenFilledButton extends StatelessWidget {

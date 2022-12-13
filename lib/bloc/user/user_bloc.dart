@@ -1,16 +1,14 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:classic/bloc/user/user_event.dart';
 import 'package:classic/bloc/user/user_state.dart';
 import 'package:classic/common/config/di.dart';
 import 'package:classic/common/module/api/result.dart';
 import 'package:classic/common/module/secure_storage/secure_storage.dart';
-import 'package:classic/data/common/status/status.dart';
+import 'package:classic/common/object/logger/logger.dart';
+import 'package:classic/common/object/status/status.dart';
 import 'package:classic/data/dto/login_dto.dart';
 import 'package:classic/data/model/user.dart';
 import 'package:classic/data/repository/user/user_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc()
@@ -19,13 +17,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UserEventSetUser>(_setUser);
     on<UserEventLogin>(_login);
     on<UserEventLogout>(_logout);
-    on<UserEventSendVerifiedEmail>(_sendVerifiedEmail);
-    firebaseUserListner();
+    on<UserEventInitStatus>(_initStatus);
   }
 
   final UserRepository _userRepository;
   User? get user => state.user;
-  late StreamSubscription<auth.User?> firebaseAuthSubscription;
 
   _login(UserEventLogin event, Emitter emit) async {
     if (event.email == "123" || event.password == "123123123") {
@@ -58,46 +54,25 @@ class UserBloc extends Bloc<UserEvent, UserState> {
           SecureStorage().jwtSet(success.data.jwt);
         },
         failure: (failure) {
-          emit(state.copyWith(status: Status.fail(message: "로그인에 실패하였습니다.")));
+          l.e(failure.message);
+          emit(state.copyWith(status: Status.fail(message: failure.message)));
         },
       );
     } catch (e) {
+      l.e(e);
       emit(state.copyWith(status: Status.fail(message: "로그인에 실패하였습니다.")));
     }
   }
 
   _logout(UserEventLogout event, Emitter emit) async {
-    await auth.FirebaseAuth.instance.signOut();
+    emit(UserState(status: StatusInit()));
+  }
+
+  _initStatus(UserEventInitStatus event, Emitter emit) async {
     emit(UserState(status: StatusInit()));
   }
 
   _setUser(UserEventSetUser event, Emitter emit) {
     emit(state.copyWith(user: event.user));
-  }
-
-  _sendVerifiedEmail(UserEventSendVerifiedEmail event, Emitter emit) {
-    auth.FirebaseAuth.instance.currentUser?.sendEmailVerification();
-  }
-
-  firebaseUserListner() {
-    firebaseAuthSubscription = auth.FirebaseAuth.instance.userChanges().listen(
-      (auth.User? user) {
-        if (user == null) {
-          add(const UserEventLogout());
-        } else {
-          add(UserEvent.setUser(User(
-            email: user.email!,
-            emailVerified: user.emailVerified,
-            nickname: user.displayName ?? user.email!,
-          )));
-        }
-      },
-    );
-  }
-
-  @override
-  Future<void> close() {
-    firebaseAuthSubscription.cancel();
-    return super.close();
   }
 }

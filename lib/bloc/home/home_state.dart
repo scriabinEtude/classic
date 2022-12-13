@@ -1,4 +1,4 @@
-import 'package:classic/data/common/status/status.dart';
+import 'package:classic/common/object/status/status.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'home_state.freezed.dart';
 

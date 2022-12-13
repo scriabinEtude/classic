@@ -5,6 +5,6 @@ import 'package:classic/data/model/user.dart';
 abstract class UserRepository {
   Future<Result<LoginDTO>> login(String email, String password);
   Future<Result<bool>> register(User user);
-  Future<Result<bool>> isUniqueId(String id);
+  Future<Result<bool>> isUniqueEmail(String email);
   Future<Result<bool>> isUniqueNickname(String nickname);
 }

@@ -1,6 +1,6 @@
 import 'package:classic/bloc/home/home_bloc.dart';
+import 'package:classic/bloc/user/user_event.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
-import 'package:classic/presentation/screen/login/email_validation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -46,8 +46,6 @@ class GrassRouter {
 
         if (userbloc.user == null) {
           return "/login";
-        } else if (!userbloc.user!.emailVerified) {
-          return "/login/email/validation";
         } else {
           return state.location;
         }
@@ -75,6 +73,8 @@ class GrassRouter {
                 path: 'login',
                 name: LoginScreen.routeName,
                 builder: (context, state) {
+                  BlocProvider.of<UserBloc>(context)
+                      .add(const UserEvent.initStatus());
                   return LoginScreen();
                 },
                 routes: [
@@ -86,11 +86,6 @@ class GrassRouter {
                       child: const RegisterScreen(),
                     ),
                   ),
-                  GoRoute(
-                    path: 'email/validation',
-                    name: EmailValidationScreen.routeName,
-                    builder: (context, state) => const EmailValidationScreen(),
-                  )
                 ],
               ),
               GoRoute(

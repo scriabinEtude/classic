@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:classic/data/common/status/status.dart';
+import 'package:classic/common/object/status/status.dart';
 import 'package:classic/bloc/home/home_event.dart';
 import 'package:classic/bloc/home/home_state.dart';
 

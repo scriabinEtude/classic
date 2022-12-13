@@ -1,3 +1,5 @@
+import 'package:classic/common/object/status/status.dart';
+import 'package:classic/presentation/screen/login/components/fail_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:classic/bloc/user/user_bloc.dart';
@@ -65,7 +67,13 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Logo(),
+                  Column(
+                    children: [
+                      const Logo(),
+                      if (state.status is StatusFail)
+                        FailText((state.status as StatusFail).message),
+                    ],
+                  ),
                   AppForm(
                     formKey: formKey,
                     emailController: idController,

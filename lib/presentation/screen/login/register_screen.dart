@@ -1,6 +1,7 @@
-import 'package:classic/data/common/status/status.dart';
+import 'package:classic/common/object/status/status.dart';
 import 'package:classic/data/const/code.dart';
-import 'package:classic/presentation/screen/login/email_validation_screen.dart';
+import 'package:classic/presentation/screen/login/components/fail_text.dart';
+import 'package:classic/presentation/screen/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -43,7 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         listener: (context, state) {
           state.status.whenOrNull(success: (code) {
             if (code == CODE_USER_REGISTER_SUCCESS) {
-              context.pushNamed(EmailValidationScreen.routeName);
+              context.goNamed(LoginScreen.routeName);
             }
           });
         },
@@ -82,16 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style: TextStyle(fontSize: 16),
                       ),
                       if (state.status is StatusFail)
-                        Container(
-                          margin: const EdgeInsets.only(top: 20),
-                          child: Text(
-                            (state.status as StatusFail).message ?? "",
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.red,
-                            ),
-                          ),
-                        ),
+                        FailText((state.status as StatusFail).message),
                     ],
                   ),
                   _NamePasswordForm(
@@ -133,11 +125,11 @@ class _NamePasswordForm extends StatelessWidget {
           TextFormField(
             controller: idController,
             decoration: const InputDecoration(
-              label: Text('아이디'),
+              label: Text('이메일'),
             ),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "아이디를 입력해 주세요";
+                return "이메일을 입력해주세요.";
               } else {
                 return null;
               }
@@ -151,8 +143,8 @@ class _NamePasswordForm extends StatelessWidget {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return "닉네임을 입력해 주세요";
-              } else if (value.length > 12) {
-                return "닉네임은 12자리를 넘을 수 없습니다.";
+              } else if (value.length > 16) {
+                return "닉네임은 16자리를 넘을 수 없습니다.";
               } else {
                 return null;
               }
