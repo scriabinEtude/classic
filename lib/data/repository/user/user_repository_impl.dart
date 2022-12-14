@@ -4,7 +4,7 @@ import 'package:classic/data/const/db_collections.dart';
 import 'package:classic/data/dto/login_dto.dart';
 import 'package:classic/data/model/jwt.dart';
 import 'package:classic/data/model/user.dart';
-import 'package:classic/common/module/api/result.dart';
+import 'package:classic/common/object/result/result.dart';
 import 'package:classic/data/repository/user/user_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -36,7 +36,7 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   Future<Result<bool>> register(User user) async {
-    await client.collection(COL_USER).add(user
+    await client.collection(COL_USER).doc(user.id).set(user
         .copyWith(password: EncodingUtil.passwordEncode(user.password!))
         .toJson());
     return Success(true);

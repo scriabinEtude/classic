@@ -1,13 +1,21 @@
-import 'package:classic/presentation/color/light_color.dart';
-import 'package:flutter/material.dart';
+import 'package:classic/bloc/link/register/link_register_bloc.dart';
+import 'package:classic/bloc/link/register/link_register_event.dart';
+import 'package:classic/common/imports.dart';
 
 class LinkRegisterScreen extends StatelessWidget {
   LinkRegisterScreen({super.key});
 
   static const String routeName = "/link/register";
 
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _linkController = TextEditingController();
+
+  regist(BuildContext context) {
+    if (_formKey.currentState?.validate() == true) {
+      BlocProvider.of<LinkRegisterBloc>(context)
+          .add(LinkRegisterEvent.regist(_linkController.text));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +23,13 @@ class LinkRegisterScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('링크 등록'),
       ),
-      floatingActionButton: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-          decoration: BoxDecoration(
-            color: lightColorTheme.primaryColor,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: const Icon(
-            Icons.check,
-            color: Colors.white,
-          )),
+      floatingActionButton: _FloatingButton(
+        onTap: () => regist(context),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               TextFormField(
@@ -44,6 +46,28 @@ class LinkRegisterScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _FloatingButton extends StatelessWidget {
+  const _FloatingButton({required this.onTap});
+
+  final void Function() onTap;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          decoration: BoxDecoration(
+            color: lightColorTheme.primaryColor,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: const Icon(
+            Icons.check,
+            color: Colors.white,
+          )),
     );
   }
 }

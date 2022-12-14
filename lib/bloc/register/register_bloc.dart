@@ -1,10 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:classic/bloc/register/register_event.dart';
 import 'package:classic/common/config/di.dart';
-import 'package:classic/common/module/api/result.dart';
+import 'package:classic/common/object/result/result.dart';
 import 'package:classic/common/object/logger/logger.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/data/const/code.dart';
+import 'package:classic/data/enum/login_provider.dart';
 import 'package:classic/data/model/user.dart';
 import 'package:classic/data/repository/user/user_repository.dart';
 import 'register_state.dart';
@@ -41,6 +42,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       if (isUniqueEmail is Success && isUniqueNicname is Success) {
         Result<bool> result = await _userRepository.register(User(
           email: event.email,
+          provider: LoginProvider.email.name,
           nickname: event.nickname,
           password: event.password,
           emailVerified: false,
@@ -52,6 +54,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
               state.copyWith(
                 user: User(
                   email: event.email,
+                  provider: LoginProvider.email.name,
                   nickname: event.nickname,
                   password: event.password,
                   emailVerified: false,

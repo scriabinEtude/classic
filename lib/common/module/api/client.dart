@@ -1,4 +1,4 @@
-import 'package:classic/common/module/api/result.dart';
+import 'package:classic/common/object/result/result.dart';
 
 abstract class Client {
   Future<Result<T>> get<T>({

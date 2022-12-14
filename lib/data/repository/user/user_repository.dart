@@ -1,4 +1,4 @@
-import 'package:classic/common/module/api/result.dart';
+import 'package:classic/common/object/result/result.dart';
 import 'package:classic/data/dto/login_dto.dart';
 import 'package:classic/data/model/user.dart';
 

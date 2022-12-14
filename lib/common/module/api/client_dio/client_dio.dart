@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:classic/common/module/api/client.dart';
 import 'package:classic/common/module/api/client_dio/client_dio_interceptors.dart';
-import 'package:classic/common/module/api/result.dart';
+import 'package:classic/common/object/result/result.dart';
 
 class ClientDio implements Client {
   final Dio dio;

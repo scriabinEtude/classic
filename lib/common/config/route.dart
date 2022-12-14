@@ -1,4 +1,5 @@
 import 'package:classic/bloc/home/home_bloc.dart';
+import 'package:classic/bloc/link/register/link_register_bloc.dart';
 import 'package:classic/bloc/user/user_event.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +92,9 @@ class GrassRouter {
               GoRoute(
                 path: 'link/register',
                 name: LinkRegisterScreen.routeName,
-                builder: (context, state) => LinkRegisterScreen(),
+                builder: (context, state) => BlocProvider(
+                    create: (context) => LinkRegisterBloc(),
+                    child: LinkRegisterScreen()),
               ),
             ])
       ],

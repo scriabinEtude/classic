@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:classic/bloc/user/user_event.dart';
 import 'package:classic/bloc/user/user_state.dart';
 import 'package:classic/common/config/di.dart';
-import 'package:classic/common/module/api/result.dart';
+import 'package:classic/common/object/result/result.dart';
 import 'package:classic/common/module/secure_storage/secure_storage.dart';
 import 'package:classic/common/object/logger/logger.dart';
 import 'package:classic/common/object/status/status.dart';
@@ -24,19 +24,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   User? get user => state.user;
 
   _login(UserEventLogin event, Emitter emit) async {
-    if (event.email == "123" || event.password == "123123123") {
-      emit(
-        state.copyWith(
-          user: User(
-            email: event.email,
-            nickname: 'tester',
-            emailVerified: true,
-          ),
-          status: Status.success(),
-        ),
-      );
-    }
-
     try {
       emit(state.copyWith(status: Status.loading()));
 
