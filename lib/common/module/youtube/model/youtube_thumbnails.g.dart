@@ -13,7 +13,9 @@ _$_YoutubeThumbnails _$$_YoutubeThumbnailsFromJson(Map<String, dynamic> json) =>
       high: YoutubeThumbnail.fromJson(json['high'] as Map<String, dynamic>),
       standard:
           YoutubeThumbnail.fromJson(json['standard'] as Map<String, dynamic>),
-      maxres: YoutubeThumbnail.fromJson(json['maxres'] as Map<String, dynamic>),
+      maxres: json['maxres'] == null
+          ? null
+          : YoutubeThumbnail.fromJson(json['maxres'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_YoutubeThumbnailsToJson(

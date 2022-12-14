@@ -1,10 +1,11 @@
-part of 'link_register_bloc.dart';
+import 'package:classic/common/object/status/status.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-abstract class LinkRegisterState extends Equatable {
-  const LinkRegisterState();
-  
-  @override
-  List<Object> get props => [];
+part 'link_register_state.freezed.dart';
+
+@freezed
+class LinkRegisterState with _$LinkRegisterState {
+  factory LinkRegisterState({
+    required Status status,
+  }) = _LinkRegisterState;
 }
-
-class LinkRegisterInitial extends LinkRegisterState {}

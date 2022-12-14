@@ -11,7 +11,7 @@ class YoutubeThumbnails with _$YoutubeThumbnails {
     required YoutubeThumbnail medium,
     required YoutubeThumbnail high,
     required YoutubeThumbnail standard,
-    required YoutubeThumbnail maxres,
+    YoutubeThumbnail? maxres,
   }) = _YoutubeThumbnails;
 
   factory YoutubeThumbnails.fromJson(Map<String, dynamic> json) =>

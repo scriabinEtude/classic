@@ -2,13 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:classic/common/module/secure_storage/secure_storage.dart';
 
 class PrettyDioLogger extends Interceptor {
-  final SecureStorage _secureStorage = SecureStorage();
+  final JWTStorage _jwtStorage = JWTStorage();
 
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     options.headers.addAll(
-      (await _secureStorage.jwtGet()).toJson(),
+      (await _jwtStorage.jwtGet()).toJson(),
     );
     super.onRequest(options, handler);
   }

@@ -16,20 +16,21 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LinkRegisterEvent {
+  String get userId => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String url) regist,
+    required TResult Function(String userId, String url) regist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String url)? regist,
+    TResult? Function(String userId, String url)? regist,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String url)? regist,
+    TResult Function(String userId, String url)? regist,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +62,7 @@ abstract class $LinkRegisterEventCopyWith<$Res> {
           LinkRegisterEvent value, $Res Function(LinkRegisterEvent) then) =
       _$LinkRegisterEventCopyWithImpl<$Res, LinkRegisterEvent>;
   @useResult
-  $Res call({String url});
+  $Res call({String userId, String url});
 }
 
 /// @nodoc
@@ -77,9 +78,14 @@ class _$LinkRegisterEventCopyWithImpl<$Res, $Val extends LinkRegisterEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userId = null,
     Object? url = null,
   }) {
     return _then(_value.copyWith(
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -96,7 +102,7 @@ abstract class _$$LinkRegisterEventRegistCopyWith<$Res>
       __$$LinkRegisterEventRegistCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String url});
+  $Res call({String userId, String url});
 }
 
 /// @nodoc
@@ -110,9 +116,14 @@ class __$$LinkRegisterEventRegistCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? userId = null,
     Object? url = null,
   }) {
     return _then(_$LinkRegisterEventRegist(
+      null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
       null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -124,14 +135,16 @@ class __$$LinkRegisterEventRegistCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LinkRegisterEventRegist implements LinkRegisterEventRegist {
-  _$LinkRegisterEventRegist(this.url);
+  _$LinkRegisterEventRegist(this.userId, this.url);
 
+  @override
+  final String userId;
   @override
   final String url;
 
   @override
   String toString() {
-    return 'LinkRegisterEvent.regist(url: $url)';
+    return 'LinkRegisterEvent.regist(userId: $userId, url: $url)';
   }
 
   @override
@@ -139,11 +152,12 @@ class _$LinkRegisterEventRegist implements LinkRegisterEventRegist {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LinkRegisterEventRegist &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.url, url) || other.url == url));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, url);
+  int get hashCode => Object.hash(runtimeType, userId, url);
 
   @JsonKey(ignore: true)
   @override
@@ -155,27 +169,27 @@ class _$LinkRegisterEventRegist implements LinkRegisterEventRegist {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String url) regist,
+    required TResult Function(String userId, String url) regist,
   }) {
-    return regist(url);
+    return regist(userId, url);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String url)? regist,
+    TResult? Function(String userId, String url)? regist,
   }) {
-    return regist?.call(url);
+    return regist?.call(userId, url);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String url)? regist,
+    TResult Function(String userId, String url)? regist,
     required TResult orElse(),
   }) {
     if (regist != null) {
-      return regist(url);
+      return regist(userId, url);
     }
     return orElse();
   }
@@ -210,8 +224,11 @@ class _$LinkRegisterEventRegist implements LinkRegisterEventRegist {
 }
 
 abstract class LinkRegisterEventRegist implements LinkRegisterEvent {
-  factory LinkRegisterEventRegist(final String url) = _$LinkRegisterEventRegist;
+  factory LinkRegisterEventRegist(final String userId, final String url) =
+      _$LinkRegisterEventRegist;
 
+  @override
+  String get userId;
   @override
   String get url;
   @override

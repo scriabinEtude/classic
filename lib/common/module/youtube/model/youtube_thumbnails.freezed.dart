@@ -25,7 +25,7 @@ mixin _$YoutubeThumbnails {
   YoutubeThumbnail get medium => throw _privateConstructorUsedError;
   YoutubeThumbnail get high => throw _privateConstructorUsedError;
   YoutubeThumbnail get standard => throw _privateConstructorUsedError;
-  YoutubeThumbnail get maxres => throw _privateConstructorUsedError;
+  YoutubeThumbnail? get maxres => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,13 +44,13 @@ abstract class $YoutubeThumbnailsCopyWith<$Res> {
       YoutubeThumbnail medium,
       YoutubeThumbnail high,
       YoutubeThumbnail standard,
-      YoutubeThumbnail maxres});
+      YoutubeThumbnail? maxres});
 
   $YoutubeThumbnailCopyWith<$Res> get min;
   $YoutubeThumbnailCopyWith<$Res> get medium;
   $YoutubeThumbnailCopyWith<$Res> get high;
   $YoutubeThumbnailCopyWith<$Res> get standard;
-  $YoutubeThumbnailCopyWith<$Res> get maxres;
+  $YoutubeThumbnailCopyWith<$Res>? get maxres;
 }
 
 /// @nodoc
@@ -70,7 +70,7 @@ class _$YoutubeThumbnailsCopyWithImpl<$Res, $Val extends YoutubeThumbnails>
     Object? medium = null,
     Object? high = null,
     Object? standard = null,
-    Object? maxres = null,
+    Object? maxres = freezed,
   }) {
     return _then(_value.copyWith(
       min: null == min
@@ -89,10 +89,10 @@ class _$YoutubeThumbnailsCopyWithImpl<$Res, $Val extends YoutubeThumbnails>
           ? _value.standard
           : standard // ignore: cast_nullable_to_non_nullable
               as YoutubeThumbnail,
-      maxres: null == maxres
+      maxres: freezed == maxres
           ? _value.maxres
           : maxres // ignore: cast_nullable_to_non_nullable
-              as YoutubeThumbnail,
+              as YoutubeThumbnail?,
     ) as $Val);
   }
 
@@ -130,8 +130,12 @@ class _$YoutubeThumbnailsCopyWithImpl<$Res, $Val extends YoutubeThumbnails>
 
   @override
   @pragma('vm:prefer-inline')
-  $YoutubeThumbnailCopyWith<$Res> get maxres {
-    return $YoutubeThumbnailCopyWith<$Res>(_value.maxres, (value) {
+  $YoutubeThumbnailCopyWith<$Res>? get maxres {
+    if (_value.maxres == null) {
+      return null;
+    }
+
+    return $YoutubeThumbnailCopyWith<$Res>(_value.maxres!, (value) {
       return _then(_value.copyWith(maxres: value) as $Val);
     });
   }
@@ -150,7 +154,7 @@ abstract class _$$_YoutubeThumbnailsCopyWith<$Res>
       YoutubeThumbnail medium,
       YoutubeThumbnail high,
       YoutubeThumbnail standard,
-      YoutubeThumbnail maxres});
+      YoutubeThumbnail? maxres});
 
   @override
   $YoutubeThumbnailCopyWith<$Res> get min;
@@ -161,7 +165,7 @@ abstract class _$$_YoutubeThumbnailsCopyWith<$Res>
   @override
   $YoutubeThumbnailCopyWith<$Res> get standard;
   @override
-  $YoutubeThumbnailCopyWith<$Res> get maxres;
+  $YoutubeThumbnailCopyWith<$Res>? get maxres;
 }
 
 /// @nodoc
@@ -179,7 +183,7 @@ class __$$_YoutubeThumbnailsCopyWithImpl<$Res>
     Object? medium = null,
     Object? high = null,
     Object? standard = null,
-    Object? maxres = null,
+    Object? maxres = freezed,
   }) {
     return _then(_$_YoutubeThumbnails(
       min: null == min
@@ -198,10 +202,10 @@ class __$$_YoutubeThumbnailsCopyWithImpl<$Res>
           ? _value.standard
           : standard // ignore: cast_nullable_to_non_nullable
               as YoutubeThumbnail,
-      maxres: null == maxres
+      maxres: freezed == maxres
           ? _value.maxres
           : maxres // ignore: cast_nullable_to_non_nullable
-              as YoutubeThumbnail,
+              as YoutubeThumbnail?,
     ));
   }
 }
@@ -214,7 +218,7 @@ class _$_YoutubeThumbnails implements _YoutubeThumbnails {
       required this.medium,
       required this.high,
       required this.standard,
-      required this.maxres});
+      this.maxres});
 
   factory _$_YoutubeThumbnails.fromJson(Map<String, dynamic> json) =>
       _$$_YoutubeThumbnailsFromJson(json);
@@ -229,7 +233,7 @@ class _$_YoutubeThumbnails implements _YoutubeThumbnails {
   @override
   final YoutubeThumbnail standard;
   @override
-  final YoutubeThumbnail maxres;
+  final YoutubeThumbnail? maxres;
 
   @override
   String toString() {
@@ -275,7 +279,7 @@ abstract class _YoutubeThumbnails implements YoutubeThumbnails {
       required final YoutubeThumbnail medium,
       required final YoutubeThumbnail high,
       required final YoutubeThumbnail standard,
-      required final YoutubeThumbnail maxres}) = _$_YoutubeThumbnails;
+      final YoutubeThumbnail? maxres}) = _$_YoutubeThumbnails;
 
   factory _YoutubeThumbnails.fromJson(Map<String, dynamic> json) =
       _$_YoutubeThumbnails.fromJson;
@@ -290,7 +294,7 @@ abstract class _YoutubeThumbnails implements YoutubeThumbnails {
   @override
   YoutubeThumbnail get standard;
   @override
-  YoutubeThumbnail get maxres;
+  YoutubeThumbnail? get maxres;
   @override
   @JsonKey(ignore: true)
   _$$_YoutubeThumbnailsCopyWith<_$_YoutubeThumbnails> get copyWith =>

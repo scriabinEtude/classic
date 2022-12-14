@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:classic/bloc/user/user_bloc.dart';
+import 'package:classic/bloc/user/user_event.dart';
+import 'package:classic/common/imports.dart';
 import 'package:classic/presentation/components/logo.dart';
 import 'package:classic/presentation/screen/home/home_screen.dart';
 
@@ -17,8 +18,13 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      autoLogin();
       moveHome();
     });
+  }
+
+  autoLogin() async {
+    BlocProvider.of<UserBloc>(context).add(const UserEvent.autoLogin());
   }
 
   moveHome() {

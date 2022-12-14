@@ -65,4 +65,19 @@ class UserRepositoryImpl extends UserRepository {
       }
     }
   }
+
+  @override
+  Future<Result<LoginDTO>> loginById(String id) async {
+    final result = await client.collection(COL_USER).doc(id).get();
+    if (result.exists) {
+      return Success(
+        LoginDTO(
+          user: User.fromJson(result.data()!),
+          jwt: JWT(accessToken: 'not impl'),
+        ),
+      );
+    } else {
+      return Failure(CODE_USER_LOGIN_FAILD_ID_NOT_MATCH, 'ID가 일치하지 않습니다.');
+    }
+  }
 }

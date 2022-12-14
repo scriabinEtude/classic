@@ -1,6 +1,9 @@
 import 'package:classic/bloc/link/register/link_register_bloc.dart';
 import 'package:classic/bloc/link/register/link_register_event.dart';
+import 'package:classic/bloc/link/register/link_register_state.dart';
 import 'package:classic/common/imports.dart';
+import 'package:classic/common/object/status/status.dart';
+import 'package:classic/common/util/bloc_util.dart';
 
 class LinkRegisterScreen extends StatelessWidget {
   LinkRegisterScreen({super.key});
@@ -12,8 +15,10 @@ class LinkRegisterScreen extends StatelessWidget {
 
   regist(BuildContext context) {
     if (_formKey.currentState?.validate() == true) {
-      BlocProvider.of<LinkRegisterBloc>(context)
-          .add(LinkRegisterEvent.regist(_linkController.text));
+      BlocProvider.of<LinkRegisterBloc>(context).add(LinkRegisterEvent.regist(
+        BlocUtil.getUser(context)!.id,
+        _linkController.text,
+      ));
     }
   }
 
@@ -32,6 +37,7 @@ class LinkRegisterScreen extends StatelessWidget {
           key: _formKey,
           child: Column(
             children: [
+              const _ErrorText(),
               TextFormField(
                 controller: _linkController,
                 decoration: const InputDecoration(
@@ -50,6 +56,27 @@ class LinkRegisterScreen extends StatelessWidget {
   }
 }
 
+class _ErrorText extends StatelessWidget {
+  const _ErrorText();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<LinkRegisterBloc, LinkRegisterState, Status>(
+      selector: (state) => state.status,
+      builder: (context, status) {
+        if (status is StatusFail) {
+          return Text(
+            status.message!,
+            style: const TextStyle(color: Colors.red),
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
+  }
+}
+
 class _FloatingButton extends StatelessWidget {
   const _FloatingButton({required this.onTap});
 
@@ -59,14 +86,36 @@ class _FloatingButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
+          // height: 35.h,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           decoration: BoxDecoration(
             color: lightColorTheme.primaryColor,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: const Icon(
-            Icons.check,
-            color: Colors.white,
+          child: BlocSelector<LinkRegisterBloc, LinkRegisterState, Status>(
+            selector: (state) => state.status,
+            builder: (context, status) {
+              if (status is StatusLoading) {
+                return const SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2.5,
+                  ),
+                );
+              } else if (status is StatusFail) {
+                return const Icon(
+                  Icons.priority_high_rounded,
+                  color: Colors.white,
+                );
+              } else {
+                return const Icon(
+                  Icons.check,
+                  color: Colors.white,
+                );
+              }
+            },
           )),
     );
   }

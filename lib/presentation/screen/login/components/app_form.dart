@@ -6,6 +6,7 @@ class AppForm extends StatelessWidget {
     required this.formKey,
     required this.emailController,
     required this.passwordController,
+    required this.onSubmit,
     this.onEmailChange,
     this.onPasswordChange,
   });
@@ -13,6 +14,7 @@ class AppForm extends StatelessWidget {
 
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final void Function(BuildContext) onSubmit;
   final void Function(String)? onEmailChange;
   final void Function(String)? onPasswordChange;
 
@@ -37,6 +39,7 @@ class AppForm extends StatelessWidget {
             controller: passwordController,
             onChanged: onPasswordChange,
             obscureText: true,
+            onFieldSubmitted: (text) => onSubmit(context),
             decoration: const InputDecoration(
               label: Text('비밀번호'),
             ),

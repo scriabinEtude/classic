@@ -9,4 +9,5 @@ class UserEvent with _$UserEvent {
   const factory UserEvent.logout() = UserEventLogout;
   const factory UserEvent.initStatus() = UserEventInitStatus;
   const factory UserEvent.sendVerifiedEmail() = UserEventSendVerifiedEmail;
+  const factory UserEvent.autoLogin() = UserEventAutoLogin;
 }
