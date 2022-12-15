@@ -15,5 +15,5 @@ _$_Link _$$_LinkFromJson(Map<String, dynamic> json) => _$_Link(
 Map<String, dynamic> _$$_LinkToJson(_$_Link instance) => <String, dynamic>{
       'userId': instance.userId,
       'provider': instance.provider,
-      'link': instance.link,
+      'link': instance.link.toJson(),
     };

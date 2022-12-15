@@ -21,6 +21,6 @@ Map<String, dynamic> _$$_YoutubeVideosToJson(_$_YoutubeVideos instance) =>
     <String, dynamic>{
       'kind': instance.kind,
       'etag': instance.etag,
-      'items': instance.items,
-      'pageInfo': instance.pageInfo,
+      'items': instance.items.map((e) => e.toJson()).toList(),
+      'pageInfo': instance.pageInfo.toJson(),
     };

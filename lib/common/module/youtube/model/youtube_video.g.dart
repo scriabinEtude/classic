@@ -23,6 +23,6 @@ Map<String, dynamic> _$$_YoutubeVideoToJson(_$_YoutubeVideo instance) =>
       'kind': instance.kind,
       'etag': instance.etag,
       'id': instance.id,
-      'snippet': instance.snippet,
-      'localized': instance.localized,
+      'snippet': instance.snippet.toJson(),
+      'localized': instance.localized?.toJson(),
     };

@@ -13,6 +13,6 @@ _$_LoginDTO _$$_LoginDTOFromJson(Map<String, dynamic> json) => _$_LoginDTO(
 
 Map<String, dynamic> _$$_LoginDTOToJson(_$_LoginDTO instance) =>
     <String, dynamic>{
-      'user': instance.user,
-      'jwt': instance.jwt,
+      'user': instance.user.toJson(),
+      'jwt': instance.jwt.toJson(),
     };

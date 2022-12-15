@@ -25,21 +25,30 @@ class LinkRegisterBloc extends Bloc<LinkRegisterEvent, LinkRegisterState> {
       emit(state.copyWith(status: StatusLoading()));
       Result<YoutubeVideos> result = await _youtube.getVideo(event.url);
 
-      result.when(
+      await result.when(
         failure: (status, message) {
           emit(state.copyWith(
               status: Status.fail(code: status, message: message)));
         },
-        success: (link) async {
+        success: (videos) async {
           l.dl('youtube api result', result);
-          await _linkRegisterRepository.register(
-              Link(userId: event.userId, provider: 'youtube', link: link));
+          await _linkRegisterRepository.register(Link(
+            userId: event.userId,
+            provider: 'youtube',
+            link: videos.items.first,
+          ));
+
           emit(state.copyWith(status: StatusSuccess()));
         },
       );
     } catch (e) {
-      l.el('link_register catch', e);
-      emit(state.copyWith(status: Status.fail(message: "링크 등록에 실패하였습니다.")));
+      if (e is Failure) {
+        emit(state.copyWith(
+            status: Status.fail(code: e.status, message: e.message)));
+      } else {
+        l.el('link_register catch', e);
+        emit(state.copyWith(status: Status.fail(message: "링크 등록에 실패하였습니다.")));
+      }
     }
   }
 }

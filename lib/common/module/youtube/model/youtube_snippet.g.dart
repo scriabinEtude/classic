@@ -28,10 +28,10 @@ Map<String, dynamic> _$$_YoutubeSnippetToJson(_$_YoutubeSnippet instance) =>
       'channelId': instance.channelId,
       'title': instance.title,
       'description': instance.description,
-      'thumbnails': instance.thumbnails,
+      'thumbnails': instance.thumbnails.toJson(),
       'channelTitle': instance.channelTitle,
       'tags': instance.tags,
       'categoryId': instance.categoryId,
       'liveBroadcastContent': instance.liveBroadcastContent,
-      'localized': instance.localized,
+      'localized': instance.localized.toJson(),
     };

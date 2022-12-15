@@ -21,9 +21,9 @@ _$_YoutubeThumbnails _$$_YoutubeThumbnailsFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_YoutubeThumbnailsToJson(
         _$_YoutubeThumbnails instance) =>
     <String, dynamic>{
-      'default': instance.min,
-      'medium': instance.medium,
-      'high': instance.high,
-      'standard': instance.standard,
-      'maxres': instance.maxres,
+      'default': instance.min.toJson(),
+      'medium': instance.medium.toJson(),
+      'high': instance.high.toJson(),
+      'standard': instance.standard.toJson(),
+      'maxres': instance.maxres?.toJson(),
     };
