@@ -8,20 +8,20 @@ import 'package:classic/data/repository/link/register/link_register_repository.d
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LinkRegisterRepositoryImpl implements LinkRegisterRepository {
-  final FirebaseFirestore clinet;
-  LinkRegisterRepositoryImpl(this.clinet);
+  final FirebaseFirestore client;
+  LinkRegisterRepositoryImpl(this.client);
 
   @override
   Future<Result<void>> register(Link link) async {
     try {
       DocumentSnapshot linkdoc =
-          await clinet.collection(COL_LINK).doc(link.id).get();
+          await client.collection(COL_LINK).doc(link.id).get();
       if (linkdoc.exists) {
         throw Failure(CODE_LINK_REGISTER_DUPLICATED, '이미 등록된 링크입니다');
       }
 
-      await clinet.collection(COL_LINK).doc(link.id).set(link.toJson());
-      await clinet.collection(COL_USER).doc(link.userId).update({
+      await client.collection(COL_LINK).doc(link.id).set(link.toJson());
+      await client.collection(COL_USER).doc(link.userId).update({
         'links': FieldValue.arrayUnion([
           UserLink(
             linkId: link.id,
