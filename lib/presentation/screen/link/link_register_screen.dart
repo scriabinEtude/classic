@@ -1,9 +1,13 @@
+import 'package:classic/bloc/link/link/link_bloc.dart';
+import 'package:classic/bloc/link/link/link_event.dart';
 import 'package:classic/bloc/link/register/link_register_bloc.dart';
 import 'package:classic/bloc/link/register/link_register_event.dart';
 import 'package:classic/bloc/link/register/link_register_state.dart';
 import 'package:classic/common/imports.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/bloc_util.dart';
+import 'package:classic/data/const/code.dart';
+import 'package:classic/presentation/screen/link/components/link_autocomplete.dart';
 
 class LinkRegisterScreen extends StatelessWidget {
   LinkRegisterScreen({super.key});
@@ -24,31 +28,45 @@ class LinkRegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('링크 등록'),
-      ),
-      floatingActionButton: _FloatingButton(
-        onTap: () => regist(context),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              const _ErrorText(),
-              TextFormField(
-                controller: _linkController,
-                decoration: const InputDecoration(
-                  label: Text('링크'),
+    return BlocListener<LinkRegisterBloc, LinkRegisterState>(
+      listener: (context, state) {
+        state.status.whenOrNull(success: (code) {
+          if (code == CODE_LINK_REGISTER_SUCCESS) {
+            BlocProvider.of<LinkBloc>(context).add(LinkEvent.getLinks());
+            context.pop();
+          }
+        });
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('링크 등록'),
+        ),
+        floatingActionButton: _FloatingButton(
+          onTap: () => regist(context),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const _ErrorText(),
+                TextFormField(
+                  controller: _linkController,
+                  decoration: const InputDecoration(
+                    label: Text('링크'),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) return "링크를 입력해주세요.";
+                    return null;
+                  },
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) return "링크를 입력해주세요.";
-                  return null;
-                },
-              ),
-            ],
+                const LinkAutoComplete<String>(
+                  label: "작곡가",
+                  options: ['쇼팽', '베토벤'],
+                ),
+              ],
+            ),
           ),
         ),
       ),

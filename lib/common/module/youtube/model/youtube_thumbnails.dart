@@ -6,14 +6,20 @@ part 'youtube_thumbnails.g.dart';
 
 @freezed
 class YoutubeThumbnails with _$YoutubeThumbnails {
+  const YoutubeThumbnails._();
+
   factory YoutubeThumbnails({
-    @JsonKey(name: 'default') required YoutubeThumbnail min,
-    required YoutubeThumbnail medium,
-    required YoutubeThumbnail high,
-    required YoutubeThumbnail standard,
+    @JsonKey(name: 'default') YoutubeThumbnail? min,
+    YoutubeThumbnail? medium,
+    YoutubeThumbnail? high,
+    YoutubeThumbnail? standard,
     YoutubeThumbnail? maxres,
   }) = _YoutubeThumbnails;
 
   factory YoutubeThumbnails.fromJson(Map<String, dynamic> json) =>
       _$YoutubeThumbnailsFromJson(json);
+
+  /// ### 썸네일 중 가장 작은 값 반환
+  YoutubeThumbnail get standardThumbnail =>
+      standard ?? maxres ?? high ?? medium ?? min!;
 }

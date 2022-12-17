@@ -13,8 +13,10 @@ class LinkRepositoryImpl implements LinkRepository {
   @override
   Future<Result<List<Link>>> getLinks() async {
     try {
-      QuerySnapshot<Map<String, dynamic>> result =
-          await client.collection(COL_LINK).get();
+      QuerySnapshot<Map<String, dynamic>> result = await client
+          .collection(COL_LINK)
+          .orderBy('createdAt', descending: true)
+          .get();
       return Success(result.toModels(Link.fromJson));
     } catch (e) {
       l.el('linkReposiotyImpl getlinks catch', e);

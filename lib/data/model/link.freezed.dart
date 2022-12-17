@@ -23,6 +23,7 @@ mixin _$Link {
   String get userId => throw _privateConstructorUsedError;
   String get provider => throw _privateConstructorUsedError;
   YoutubeVideo get link => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,8 @@ abstract class $LinkCopyWith<$Res> {
   factory $LinkCopyWith(Link value, $Res Function(Link) then) =
       _$LinkCopyWithImpl<$Res, Link>;
   @useResult
-  $Res call({String userId, String provider, YoutubeVideo link});
+  $Res call(
+      {String userId, String provider, YoutubeVideo link, DateTime createdAt});
 
   $YoutubeVideoCopyWith<$Res> get link;
 }
@@ -55,6 +57,7 @@ class _$LinkCopyWithImpl<$Res, $Val extends Link>
     Object? userId = null,
     Object? provider = null,
     Object? link = null,
+    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
       userId: null == userId
@@ -69,6 +72,10 @@ class _$LinkCopyWithImpl<$Res, $Val extends Link>
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
               as YoutubeVideo,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 
@@ -87,7 +94,8 @@ abstract class _$$_LinkCopyWith<$Res> implements $LinkCopyWith<$Res> {
       __$$_LinkCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userId, String provider, YoutubeVideo link});
+  $Res call(
+      {String userId, String provider, YoutubeVideo link, DateTime createdAt});
 
   @override
   $YoutubeVideoCopyWith<$Res> get link;
@@ -105,6 +113,7 @@ class __$$_LinkCopyWithImpl<$Res> extends _$LinkCopyWithImpl<$Res, _$_Link>
     Object? userId = null,
     Object? provider = null,
     Object? link = null,
+    Object? createdAt = null,
   }) {
     return _then(_$_Link(
       userId: null == userId
@@ -119,6 +128,10 @@ class __$$_LinkCopyWithImpl<$Res> extends _$LinkCopyWithImpl<$Res, _$_Link>
           ? _value.link
           : link // ignore: cast_nullable_to_non_nullable
               as YoutubeVideo,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -126,7 +139,11 @@ class __$$_LinkCopyWithImpl<$Res> extends _$LinkCopyWithImpl<$Res, _$_Link>
 /// @nodoc
 @JsonSerializable()
 class _$_Link extends _Link {
-  _$_Link({required this.userId, required this.provider, required this.link})
+  _$_Link(
+      {required this.userId,
+      required this.provider,
+      required this.link,
+      required this.createdAt})
       : super._();
 
   factory _$_Link.fromJson(Map<String, dynamic> json) => _$$_LinkFromJson(json);
@@ -137,10 +154,12 @@ class _$_Link extends _Link {
   final String provider;
   @override
   final YoutubeVideo link;
+  @override
+  final DateTime createdAt;
 
   @override
   String toString() {
-    return 'Link(userId: $userId, provider: $provider, link: $link)';
+    return 'Link(userId: $userId, provider: $provider, link: $link, createdAt: $createdAt)';
   }
 
   @override
@@ -151,12 +170,15 @@ class _$_Link extends _Link {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.provider, provider) ||
                 other.provider == provider) &&
-            (identical(other.link, link) || other.link == link));
+            (identical(other.link, link) || other.link == link) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userId, provider, link);
+  int get hashCode =>
+      Object.hash(runtimeType, userId, provider, link, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -176,7 +198,8 @@ abstract class _Link extends Link {
   factory _Link(
       {required final String userId,
       required final String provider,
-      required final YoutubeVideo link}) = _$_Link;
+      required final YoutubeVideo link,
+      required final DateTime createdAt}) = _$_Link;
   _Link._() : super._();
 
   factory _Link.fromJson(Map<String, dynamic> json) = _$_Link.fromJson;
@@ -187,6 +210,8 @@ abstract class _Link extends Link {
   String get provider;
   @override
   YoutubeVideo get link;
+  @override
+  DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$_LinkCopyWith<_$_Link> get copyWith => throw _privateConstructorUsedError;

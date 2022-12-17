@@ -1,3 +1,4 @@
+import 'package:classic/bloc/link/link/link_bloc.dart';
 import 'package:classic/common/module/firebase/fb.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,7 @@ void mainCommon(AppConfig appConfig) async {
                   grassRouter: grassRouter,
                   userBloc: userBloc,
                 )),
+        BlocProvider(create: (context) => LinkBloc()),
       ],
       child: ScreenUtilInit(
           designSize: const Size(428, 926), //pro max

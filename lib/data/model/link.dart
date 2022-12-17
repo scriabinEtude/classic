@@ -11,6 +11,7 @@ class Link with _$Link {
     required String userId,
     required String provider,
     required YoutubeVideo link,
+    required DateTime createdAt,
   }) = _Link;
 
   factory Link.fromJson(Map<String, dynamic> json) => _$LinkFromJson(json);

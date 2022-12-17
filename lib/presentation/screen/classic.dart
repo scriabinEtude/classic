@@ -22,6 +22,7 @@ class Classic extends StatelessWidget {
         primarySwatch: Colors.red,
         primaryColor: lightColorTheme.primaryColor,
         splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         backgroundColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: const AppBarTheme(

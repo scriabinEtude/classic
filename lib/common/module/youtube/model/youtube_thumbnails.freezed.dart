@@ -21,10 +21,10 @@ YoutubeThumbnails _$YoutubeThumbnailsFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$YoutubeThumbnails {
   @JsonKey(name: 'default')
-  YoutubeThumbnail get min => throw _privateConstructorUsedError;
-  YoutubeThumbnail get medium => throw _privateConstructorUsedError;
-  YoutubeThumbnail get high => throw _privateConstructorUsedError;
-  YoutubeThumbnail get standard => throw _privateConstructorUsedError;
+  YoutubeThumbnail? get min => throw _privateConstructorUsedError;
+  YoutubeThumbnail? get medium => throw _privateConstructorUsedError;
+  YoutubeThumbnail? get high => throw _privateConstructorUsedError;
+  YoutubeThumbnail? get standard => throw _privateConstructorUsedError;
   YoutubeThumbnail? get maxres => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,16 +40,16 @@ abstract class $YoutubeThumbnailsCopyWith<$Res> {
       _$YoutubeThumbnailsCopyWithImpl<$Res, YoutubeThumbnails>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'default') YoutubeThumbnail min,
-      YoutubeThumbnail medium,
-      YoutubeThumbnail high,
-      YoutubeThumbnail standard,
+      {@JsonKey(name: 'default') YoutubeThumbnail? min,
+      YoutubeThumbnail? medium,
+      YoutubeThumbnail? high,
+      YoutubeThumbnail? standard,
       YoutubeThumbnail? maxres});
 
-  $YoutubeThumbnailCopyWith<$Res> get min;
-  $YoutubeThumbnailCopyWith<$Res> get medium;
-  $YoutubeThumbnailCopyWith<$Res> get high;
-  $YoutubeThumbnailCopyWith<$Res> get standard;
+  $YoutubeThumbnailCopyWith<$Res>? get min;
+  $YoutubeThumbnailCopyWith<$Res>? get medium;
+  $YoutubeThumbnailCopyWith<$Res>? get high;
+  $YoutubeThumbnailCopyWith<$Res>? get standard;
   $YoutubeThumbnailCopyWith<$Res>? get maxres;
 }
 
@@ -66,29 +66,29 @@ class _$YoutubeThumbnailsCopyWithImpl<$Res, $Val extends YoutubeThumbnails>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? min = null,
-    Object? medium = null,
-    Object? high = null,
-    Object? standard = null,
+    Object? min = freezed,
+    Object? medium = freezed,
+    Object? high = freezed,
+    Object? standard = freezed,
     Object? maxres = freezed,
   }) {
     return _then(_value.copyWith(
-      min: null == min
+      min: freezed == min
           ? _value.min
           : min // ignore: cast_nullable_to_non_nullable
-              as YoutubeThumbnail,
-      medium: null == medium
+              as YoutubeThumbnail?,
+      medium: freezed == medium
           ? _value.medium
           : medium // ignore: cast_nullable_to_non_nullable
-              as YoutubeThumbnail,
-      high: null == high
+              as YoutubeThumbnail?,
+      high: freezed == high
           ? _value.high
           : high // ignore: cast_nullable_to_non_nullable
-              as YoutubeThumbnail,
-      standard: null == standard
+              as YoutubeThumbnail?,
+      standard: freezed == standard
           ? _value.standard
           : standard // ignore: cast_nullable_to_non_nullable
-              as YoutubeThumbnail,
+              as YoutubeThumbnail?,
       maxres: freezed == maxres
           ? _value.maxres
           : maxres // ignore: cast_nullable_to_non_nullable
@@ -98,32 +98,48 @@ class _$YoutubeThumbnailsCopyWithImpl<$Res, $Val extends YoutubeThumbnails>
 
   @override
   @pragma('vm:prefer-inline')
-  $YoutubeThumbnailCopyWith<$Res> get min {
-    return $YoutubeThumbnailCopyWith<$Res>(_value.min, (value) {
+  $YoutubeThumbnailCopyWith<$Res>? get min {
+    if (_value.min == null) {
+      return null;
+    }
+
+    return $YoutubeThumbnailCopyWith<$Res>(_value.min!, (value) {
       return _then(_value.copyWith(min: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $YoutubeThumbnailCopyWith<$Res> get medium {
-    return $YoutubeThumbnailCopyWith<$Res>(_value.medium, (value) {
+  $YoutubeThumbnailCopyWith<$Res>? get medium {
+    if (_value.medium == null) {
+      return null;
+    }
+
+    return $YoutubeThumbnailCopyWith<$Res>(_value.medium!, (value) {
       return _then(_value.copyWith(medium: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $YoutubeThumbnailCopyWith<$Res> get high {
-    return $YoutubeThumbnailCopyWith<$Res>(_value.high, (value) {
+  $YoutubeThumbnailCopyWith<$Res>? get high {
+    if (_value.high == null) {
+      return null;
+    }
+
+    return $YoutubeThumbnailCopyWith<$Res>(_value.high!, (value) {
       return _then(_value.copyWith(high: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $YoutubeThumbnailCopyWith<$Res> get standard {
-    return $YoutubeThumbnailCopyWith<$Res>(_value.standard, (value) {
+  $YoutubeThumbnailCopyWith<$Res>? get standard {
+    if (_value.standard == null) {
+      return null;
+    }
+
+    return $YoutubeThumbnailCopyWith<$Res>(_value.standard!, (value) {
       return _then(_value.copyWith(standard: value) as $Val);
     });
   }
@@ -150,20 +166,20 @@ abstract class _$$_YoutubeThumbnailsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'default') YoutubeThumbnail min,
-      YoutubeThumbnail medium,
-      YoutubeThumbnail high,
-      YoutubeThumbnail standard,
+      {@JsonKey(name: 'default') YoutubeThumbnail? min,
+      YoutubeThumbnail? medium,
+      YoutubeThumbnail? high,
+      YoutubeThumbnail? standard,
       YoutubeThumbnail? maxres});
 
   @override
-  $YoutubeThumbnailCopyWith<$Res> get min;
+  $YoutubeThumbnailCopyWith<$Res>? get min;
   @override
-  $YoutubeThumbnailCopyWith<$Res> get medium;
+  $YoutubeThumbnailCopyWith<$Res>? get medium;
   @override
-  $YoutubeThumbnailCopyWith<$Res> get high;
+  $YoutubeThumbnailCopyWith<$Res>? get high;
   @override
-  $YoutubeThumbnailCopyWith<$Res> get standard;
+  $YoutubeThumbnailCopyWith<$Res>? get standard;
   @override
   $YoutubeThumbnailCopyWith<$Res>? get maxres;
 }
@@ -179,29 +195,29 @@ class __$$_YoutubeThumbnailsCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? min = null,
-    Object? medium = null,
-    Object? high = null,
-    Object? standard = null,
+    Object? min = freezed,
+    Object? medium = freezed,
+    Object? high = freezed,
+    Object? standard = freezed,
     Object? maxres = freezed,
   }) {
     return _then(_$_YoutubeThumbnails(
-      min: null == min
+      min: freezed == min
           ? _value.min
           : min // ignore: cast_nullable_to_non_nullable
-              as YoutubeThumbnail,
-      medium: null == medium
+              as YoutubeThumbnail?,
+      medium: freezed == medium
           ? _value.medium
           : medium // ignore: cast_nullable_to_non_nullable
-              as YoutubeThumbnail,
-      high: null == high
+              as YoutubeThumbnail?,
+      high: freezed == high
           ? _value.high
           : high // ignore: cast_nullable_to_non_nullable
-              as YoutubeThumbnail,
-      standard: null == standard
+              as YoutubeThumbnail?,
+      standard: freezed == standard
           ? _value.standard
           : standard // ignore: cast_nullable_to_non_nullable
-              as YoutubeThumbnail,
+              as YoutubeThumbnail?,
       maxres: freezed == maxres
           ? _value.maxres
           : maxres // ignore: cast_nullable_to_non_nullable
@@ -212,26 +228,27 @@ class __$$_YoutubeThumbnailsCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_YoutubeThumbnails implements _YoutubeThumbnails {
+class _$_YoutubeThumbnails extends _YoutubeThumbnails {
   _$_YoutubeThumbnails(
-      {@JsonKey(name: 'default') required this.min,
-      required this.medium,
-      required this.high,
-      required this.standard,
-      this.maxres});
+      {@JsonKey(name: 'default') this.min,
+      this.medium,
+      this.high,
+      this.standard,
+      this.maxres})
+      : super._();
 
   factory _$_YoutubeThumbnails.fromJson(Map<String, dynamic> json) =>
       _$$_YoutubeThumbnailsFromJson(json);
 
   @override
   @JsonKey(name: 'default')
-  final YoutubeThumbnail min;
+  final YoutubeThumbnail? min;
   @override
-  final YoutubeThumbnail medium;
+  final YoutubeThumbnail? medium;
   @override
-  final YoutubeThumbnail high;
+  final YoutubeThumbnail? high;
   @override
-  final YoutubeThumbnail standard;
+  final YoutubeThumbnail? standard;
   @override
   final YoutubeThumbnail? maxres;
 
@@ -273,26 +290,27 @@ class _$_YoutubeThumbnails implements _YoutubeThumbnails {
   }
 }
 
-abstract class _YoutubeThumbnails implements YoutubeThumbnails {
+abstract class _YoutubeThumbnails extends YoutubeThumbnails {
   factory _YoutubeThumbnails(
-      {@JsonKey(name: 'default') required final YoutubeThumbnail min,
-      required final YoutubeThumbnail medium,
-      required final YoutubeThumbnail high,
-      required final YoutubeThumbnail standard,
+      {@JsonKey(name: 'default') final YoutubeThumbnail? min,
+      final YoutubeThumbnail? medium,
+      final YoutubeThumbnail? high,
+      final YoutubeThumbnail? standard,
       final YoutubeThumbnail? maxres}) = _$_YoutubeThumbnails;
+  _YoutubeThumbnails._() : super._();
 
   factory _YoutubeThumbnails.fromJson(Map<String, dynamic> json) =
       _$_YoutubeThumbnails.fromJson;
 
   @override
   @JsonKey(name: 'default')
-  YoutubeThumbnail get min;
+  YoutubeThumbnail? get min;
   @override
-  YoutubeThumbnail get medium;
+  YoutubeThumbnail? get medium;
   @override
-  YoutubeThumbnail get high;
+  YoutubeThumbnail? get high;
   @override
-  YoutubeThumbnail get standard;
+  YoutubeThumbnail? get standard;
   @override
   YoutubeThumbnail? get maxres;
   @override

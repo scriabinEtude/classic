@@ -1,6 +1,5 @@
 import 'package:classic/bloc/home/home_bloc.dart';
 import 'package:classic/bloc/home/home_state.dart';
-import 'package:classic/bloc/link/link/link_bloc.dart';
 import 'package:classic/bloc/user/user_bloc.dart';
 import 'package:classic/bloc/user/user_state.dart';
 import 'package:classic/presentation/color/light_color.dart';
@@ -21,37 +20,30 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async => false,
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<LinkBloc>(
-            create: (BuildContext context) => LinkBloc(),
-          ),
-        ],
-        child: BlocConsumer<HomeBloc, HomeState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return Scaffold(
-              appBar: AppBar(
-                automaticallyImplyLeading: false,
-                centerTitle: true,
-                title: const Text(
-                  "classic",
-                ),
-                actions: const [
-                  _GoUser(),
-                ],
+      child: BlocConsumer<HomeBloc, HomeState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              centerTitle: true,
+              title: const Text(
+                "classic",
               ),
-              floatingActionButton: FloatingActionButton.small(
-                backgroundColor: lightColorTheme.primaryColor,
-                child: const Icon(Icons.add),
-                onPressed: () {
-                  context.pushNamed(LinkRegisterScreen.routeName);
-                },
-              ),
-              body: const LinkScreen(),
-            );
-          },
-        ),
+              actions: const [
+                _GoUser(),
+              ],
+            ),
+            floatingActionButton: FloatingActionButton.small(
+              backgroundColor: lightColorTheme.primaryColor,
+              child: const Icon(Icons.add),
+              onPressed: () {
+                context.pushNamed(LinkRegisterScreen.routeName);
+              },
+            ),
+            body: const LinkScreen(),
+          );
+        },
       ),
     );
   }

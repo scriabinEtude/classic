@@ -7,6 +7,7 @@ import 'package:classic/common/object/result/result.dart';
 import 'package:classic/bloc/link/register/link_register_event.dart';
 import 'package:classic/bloc/link/register/link_register_state.dart';
 import 'package:classic/common/object/status/status.dart';
+import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/link.dart';
 import 'package:classic/data/repository/link/register/link_register_repository.dart';
 
@@ -36,9 +37,11 @@ class LinkRegisterBloc extends Bloc<LinkRegisterEvent, LinkRegisterState> {
             userId: event.userId,
             provider: 'youtube',
             link: videos.items.first,
+            createdAt: DateTime.now(),
           ));
 
-          emit(state.copyWith(status: StatusSuccess()));
+          emit(state.copyWith(
+              status: StatusSuccess(code: CODE_LINK_REGISTER_SUCCESS)));
         },
       );
     } catch (e) {
