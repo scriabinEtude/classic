@@ -1,14 +1,19 @@
-import 'package:classic/common/imports.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LinkAutoComplete<T extends Object> extends StatelessWidget {
   const LinkAutoComplete({
     required this.label,
     required this.options,
+    this.readOnly = true,
+    this.customOptions = const [],
     Key? key,
   }) : super(key: key);
 
   final List<T> options;
   final String label;
+  final bool readOnly;
+  final List<Widget> customOptions;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +23,7 @@ class LinkAutoComplete<T extends Object> extends StatelessWidget {
         fieldViewBuilder:
             (context, textEditingController, focusNode, onFieldSubmitted) {
           return TextFormField(
+            readOnly: readOnly,
             controller: textEditingController,
             focusNode: focusNode,
             onFieldSubmitted: (String value) {
@@ -33,6 +39,7 @@ class LinkAutoComplete<T extends Object> extends StatelessWidget {
           onSelected: onSelected,
           options: options,
           constraints: constraints,
+          customOptions: customOptions,
         ),
       );
     });
@@ -45,11 +52,13 @@ class _OptionsViewBuilder<T> extends StatelessWidget {
     required this.onSelected,
     required this.options,
     required this.constraints,
+    this.customOptions = const [],
   });
 
   final void Function(T) onSelected;
   final Iterable<T> options;
   final BoxConstraints constraints;
+  final List<Widget> customOptions;
 
   @override
   Widget build(BuildContext context) {
@@ -77,30 +86,25 @@ class _OptionsViewBuilder<T> extends StatelessWidget {
           child: ListView.separated(
             padding: EdgeInsets.zero,
             shrinkWrap: true,
-            itemCount: options.length,
-            itemBuilder: (context, index) => _AutoCompleteItem<T>(
-              option: options.elementAt(index),
-              onSelected: onSelected,
-              height: itemHeight + seperatorHeight,
-            ),
+            itemCount: options.length + customOptions.length,
+            itemBuilder: (context, index) {
+              if (customOptions.length > index) {
+                return _Item(
+                  height: itemHeight,
+                  child: customOptions[index],
+                );
+              } else {
+                return _AutoCompleteItem<T>(
+                  option: options.elementAt(index - customOptions.length),
+                  onSelected: onSelected,
+                  height: itemHeight + seperatorHeight,
+                );
+              }
+            },
             separatorBuilder: (context, index) => _Separator(seperatorHeight),
           ),
         ),
       ),
-    );
-  }
-}
-
-class _Separator extends StatelessWidget {
-  const _Separator(this.height);
-  final double height;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: MediaQuery.of(context).size.width,
-      color: Colors.grey.withOpacity(0.5),
     );
   }
 }
@@ -121,16 +125,47 @@ class _AutoCompleteItem<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => onSelected(option),
-      child: SizedBox(
+      child: _Item(
         height: height,
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(option.toString()),
-          ),
+        child: Text(option.toString()),
+      ),
+    );
+  }
+}
+
+class _Item extends StatelessWidget {
+  const _Item({
+    required this.height,
+    required this.child,
+  });
+  final double height;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: child,
         ),
       ),
+    );
+  }
+}
+
+class _Separator extends StatelessWidget {
+  const _Separator(this.height);
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      width: MediaQuery.of(context).size.width,
+      color: Colors.grey.withOpacity(0.5),
     );
   }
 }
