@@ -22,6 +22,8 @@ Composer _$ComposerFromJson(Map<String, dynamic> json) {
 mixin _$Composer {
   String get name => throw _privateConstructorUsedError;
   String get fullname => throw _privateConstructorUsedError;
+  String get engName => throw _privateConstructorUsedError;
+  String get engFullname => throw _privateConstructorUsedError;
   List<String> get names => throw _privateConstructorUsedError;
   List<MusicalForm> get musicalForms => throw _privateConstructorUsedError;
   List<String> get thanksto => throw _privateConstructorUsedError;
@@ -41,6 +43,8 @@ abstract class $ComposerCopyWith<$Res> {
   $Res call(
       {String name,
       String fullname,
+      String engName,
+      String engFullname,
       List<String> names,
       List<MusicalForm> musicalForms,
       List<String> thanksto,
@@ -62,6 +66,8 @@ class _$ComposerCopyWithImpl<$Res, $Val extends Composer>
   $Res call({
     Object? name = null,
     Object? fullname = null,
+    Object? engName = null,
+    Object? engFullname = null,
     Object? names = null,
     Object? musicalForms = null,
     Object? thanksto = null,
@@ -75,6 +81,14 @@ class _$ComposerCopyWithImpl<$Res, $Val extends Composer>
       fullname: null == fullname
           ? _value.fullname
           : fullname // ignore: cast_nullable_to_non_nullable
+              as String,
+      engName: null == engName
+          ? _value.engName
+          : engName // ignore: cast_nullable_to_non_nullable
+              as String,
+      engFullname: null == engFullname
+          ? _value.engFullname
+          : engFullname // ignore: cast_nullable_to_non_nullable
               as String,
       names: null == names
           ? _value.names
@@ -106,6 +120,8 @@ abstract class _$$_ComposerCopyWith<$Res> implements $ComposerCopyWith<$Res> {
   $Res call(
       {String name,
       String fullname,
+      String engName,
+      String engFullname,
       List<String> names,
       List<MusicalForm> musicalForms,
       List<String> thanksto,
@@ -125,6 +141,8 @@ class __$$_ComposerCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? fullname = null,
+    Object? engName = null,
+    Object? engFullname = null,
     Object? names = null,
     Object? musicalForms = null,
     Object? thanksto = null,
@@ -138,6 +156,14 @@ class __$$_ComposerCopyWithImpl<$Res>
       fullname: null == fullname
           ? _value.fullname
           : fullname // ignore: cast_nullable_to_non_nullable
+              as String,
+      engName: null == engName
+          ? _value.engName
+          : engName // ignore: cast_nullable_to_non_nullable
+              as String,
+      engFullname: null == engFullname
+          ? _value.engFullname
+          : engFullname // ignore: cast_nullable_to_non_nullable
               as String,
       names: null == names
           ? _value._names
@@ -165,6 +191,8 @@ class _$_Composer extends _Composer {
   _$_Composer(
       {required this.name,
       required this.fullname,
+      required this.engName,
+      required this.engFullname,
       final List<String> names = const [],
       final List<MusicalForm> musicalForms = const [],
       final List<String> thanksto = const [],
@@ -181,6 +209,10 @@ class _$_Composer extends _Composer {
   final String name;
   @override
   final String fullname;
+  @override
+  final String engName;
+  @override
+  final String engFullname;
   final List<String> _names;
   @override
   @JsonKey()
@@ -210,7 +242,7 @@ class _$_Composer extends _Composer {
 
   @override
   String toString() {
-    return 'Composer(name: $name, fullname: $fullname, names: $names, musicalForms: $musicalForms, thanksto: $thanksto, createdAt: $createdAt)';
+    return 'Composer(name: $name, fullname: $fullname, engName: $engName, engFullname: $engFullname, names: $names, musicalForms: $musicalForms, thanksto: $thanksto, createdAt: $createdAt)';
   }
 
   @override
@@ -221,6 +253,9 @@ class _$_Composer extends _Composer {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.fullname, fullname) ||
                 other.fullname == fullname) &&
+            (identical(other.engName, engName) || other.engName == engName) &&
+            (identical(other.engFullname, engFullname) ||
+                other.engFullname == engFullname) &&
             const DeepCollectionEquality().equals(other._names, _names) &&
             const DeepCollectionEquality()
                 .equals(other._musicalForms, _musicalForms) &&
@@ -235,6 +270,8 @@ class _$_Composer extends _Composer {
       runtimeType,
       name,
       fullname,
+      engName,
+      engFullname,
       const DeepCollectionEquality().hash(_names),
       const DeepCollectionEquality().hash(_musicalForms),
       const DeepCollectionEquality().hash(_thanksto),
@@ -258,6 +295,8 @@ abstract class _Composer extends Composer {
   factory _Composer(
       {required final String name,
       required final String fullname,
+      required final String engName,
+      required final String engFullname,
       final List<String> names,
       final List<MusicalForm> musicalForms,
       final List<String> thanksto,
@@ -270,6 +309,10 @@ abstract class _Composer extends Composer {
   String get name;
   @override
   String get fullname;
+  @override
+  String get engName;
+  @override
+  String get engFullname;
   @override
   List<String> get names;
   @override

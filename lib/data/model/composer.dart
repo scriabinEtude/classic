@@ -12,6 +12,8 @@ class Composer extends Autocompletable with _$Composer {
   factory Composer({
     required String name,
     required String fullname,
+    required String engName,
+    required String engFullname,
     @Default([]) List<String> names,
     @Default([]) List<MusicalForm> musicalForms,
     @Default([]) List<String> thanksto,
@@ -28,10 +30,30 @@ class Composer extends Autocompletable with _$Composer {
 
   static List<Composer> testSet() {
     return [
-      Composer(name: '쇼팽', fullname: '프레데릭 쇼팽', createdAt: DateTime.now()),
-      Composer(name: '베토벤', fullname: '루트비히 판 베토벤', createdAt: DateTime.now()),
-      Composer(name: '바흐', fullname: '요한 세바스티안 바흐', createdAt: DateTime.now()),
-      Composer(name: '라흐마니노프', fullname: '라흐마니노프', createdAt: DateTime.now())
+      Composer(
+          name: '쇼팽',
+          fullname: '프레데릭 쇼팽',
+          engName: "asd",
+          engFullname: "asd qwe",
+          createdAt: DateTime.now()),
+      Composer(
+          name: '베토벤',
+          fullname: '루트비히 판 베토벤',
+          engName: "asd",
+          engFullname: "asd qwe",
+          createdAt: DateTime.now()),
+      Composer(
+          name: '바흐',
+          fullname: '요한 세바스티안 바흐',
+          engName: "asd",
+          engFullname: "asd qwe",
+          createdAt: DateTime.now()),
+      Composer(
+          name: '라흐마니노프',
+          fullname: '라흐마니노프',
+          engName: "asd",
+          engFullname: "asd qwe",
+          createdAt: DateTime.now())
     ];
   }
 }

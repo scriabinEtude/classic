@@ -9,6 +9,8 @@ part of 'composer.dart';
 _$_Composer _$$_ComposerFromJson(Map<String, dynamic> json) => _$_Composer(
       name: json['name'] as String,
       fullname: json['fullname'] as String,
+      engName: json['engName'] as String,
+      engFullname: json['engFullname'] as String,
       names:
           (json['names'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
@@ -28,6 +30,8 @@ Map<String, dynamic> _$$_ComposerToJson(_$_Composer instance) =>
       'displayString': instance.displayString,
       'name': instance.name,
       'fullname': instance.fullname,
+      'engName': instance.engName,
+      'engFullname': instance.engFullname,
       'names': instance.names,
       'musicalForms': instance.musicalForms.map((e) => e.toJson()).toList(),
       'thanksto': instance.thanksto,
