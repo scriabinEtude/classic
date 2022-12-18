@@ -7,7 +7,10 @@ import 'package:classic/common/imports.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/bloc_util.dart';
 import 'package:classic/data/const/code.dart';
-import 'package:classic/presentation/screen/link/components/link_autocomplete.dart';
+import 'package:classic/data/model/composer.dart';
+import 'package:classic/presentation/screen/link/components/link_widget.dart';
+import 'package:classic/presentation/widget/autocomplete/autocomplete.dart';
+import 'package:classic/presentation/widget/autocomplete/custom_options/custom_option_add.dart';
 
 class LinkRegisterScreen extends StatelessWidget {
   LinkRegisterScreen({super.key});
@@ -37,37 +40,89 @@ class LinkRegisterScreen extends StatelessWidget {
           }
         });
       },
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('링크 등록'),
-        ),
-        floatingActionButton: _FloatingButton(
-          onTap: () => regist(context),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                const _ErrorText(),
-                TextFormField(
-                  controller: _linkController,
-                  decoration: const InputDecoration(
-                    label: Text('링크'),
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('링크 등록'),
+          ),
+          floatingActionButton: _FloatingButton(
+            onTap: () => regist(context),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const _ErrorText(),
+                  const _LinkPreview(),
+                  _LinkFormField(controller: _linkController),
+                  AppAutoComplete<Composer>(
+                    label: "작곡가",
+                    options: Composer.testSet(),
+                    customOptions: [
+                      CustomOptionIconAndText(
+                        onSelect: () {},
+                        text: "작곡가 추가",
+                      )
+                    ],
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return "링크를 입력해주세요.";
-                    return null;
-                  },
-                ),
-                const LinkAutoComplete<String>(
-                  label: "작곡가",
-                  options: ['쇼팽', '베토벤'],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LinkPreview extends StatelessWidget {
+  const _LinkPreview();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<LinkRegisterBloc, LinkRegisterState, LinkValidation>(
+      selector: (state) => state.linkValidation,
+      builder: (context, linkValidation) {
+        if (linkValidation.validate && linkValidation.link != null) {
+          return LinkWidget(linkValidation.link!);
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
+  }
+}
+
+class _LinkFormField extends StatelessWidget {
+  const _LinkFormField({
+    required this.controller,
+  });
+
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return FocusScope(
+      child: Focus(
+        onFocusChange: (focus) {
+          if (!focus && controller.text.isNotEmpty) {
+            BlocProvider.of<LinkRegisterBloc>(context)
+                .add(LinkRegisterEvent.linkValidate(controller.text));
+          }
+        },
+        child: TextFormField(
+          controller: controller,
+          decoration: const InputDecoration(
+            label: Text('링크'),
+          ),
+          validator: (value) {
+            if (value == null || value.isEmpty) return "링크를 입력해주세요.";
+            return null;
+          },
         ),
       ),
     );
@@ -79,12 +134,11 @@ class _ErrorText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<LinkRegisterBloc, LinkRegisterState, Status>(
-      selector: (state) => state.status,
-      builder: (context, status) {
-        if (status is StatusFail) {
+    return BlocBuilder<LinkRegisterBloc, LinkRegisterState>(
+      builder: (context, state) {
+        if (state.status is StatusFail) {
           return Text(
-            status.message!,
+            (state.status as StatusFail).message!,
             style: const TextStyle(color: Colors.red),
           );
         } else {

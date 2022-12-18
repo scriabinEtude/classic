@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$LinkRegisterState {
   Status get status => throw _privateConstructorUsedError;
+  LinkValidation get linkValidation => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LinkRegisterStateCopyWith<LinkRegisterState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $LinkRegisterStateCopyWith<$Res> {
           LinkRegisterState value, $Res Function(LinkRegisterState) then) =
       _$LinkRegisterStateCopyWithImpl<$Res, LinkRegisterState>;
   @useResult
-  $Res call({Status status});
+  $Res call({Status status, LinkValidation linkValidation});
 
   $StatusCopyWith<$Res> get status;
 }
@@ -48,12 +49,17 @@ class _$LinkRegisterStateCopyWithImpl<$Res, $Val extends LinkRegisterState>
   @override
   $Res call({
     Object? status = null,
+    Object? linkValidation = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      linkValidation: null == linkValidation
+          ? _value.linkValidation
+          : linkValidation // ignore: cast_nullable_to_non_nullable
+              as LinkValidation,
     ) as $Val);
   }
 
@@ -74,7 +80,7 @@ abstract class _$$_LinkRegisterStateCopyWith<$Res>
       __$$_LinkRegisterStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status});
+  $Res call({Status status, LinkValidation linkValidation});
 
   @override
   $StatusCopyWith<$Res> get status;
@@ -92,12 +98,17 @@ class __$$_LinkRegisterStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? linkValidation = null,
   }) {
     return _then(_$_LinkRegisterState(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      linkValidation: null == linkValidation
+          ? _value.linkValidation
+          : linkValidation // ignore: cast_nullable_to_non_nullable
+              as LinkValidation,
     ));
   }
 }
@@ -105,14 +116,16 @@ class __$$_LinkRegisterStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LinkRegisterState implements _LinkRegisterState {
-  _$_LinkRegisterState({required this.status});
+  _$_LinkRegisterState({required this.status, required this.linkValidation});
 
   @override
   final Status status;
+  @override
+  final LinkValidation linkValidation;
 
   @override
   String toString() {
-    return 'LinkRegisterState(status: $status)';
+    return 'LinkRegisterState(status: $status, linkValidation: $linkValidation)';
   }
 
   @override
@@ -120,11 +133,13 @@ class _$_LinkRegisterState implements _LinkRegisterState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LinkRegisterState &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.linkValidation, linkValidation) ||
+                other.linkValidation == linkValidation));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status);
+  int get hashCode => Object.hash(runtimeType, status, linkValidation);
 
   @JsonKey(ignore: true)
   @override
@@ -135,11 +150,14 @@ class _$_LinkRegisterState implements _LinkRegisterState {
 }
 
 abstract class _LinkRegisterState implements LinkRegisterState {
-  factory _LinkRegisterState({required final Status status}) =
-      _$_LinkRegisterState;
+  factory _LinkRegisterState(
+      {required final Status status,
+      required final LinkValidation linkValidation}) = _$_LinkRegisterState;
 
   @override
   Status get status;
+  @override
+  LinkValidation get linkValidation;
   @override
   @JsonKey(ignore: true)
   _$$_LinkRegisterStateCopyWith<_$_LinkRegisterState> get copyWith =>

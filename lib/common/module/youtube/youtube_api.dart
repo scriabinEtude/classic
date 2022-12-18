@@ -6,11 +6,21 @@ import 'package:dio/dio.dart';
 
 class YoutubeApi {
   final Dio _dio = Dio();
+  final Map<String, YoutubeVideos> cache = {};
 
   Future<Result<YoutubeVideos>> getVideo(String url) async {
     try {
-      Response res = await _dio.get(_getApiUrl(_extractYoutubeId(url)));
-      return Result.success(YoutubeVideos.fromJson(res.data));
+      String id = _extractYoutubeId(url);
+
+      if (cache.containsKey(id)) {
+        return Result.success(cache[id]!);
+      }
+
+      Response res = await _dio.get(_getApiUrl(id));
+      YoutubeVideos videos = YoutubeVideos.fromJson(res.data);
+      cache[id] = videos;
+
+      return Result.success(videos);
     } catch (e) {
       if (e == YOUTUBE_CODE_NOT_VALID_URL) {
         return Failure(YOUTUBE_CODE_NOT_VALID_URL, 'URL 형식에 맞지 않습니다.');

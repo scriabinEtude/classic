@@ -14,12 +14,63 @@ import 'package:classic/data/repository/link/register/link_register_repository.d
 class LinkRegisterBloc extends Bloc<LinkRegisterEvent, LinkRegisterState> {
   LinkRegisterBloc()
       : _linkRegisterRepository = di.get<LinkRegisterRepository>(),
-        super(LinkRegisterState(status: StatusInit())) {
+        super(LinkRegisterState(
+          status: StatusInit(),
+          linkValidation: LinkValidation.init(),
+        )) {
     on<LinkRegisterEventRegist>(_regist);
+    on<LinkRegisterEventLinkValidate>(_linkValidate);
   }
 
   final YoutubeApi _youtube = YoutubeApi();
   final LinkRegisterRepository _linkRegisterRepository;
+
+  _linkValidate(LinkRegisterEventLinkValidate event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: StatusLoading()));
+
+      if (state.linkValidation.validate == true &&
+          state.linkValidation.linkUrl == event.url) {
+        return;
+      }
+
+      Result<YoutubeVideos> result = await _youtube.getVideo(event.url);
+      await result.when(
+        failure: (status, message) {
+          emit(state.copyWith(
+              linkValidation:
+                  LinkValidation(validate: false, linkUrl: event.url),
+              status: Status.fail(code: status, message: message)));
+        },
+        success: (videos) async {
+          l.dl('youtube api result', result);
+          await _linkRegisterRepository.validate(videos.items.first);
+
+          emit(state.copyWith(
+              linkValidation: LinkValidation(
+                  validate: true,
+                  linkUrl: event.url,
+                  link: Link(
+                      userId: '0',
+                      provider: 'youtube',
+                      link: videos.items.first,
+                      createdAt: DateTime.now())),
+              status: StatusSuccess()));
+        },
+      );
+    } catch (e) {
+      if (e is Failure) {
+        emit(state.copyWith(
+            linkValidation: LinkValidation(validate: false, linkUrl: event.url),
+            status: Status.fail(code: e.status, message: e.message)));
+      } else {
+        l.el('_linkValidate catch', e);
+        emit(state.copyWith(
+            linkValidation: LinkValidation(validate: false, linkUrl: event.url),
+            status: Status.fail(message: "유효하지 않은 링크입니다.")));
+      }
+    }
+  }
 
   _regist(LinkRegisterEventRegist event, Emitter emit) async {
     try {

@@ -9,15 +9,12 @@ class LinkWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
-      child: Row(
-        children: [
-          _Thumbnail(link),
-          SizedBox(width: 10.w),
-          _Title(link.link.snippet.title),
-        ],
-      ),
+    return Row(
+      children: [
+        _Thumbnail(link),
+        SizedBox(width: 10.w),
+        _Title(link.link.snippet.title),
+      ],
     );
   }
 }

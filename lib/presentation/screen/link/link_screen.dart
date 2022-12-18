@@ -18,7 +18,13 @@ class LinkScreen extends StatelessWidget {
             await streamSource.stream.first;
           },
           child: ListView(
-            children: state.links.map((link) => LinkWidget(link)).toList(),
+            children: state.links
+                .map((link) => Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+                      child: LinkWidget(link),
+                    ))
+                .toList(),
           ),
         );
       },

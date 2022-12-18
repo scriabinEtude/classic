@@ -6,4 +6,6 @@ part 'link_register_event.freezed.dart';
 class LinkRegisterEvent with _$LinkRegisterEvent {
   factory LinkRegisterEvent.regist(String userId, String url) =
       LinkRegisterEventRegist;
+  factory LinkRegisterEvent.linkValidate(String url) =
+      LinkRegisterEventLinkValidate;
 }

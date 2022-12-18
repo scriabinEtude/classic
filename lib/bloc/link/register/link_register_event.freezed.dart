@@ -16,37 +16,42 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LinkRegisterEvent {
-  String get userId => throw _privateConstructorUsedError;
   String get url => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String userId, String url) regist,
+    required TResult Function(String url) linkValidate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userId, String url)? regist,
+    TResult? Function(String url)? linkValidate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userId, String url)? regist,
+    TResult Function(String url)? linkValidate,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LinkRegisterEventRegist value) regist,
+    required TResult Function(LinkRegisterEventLinkValidate value) linkValidate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LinkRegisterEventRegist value)? regist,
+    TResult? Function(LinkRegisterEventLinkValidate value)? linkValidate,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LinkRegisterEventRegist value)? regist,
+    TResult Function(LinkRegisterEventLinkValidate value)? linkValidate,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -62,7 +67,7 @@ abstract class $LinkRegisterEventCopyWith<$Res> {
           LinkRegisterEvent value, $Res Function(LinkRegisterEvent) then) =
       _$LinkRegisterEventCopyWithImpl<$Res, LinkRegisterEvent>;
   @useResult
-  $Res call({String userId, String url});
+  $Res call({String url});
 }
 
 /// @nodoc
@@ -78,14 +83,9 @@ class _$LinkRegisterEventCopyWithImpl<$Res, $Val extends LinkRegisterEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
     Object? url = null,
   }) {
     return _then(_value.copyWith(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
       url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -170,6 +170,7 @@ class _$LinkRegisterEventRegist implements LinkRegisterEventRegist {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String userId, String url) regist,
+    required TResult Function(String url) linkValidate,
   }) {
     return regist(userId, url);
   }
@@ -178,6 +179,7 @@ class _$LinkRegisterEventRegist implements LinkRegisterEventRegist {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String userId, String url)? regist,
+    TResult? Function(String url)? linkValidate,
   }) {
     return regist?.call(userId, url);
   }
@@ -186,6 +188,7 @@ class _$LinkRegisterEventRegist implements LinkRegisterEventRegist {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String userId, String url)? regist,
+    TResult Function(String url)? linkValidate,
     required TResult orElse(),
   }) {
     if (regist != null) {
@@ -198,6 +201,7 @@ class _$LinkRegisterEventRegist implements LinkRegisterEventRegist {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LinkRegisterEventRegist value) regist,
+    required TResult Function(LinkRegisterEventLinkValidate value) linkValidate,
   }) {
     return regist(this);
   }
@@ -206,6 +210,7 @@ class _$LinkRegisterEventRegist implements LinkRegisterEventRegist {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LinkRegisterEventRegist value)? regist,
+    TResult? Function(LinkRegisterEventLinkValidate value)? linkValidate,
   }) {
     return regist?.call(this);
   }
@@ -214,6 +219,7 @@ class _$LinkRegisterEventRegist implements LinkRegisterEventRegist {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(LinkRegisterEventRegist value)? regist,
+    TResult Function(LinkRegisterEventLinkValidate value)? linkValidate,
     required TResult orElse(),
   }) {
     if (regist != null) {
@@ -227,7 +233,6 @@ abstract class LinkRegisterEventRegist implements LinkRegisterEvent {
   factory LinkRegisterEventRegist(final String userId, final String url) =
       _$LinkRegisterEventRegist;
 
-  @override
   String get userId;
   @override
   String get url;
@@ -235,4 +240,146 @@ abstract class LinkRegisterEventRegist implements LinkRegisterEvent {
   @JsonKey(ignore: true)
   _$$LinkRegisterEventRegistCopyWith<_$LinkRegisterEventRegist> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$LinkRegisterEventLinkValidateCopyWith<$Res>
+    implements $LinkRegisterEventCopyWith<$Res> {
+  factory _$$LinkRegisterEventLinkValidateCopyWith(
+          _$LinkRegisterEventLinkValidate value,
+          $Res Function(_$LinkRegisterEventLinkValidate) then) =
+      __$$LinkRegisterEventLinkValidateCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String url});
+}
+
+/// @nodoc
+class __$$LinkRegisterEventLinkValidateCopyWithImpl<$Res>
+    extends _$LinkRegisterEventCopyWithImpl<$Res,
+        _$LinkRegisterEventLinkValidate>
+    implements _$$LinkRegisterEventLinkValidateCopyWith<$Res> {
+  __$$LinkRegisterEventLinkValidateCopyWithImpl(
+      _$LinkRegisterEventLinkValidate _value,
+      $Res Function(_$LinkRegisterEventLinkValidate) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? url = null,
+  }) {
+    return _then(_$LinkRegisterEventLinkValidate(
+      null == url
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LinkRegisterEventLinkValidate implements LinkRegisterEventLinkValidate {
+  _$LinkRegisterEventLinkValidate(this.url);
+
+  @override
+  final String url;
+
+  @override
+  String toString() {
+    return 'LinkRegisterEvent.linkValidate(url: $url)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LinkRegisterEventLinkValidate &&
+            (identical(other.url, url) || other.url == url));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, url);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LinkRegisterEventLinkValidateCopyWith<_$LinkRegisterEventLinkValidate>
+      get copyWith => __$$LinkRegisterEventLinkValidateCopyWithImpl<
+          _$LinkRegisterEventLinkValidate>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String userId, String url) regist,
+    required TResult Function(String url) linkValidate,
+  }) {
+    return linkValidate(url);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String userId, String url)? regist,
+    TResult? Function(String url)? linkValidate,
+  }) {
+    return linkValidate?.call(url);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String userId, String url)? regist,
+    TResult Function(String url)? linkValidate,
+    required TResult orElse(),
+  }) {
+    if (linkValidate != null) {
+      return linkValidate(url);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(LinkRegisterEventRegist value) regist,
+    required TResult Function(LinkRegisterEventLinkValidate value) linkValidate,
+  }) {
+    return linkValidate(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(LinkRegisterEventRegist value)? regist,
+    TResult? Function(LinkRegisterEventLinkValidate value)? linkValidate,
+  }) {
+    return linkValidate?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(LinkRegisterEventRegist value)? regist,
+    TResult Function(LinkRegisterEventLinkValidate value)? linkValidate,
+    required TResult orElse(),
+  }) {
+    if (linkValidate != null) {
+      return linkValidate(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LinkRegisterEventLinkValidate implements LinkRegisterEvent {
+  factory LinkRegisterEventLinkValidate(final String url) =
+      _$LinkRegisterEventLinkValidate;
+
+  @override
+  String get url;
+  @override
+  @JsonKey(ignore: true)
+  _$$LinkRegisterEventLinkValidateCopyWith<_$LinkRegisterEventLinkValidate>
+      get copyWith => throw _privateConstructorUsedError;
 }
