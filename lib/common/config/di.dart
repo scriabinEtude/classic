@@ -1,5 +1,7 @@
 import 'package:classic/common/config/app_config.dart';
 import 'package:classic/common/module/firebase/db.dart';
+import 'package:classic/data/repository/composer/register/composer_register_repository.dart';
+import 'package:classic/data/repository/composer/register/composer_register_repository_impl.dart';
 import 'package:classic/data/repository/link/link/link_repository.dart';
 import 'package:classic/data/repository/link/link/link_repository_impl.dart';
 import 'package:classic/data/repository/link/register/link_register_repository.dart';
@@ -22,6 +24,8 @@ class Di {
     di.registerSingleton<LinkRegisterRepository>(
         LinkRegisterRepositoryImpl(db));
     di.registerSingleton<LinkRepository>(LinkRepositoryImpl(db));
+    di.registerSingleton<ComposerRegisterRepository>(
+        ComposerRegisterRepositoryImpl(db));
   }
 
   static void repositorySetup() {}

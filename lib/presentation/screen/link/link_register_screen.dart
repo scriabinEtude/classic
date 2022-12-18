@@ -8,6 +8,7 @@ import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/bloc_util.dart';
 import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/composer.dart';
+import 'package:classic/presentation/screen/composer/composer_register_screen.dart';
 import 'package:classic/presentation/screen/link/components/link_widget.dart';
 import 'package:classic/presentation/widget/autocomplete/autocomplete.dart';
 import 'package:classic/presentation/widget/autocomplete/custom_options/custom_option_add.dart';
@@ -27,6 +28,10 @@ class LinkRegisterScreen extends StatelessWidget {
         _linkController.text,
       ));
     }
+  }
+
+  pushComposerRegisterScreen(BuildContext context) {
+    context.pushNamed(ComposerRegisterScreen.routeName);
   }
 
   @override
@@ -64,7 +69,7 @@ class LinkRegisterScreen extends StatelessWidget {
                     options: Composer.testSet(),
                     customOptions: [
                       CustomOptionIconAndText(
-                        onSelect: () {},
+                        onSelect: () => pushComposerRegisterScreen(context),
                         text: "작곡가 추가",
                       )
                     ],
