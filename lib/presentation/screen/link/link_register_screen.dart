@@ -7,11 +7,8 @@ import 'package:classic/common/imports.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/bloc_util.dart';
 import 'package:classic/data/const/code.dart';
-import 'package:classic/data/model/composer.dart';
-import 'package:classic/presentation/screen/composer/composer_register_screen.dart';
+import 'package:classic/presentation/screen/link/components/composer_autocomplete.dart';
 import 'package:classic/presentation/screen/link/components/link_widget.dart';
-import 'package:classic/presentation/widget/autocomplete/app_autocomplete.dart';
-import 'package:classic/presentation/widget/autocomplete/custom_options/custom_option_add.dart';
 
 class LinkRegisterScreen extends StatelessWidget {
   LinkRegisterScreen({super.key});
@@ -28,10 +25,6 @@ class LinkRegisterScreen extends StatelessWidget {
         _linkController.text,
       ));
     }
-  }
-
-  pushComposerRegisterScreen(BuildContext context) {
-    context.pushNamed(ComposerRegisterScreen.routeName);
   }
 
   @override
@@ -64,16 +57,7 @@ class LinkRegisterScreen extends StatelessWidget {
                   const _ErrorText(),
                   const _LinkPreview(),
                   _LinkFormField(controller: _linkController),
-                  AppAutoComplete<Composer>(
-                    label: "작곡가",
-                    options: Composer.testSet(),
-                    customOptions: [
-                      CustomOptionIconAndText(
-                        onSelect: () => pushComposerRegisterScreen(context),
-                        text: "작곡가 추가",
-                      )
-                    ],
-                  ),
+                  const ComposerAutoComplete(),
                 ],
               ),
             ),

@@ -21,13 +21,21 @@ class _OptionsViewBuilder<T extends Autocompletable> extends StatelessWidget {
     final double itemHeight = 50.h;
     final double seperatorHeight = 0.5.h;
 
+    final double totalHeight;
+
+    if (status is StatusSuccess) {
+      totalHeight = (options.length + customOptions.length) * itemHeight + 10;
+    } else {
+      totalHeight = itemHeight;
+    }
+
     return Align(
       alignment: Alignment.topLeft,
       child: Material(
         color: Colors.white,
         child: Container(
           width: constraints.biggest.width,
-          height: (options.length + customOptions.length) * itemHeight + 10,
+          height: totalHeight,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: const BorderRadius.only(
@@ -91,9 +99,14 @@ class _Loading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      child: const CircularProgressIndicator(),
+    return const Center(
+      child: SizedBox(
+        height: 30,
+        width: 30,
+        child: CircularProgressIndicator(
+          strokeWidth: 1.5,
+        ),
+      ),
     );
   }
 }

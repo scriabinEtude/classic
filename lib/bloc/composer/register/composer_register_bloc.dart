@@ -6,17 +6,17 @@ import 'package:classic/common/object/logger/logger.dart';
 import 'package:classic/common/object/result/result.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/data/const/code.dart';
-import 'package:classic/data/repository/composer/register/composer_register_repository.dart';
+import 'package:classic/data/repository/composer/composer_repository.dart';
 
 class ComposerRegisterBloc
     extends Bloc<ComposerRegisterEvent, ComposerRegisterState> {
   ComposerRegisterBloc()
-      : _composerRegisterRepository = di.get<ComposerRegisterRepository>(),
+      : _composerRegisterRepository = di.get<ComposerRepository>(),
         super(ComposerRegisterState(status: StatusInit())) {
     on<ComposerRegisterEvent>(_register);
   }
 
-  final ComposerRegisterRepository _composerRegisterRepository;
+  final ComposerRepository _composerRegisterRepository;
 
   _register(ComposerRegisterEvent event, Emitter emit) async {
     try {

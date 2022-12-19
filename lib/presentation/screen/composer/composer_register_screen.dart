@@ -1,3 +1,5 @@
+import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_bloc.dart';
+import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_event.dart';
 import 'package:classic/bloc/composer/register/composer_register_bloc.dart';
 import 'package:classic/bloc/composer/register/composer_register_event.dart';
 import 'package:classic/bloc/composer/register/composer_register_state.dart';
@@ -6,6 +8,7 @@ import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/input_formatter/capitalize_input_formatter.dart';
 import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/composer.dart';
+import 'package:classic/presentation/screen/link/components/composer_autocomplete.dart';
 
 class ComposerRegisterScreen extends StatefulWidget {
   const ComposerRegisterScreen({super.key});
@@ -47,16 +50,18 @@ class _ComposerRegisterScreenState extends State<ComposerRegisterScreen> {
     }
   }
 
+  Composer get composer => Composer(
+      name: name!,
+      fullname: fullname!,
+      engName: engName!,
+      engFullname: engFullname!,
+      createdAt: DateTime.now());
+
   onSubmit(BuildContext context) {
     if (_formKey.currentState?.validate() == true) {
       _formKey.currentState?.save();
-      BlocProvider.of<ComposerRegisterBloc>(context).add(
-          ComposerRegisterEvent.register(Composer(
-              name: name!,
-              fullname: fullname!,
-              engName: engName!,
-              engFullname: engFullname!,
-              createdAt: DateTime.now())));
+      BlocProvider.of<ComposerRegisterBloc>(context)
+          .add(ComposerRegisterEvent.register(composer));
     }
   }
 
@@ -67,6 +72,8 @@ class _ComposerRegisterScreenState extends State<ComposerRegisterScreen> {
         state.status.whenOrNull(
           success: (code) {
             if (code == CODE_COMPOSER_REGISTER_SUCCESS) {
+              BlocProvider.of<ComposerAutoCompleteBloc>(context)
+                  .add(ComposerAutoCompleteEvent.add(composer));
               context.pop();
             }
           },
