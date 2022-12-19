@@ -1,3 +1,4 @@
+import 'package:classic/common/object/status/status.dart';
 import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
     required this.options,
     this.readOnly = false,
     this.customOptions = const [],
+    this.status,
     Key? key,
   }) : super(key: key);
 
@@ -19,6 +21,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
   final String label;
   final bool readOnly;
   final List<Widget> customOptions;
+  final Status? status;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +50,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
           options: options,
           constraints: constraints,
           customOptions: customOptions,
+          status: status ?? StatusSuccess(),
         ),
       );
     });

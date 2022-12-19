@@ -6,6 +6,7 @@ class _OptionsViewBuilder<T extends Autocompletable> extends StatelessWidget {
     required this.onSelected,
     required this.options,
     required this.constraints,
+    required this.status,
     this.customOptions = const [],
   });
 
@@ -13,6 +14,7 @@ class _OptionsViewBuilder<T extends Autocompletable> extends StatelessWidget {
   final Iterable<T> options;
   final BoxConstraints constraints;
   final List<Widget> customOptions;
+  final Status status;
 
   @override
   Widget build(BuildContext context) {
@@ -41,27 +43,76 @@ class _OptionsViewBuilder<T extends Autocompletable> extends StatelessWidget {
               ),
             ],
           ),
-          child: ListView.separated(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: options.length + customOptions.length,
-            itemBuilder: (context, index) {
-              if (customOptions.length > index) {
-                return _Item(
-                  height: itemHeight,
-                  child: customOptions[index],
-                );
-              } else {
-                return _AutoCompleteItem<T>(
-                  option: options.elementAt(index - customOptions.length),
-                  onSelected: onSelected,
-                  height: itemHeight + seperatorHeight,
-                );
-              }
-            },
-            separatorBuilder: (context, index) => _Separator(seperatorHeight),
-          ),
+          child: Builder(builder: (context) {
+            if (status is StatusSuccess) {
+              return ListView.separated(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                itemCount: options.length + customOptions.length,
+                itemBuilder: (context, index) {
+                  if (customOptions.length > index) {
+                    return _Item(
+                      height: itemHeight,
+                      child: customOptions[index],
+                    );
+                  } else {
+                    return _AutoCompleteItem<T>(
+                      option: options.elementAt(index - customOptions.length),
+                      onSelected: onSelected,
+                      height: itemHeight + seperatorHeight,
+                    );
+                  }
+                },
+                separatorBuilder: (context, index) =>
+                    _Separator(seperatorHeight),
+              );
+            } else if (status is StatusFail) {
+              return _Error(
+                fail: status as StatusFail,
+                height: itemHeight,
+              );
+            } else {
+              return _Loading(
+                height: itemHeight,
+              );
+            }
+          }),
         ),
+      ),
+    );
+  }
+}
+
+class _Loading extends StatelessWidget {
+  const _Loading({
+    required this.height,
+  });
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+      child: const CircularProgressIndicator(),
+    );
+  }
+}
+
+class _Error extends StatelessWidget {
+  const _Error({
+    required this.fail,
+    required this.height,
+  });
+  final StatusFail fail;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+      child: const Icon(
+        Icons.warning_amber_rounded,
+        color: Colors.red,
       ),
     );
   }
