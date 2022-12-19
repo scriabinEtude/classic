@@ -1,4 +1,4 @@
-part of '../autocomplete.dart';
+part of '../app_autocomplete.dart';
 
 class _Separator extends StatelessWidget {
   const _Separator(this.height);

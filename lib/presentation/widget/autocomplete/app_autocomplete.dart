@@ -24,8 +24,8 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return RawAutocomplete<T>(
-        optionsBuilder: (textEditingValue) => options.where(
-            (option) => option.displayString.contains(textEditingValue.text)),
+        optionsBuilder: (textEditingValue) =>
+            options.where((option) => option.isMatch(textEditingValue.text)),
         displayStringForOption: (option) => option.displayString,
         fieldViewBuilder:
             (context, textEditingController, focusNode, onFieldSubmitted) {

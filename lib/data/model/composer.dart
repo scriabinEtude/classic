@@ -23,10 +23,18 @@ class Composer extends Autocompletable with _$Composer {
   factory Composer.fromJson(Map<String, dynamic> json) =>
       _$ComposerFromJson(json);
 
-  String get id => fullname.replaceAll(" ", "_");
+  String get id => engFullname.replaceAll(" ", "");
 
   @override
-  String get displayString => name;
+  String get displayString => "$name - $engFullname";
+
+  @override
+  bool isMatch(String inputText) {
+    return "$name$fullname$engName$engFullname"
+        .replaceAll(" ", "")
+        .toLowerCase()
+        .contains(inputText);
+  }
 
   static List<Composer> testSet() {
     return [

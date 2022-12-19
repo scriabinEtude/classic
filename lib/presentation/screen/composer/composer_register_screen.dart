@@ -3,6 +3,8 @@ import 'package:classic/bloc/composer/register/composer_register_event.dart';
 import 'package:classic/bloc/composer/register/composer_register_state.dart';
 import 'package:classic/common/imports.dart';
 import 'package:classic/common/object/status/status.dart';
+import 'package:classic/common/util/input_formatter/capitalize_input_formatter.dart';
+import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/composer.dart';
 
 class ComposerRegisterScreen extends StatefulWidget {
@@ -60,56 +62,91 @@ class _ComposerRegisterScreenState extends State<ComposerRegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('작곡가 추가'),
-        centerTitle: true,
-        actions: [_SubmitButton(onSubmit: onSubmit)],
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(
-                  label: Text('작곡가 이름 (한글)'),
-                  hintText: "쇼팽",
+    return BlocListener<ComposerRegisterBloc, ComposerRegisterState>(
+      listener: (context, state) {
+        state.status.whenOrNull(
+          success: (code) {
+            if (code == CODE_COMPOSER_REGISTER_SUCCESS) {
+              context.pop();
+            }
+          },
+        );
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('작곡가 추가'),
+          centerTitle: true,
+          actions: [_SubmitButton(onSubmit: onSubmit)],
+        ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const _ErrorText(),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    label: Text('작곡가 이름 (한글)'),
+                    hintText: "쇼팽",
+                  ),
+                  validator: (value) => korValidator(value, "작곡가 이름", "쇼팽"),
+                  onSaved: (newValue) => name = newValue!,
                 ),
-                validator: (value) => korValidator(value, "작곡가 이름", "쇼팽"),
-                onSaved: (newValue) => name = newValue!,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  label: Text('작곡가 성명 (한글)'),
-                  hintText: "프레데릭 프랑수아 쇼팽",
+                TextFormField(
+                  decoration: const InputDecoration(
+                    label: Text('작곡가 성명 (한글)'),
+                    hintText: "프레데릭 프랑수아 쇼팽",
+                  ),
+                  validator: (value) =>
+                      korValidator(value, "작곡가 성명", "프레데릭 프랑수아 쇼팽"),
+                  onSaved: (newValue) => fullname = newValue!,
                 ),
-                validator: (value) =>
-                    korValidator(value, "작곡가 성명", "프레데릭 프랑수아 쇼팽"),
-                onSaved: (newValue) => fullname = newValue!,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  label: Text('작곡가 이름 (영어)'),
-                  hintText: "Chopin",
+                TextFormField(
+                  decoration: const InputDecoration(
+                    label: Text('작곡가 이름 (영어)'),
+                    hintText: "Chopin",
+                  ),
+                  validator: (value) => engValidator(value, "작곡가 이름", "Chopin"),
+                  inputFormatters: [CapitalizeInputFormatter()],
+                  onSaved: (newValue) => engName = newValue!,
                 ),
-                validator: (value) => engValidator(value, "작곡가 이름", "Chopin"),
-                onSaved: (newValue) => engName = newValue!,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(
-                  label: Text('작곡가 성명 (영어)'),
-                  hintText: "Frederic Francois Chopin",
+                TextFormField(
+                  decoration: const InputDecoration(
+                    label: Text('작곡가 성명 (영어)'),
+                    hintText: "Frederic Francois Chopin",
+                  ),
+                  validator: (value) =>
+                      engValidator(value, "작곡가 성명", "Frederic Francois Chopin"),
+                  inputFormatters: [CapitalizeInputFormatter()],
+                  onSaved: (newValue) => engFullname = newValue!,
                 ),
-                validator: (value) =>
-                    engValidator(value, "작곡가 성명", "Frederic Francois Chopin"),
-                onSaved: (newValue) => engFullname = newValue!,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class _ErrorText extends StatelessWidget {
+  const _ErrorText();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocSelector<ComposerRegisterBloc, ComposerRegisterState, Status>(
+      selector: (state) => state.status,
+      builder: (context, status) {
+        if (status is StatusFail) {
+          return Text(
+            status.message!,
+            style: const TextStyle(color: Colors.red),
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
     );
   }
 }

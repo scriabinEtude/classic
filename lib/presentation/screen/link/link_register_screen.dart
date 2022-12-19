@@ -10,7 +10,7 @@ import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/composer.dart';
 import 'package:classic/presentation/screen/composer/composer_register_screen.dart';
 import 'package:classic/presentation/screen/link/components/link_widget.dart';
-import 'package:classic/presentation/widget/autocomplete/autocomplete.dart';
+import 'package:classic/presentation/widget/autocomplete/app_autocomplete.dart';
 import 'package:classic/presentation/widget/autocomplete/custom_options/custom_option_add.dart';
 
 class LinkRegisterScreen extends StatelessWidget {

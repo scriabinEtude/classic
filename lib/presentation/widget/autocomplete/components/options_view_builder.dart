@@ -1,4 +1,4 @@
-part of '../autocomplete.dart';
+part of '../app_autocomplete.dart';
 
 class _OptionsViewBuilder<T extends Autocompletable> extends StatelessWidget {
   const _OptionsViewBuilder({
