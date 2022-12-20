@@ -1,3 +1,4 @@
+import 'package:classic/common/object/logger/logger.dart';
 import 'package:dio/dio.dart';
 import 'package:classic/common/module/api/client.dart';
 import 'package:classic/common/module/api/client_dio/client_dio_interceptors.dart';
@@ -53,7 +54,7 @@ class ClientDio implements Client {
             response.statusCode ?? 500, response.statusMessage);
       }
     } catch (e) {
-      print(e);
+      l.el('clientdio postParser', e);
       return Result.failure(500, e.toString());
     }
   }

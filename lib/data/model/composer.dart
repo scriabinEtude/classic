@@ -1,3 +1,4 @@
+import 'package:classic/common/imports.dart';
 import 'package:classic/data/model/musical_form.dart';
 import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -31,9 +32,9 @@ class Composer extends Autocompletable with _$Composer {
   @override
   bool isMatch(String inputText) {
     return "$name$fullname$engName$engFullname"
-        .replaceAll(" ", "")
+        .replaceAll(r"[^가-힣a-zA-Z]", "")
         .toLowerCase()
-        .contains(inputText);
+        .contains(inputText.toLowerCase());
   }
 
   static List<Composer> testSet() {

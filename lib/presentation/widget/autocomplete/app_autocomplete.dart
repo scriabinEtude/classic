@@ -20,13 +20,19 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
   final List<T> options;
   final String label;
   final bool readOnly;
+
+  /// ### `@deprecated`
+  /// 검색 결과가 없으면 [customOptions]도 같이 보여지지 않는 문제가 있다.
+  /// [options]에 [Autocompletable]를 추가하여 사용하는 것을 권장한다.
+  ///
+  /// 검색 결과 외의 위젯을 자동완성에 추가한다.
   final List<Widget> customOptions;
   final Status? status;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      return RawAutocomplete<T>(
+      return Autocomplete<T>(
         optionsBuilder: (textEditingValue) =>
             options.where((option) => option.isMatch(textEditingValue.text)),
         displayStringForOption: (option) => option.displayString,

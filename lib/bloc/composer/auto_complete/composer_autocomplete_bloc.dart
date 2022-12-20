@@ -34,6 +34,7 @@ class ComposerAutoCompleteBloc
           ));
         },
         failure: (code, message) {
+          l.el('composer autocomplete _init failure', message);
           emit(state.copyWith(status: Status.fail()));
         },
       );

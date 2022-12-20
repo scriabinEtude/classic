@@ -20,8 +20,8 @@ class _OptionsViewBuilder<T extends Autocompletable> extends StatelessWidget {
   Widget build(BuildContext context) {
     final double itemHeight = 50.h;
     final double seperatorHeight = 0.5.h;
-
     final double totalHeight;
+    final int itemCount = options.length + customOptions.length;
 
     if (status is StatusSuccess) {
       totalHeight = (options.length + customOptions.length) * itemHeight + 10;
@@ -56,19 +56,31 @@ class _OptionsViewBuilder<T extends Autocompletable> extends StatelessWidget {
               return ListView.separated(
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
-                itemCount: options.length + customOptions.length,
+                itemCount: itemCount,
                 itemBuilder: (context, index) {
+                  final height = index == itemCount - 1
+                      ? itemHeight
+                      : itemHeight + seperatorHeight;
+
                   if (customOptions.length > index) {
                     return _Item(
-                      height: itemHeight,
+                      height: height,
                       child: customOptions[index],
                     );
                   } else {
-                    return _AutoCompleteItem<T>(
-                      option: options.elementAt(index - customOptions.length),
-                      onSelected: onSelected,
-                      height: itemHeight + seperatorHeight,
-                    );
+                    T option = options.elementAt(index - customOptions.length);
+                    if (option.displayWidget == null) {
+                      return _AutoCompleteItem<T>(
+                        option: option,
+                        onSelected: onSelected,
+                        height: height,
+                      );
+                    } else {
+                      return _Item(
+                        height: height,
+                        child: option.displayWidget!,
+                      );
+                    }
                   }
                 },
                 separatorBuilder: (context, index) =>

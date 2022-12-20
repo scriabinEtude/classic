@@ -8,7 +8,6 @@ import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/input_formatter/capitalize_input_formatter.dart';
 import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/composer.dart';
-import 'package:classic/presentation/screen/link/components/composer_autocomplete.dart';
 
 class ComposerRegisterScreen extends StatefulWidget {
   const ComposerRegisterScreen({super.key});

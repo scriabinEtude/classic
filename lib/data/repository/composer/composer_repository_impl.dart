@@ -21,13 +21,13 @@ class ComposerRepositoryImpl implements ComposerRepository {
       } else {
         await ref.set(composer.toJson());
         await client
-            .collection(COL_COMPOSER_AUTOCOMPLETE)
+            .collection(COL_COMPOSER_SEARCH)
             .doc(composer.id)
             .set(composer.toJson());
         return Success(null);
       }
     } catch (e) {
-      l.el('ComposerRegisterRepositoryImpl register catch', e);
+      l.el('ComposerRepositoryImpl register catch', e);
       if (e is Failure) rethrow;
       throw Failure(Result.CODE_FAILURE, '작곡가 등록에 실패하였습니다');
     }
@@ -37,9 +37,10 @@ class ComposerRepositoryImpl implements ComposerRepository {
   Future<Result<List<Composer>>> getAllAutocomplete() async {
     try {
       QuerySnapshot<Map<String, dynamic>> snapshot =
-          await client.collection(COL_COMPOSER_AUTOCOMPLETE).get();
+          await client.collection(COL_COMPOSER_SEARCH).get();
       return Result.success(snapshot.toModels(Composer.fromJson));
     } catch (e) {
+      l.el('ComposerRepositoryImpl getAllAutocomplete catch', e);
       return Result.failure(Result.CODE_FAILURE, "작곡가 검색을 실패하였습니다");
     }
   }

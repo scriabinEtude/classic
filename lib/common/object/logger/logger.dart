@@ -27,4 +27,13 @@ class Logger extends flutter_logger.Logger {
   ]) {
     super.e("$label => $message", error, stackTrace);
   }
+
+  void il(
+    String label,
+    dynamic message, [
+    dynamic error,
+    StackTrace? stackTrace,
+  ]) {
+    super.i("$label => $message", error, stackTrace);
+  }
 }
