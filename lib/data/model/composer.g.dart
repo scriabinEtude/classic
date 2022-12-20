@@ -23,11 +23,10 @@ _$_Composer _$$_ComposerFromJson(Map<String, dynamic> json) => _$_Composer(
               .toList() ??
           const [],
       createdAt: DateTime.parse(json['createdAt'] as String),
-    )..displayString = json['displayString'] as String;
+    );
 
 Map<String, dynamic> _$$_ComposerToJson(_$_Composer instance) =>
     <String, dynamic>{
-      'displayString': instance.displayString,
       'name': instance.name,
       'fullname': instance.fullname,
       'engName': instance.engName,

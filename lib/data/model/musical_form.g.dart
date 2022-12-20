@@ -9,6 +9,7 @@ part of 'musical_form.dart';
 _$_MusicalForm _$$_MusicalFormFromJson(Map<String, dynamic> json) =>
     _$_MusicalForm(
       name: json['name'] as String,
+      engName: json['engName'] as String,
       musics: (json['musics'] as List<dynamic>?)
               ?.map((e) => Music.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -18,5 +19,6 @@ _$_MusicalForm _$$_MusicalFormFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_MusicalFormToJson(_$_MusicalForm instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'engName': instance.engName,
       'musics': instance.musics.map((e) => e.toJson()).toList(),
     };

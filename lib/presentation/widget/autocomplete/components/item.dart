@@ -18,7 +18,7 @@ class _AutoCompleteItem<T extends Autocompletable> extends StatelessWidget {
       onTap: () => onSelected(option),
       child: _Item(
         height: height,
-        child: Text(option.displayString),
+        child: Text(option.displayString()),
       ),
     );
   }

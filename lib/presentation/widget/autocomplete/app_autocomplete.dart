@@ -14,6 +14,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
     this.readOnly = false,
     this.customOptions = const [],
     this.status,
+    this.onSelected,
     Key? key,
   }) : super(key: key);
 
@@ -28,6 +29,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
   /// 검색 결과 외의 위젯을 자동완성에 추가한다.
   final List<Widget> customOptions;
   final Status? status;
+  final void Function(T)? onSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
       return Autocomplete<T>(
         optionsBuilder: (textEditingValue) =>
             options.where((option) => option.isMatch(textEditingValue.text)),
-        displayStringForOption: (option) => option.displayString,
+        displayStringForOption: (option) => option.displayString(),
         fieldViewBuilder:
             (context, textEditingController, focusNode, onFieldSubmitted) {
           return TextFormField(
@@ -50,6 +52,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
             ),
           );
         },
+        onSelected: onSelected,
         optionsViewBuilder: (context, onSelected, options) =>
             _OptionsViewBuilder<T>(
           onSelected: onSelected,

@@ -7,11 +7,11 @@ import 'package:flutter/material.dart';
 /// subClass에서 displayString를 override한다.
 abstract class Autocompletable {
   /// ### 목록에 보여지게될 문자열
-  String displayString = 'do override this';
+  String displayString();
 
   /// ### 없으면 [displayString] 값으로 배치된다.
   /// ### 있으면 위젯이 보여진다.
-  Widget? displayWidget;
+  Widget? displayWidget();
 
   /// ### `true`일 때 검색 결과로 보여준다.
   bool isMatch(String inputText);

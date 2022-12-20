@@ -69,7 +69,7 @@ class _OptionsViewBuilder<T extends Autocompletable> extends StatelessWidget {
                     );
                   } else {
                     T option = options.elementAt(index - customOptions.length);
-                    if (option.displayWidget == null) {
+                    if (option.displayWidget() == null) {
                       return _AutoCompleteItem<T>(
                         option: option,
                         onSelected: onSelected,
@@ -78,7 +78,7 @@ class _OptionsViewBuilder<T extends Autocompletable> extends StatelessWidget {
                     } else {
                       return _Item(
                         height: height,
-                        child: option.displayWidget!,
+                        child: option.displayWidget()!,
                       );
                     }
                   }

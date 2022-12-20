@@ -16,42 +16,49 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ComposerRegisterEvent {
-  Composer get composer => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Composer composer) register,
+    required TResult Function(String composerId, MusicalForm musicalForm)
+        registerMusicalForm,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Composer composer)? register,
+    TResult? Function(String composerId, MusicalForm musicalForm)?
+        registerMusicalForm,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Composer composer)? register,
+    TResult Function(String composerId, MusicalForm musicalForm)?
+        registerMusicalForm,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ComposerRegisterEventRegister value) register,
+    required TResult Function(ComposerRegisterEventRegisterMusicalForm value)
+        registerMusicalForm,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ComposerRegisterEventRegister value)? register,
+    TResult? Function(ComposerRegisterEventRegisterMusicalForm value)?
+        registerMusicalForm,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ComposerRegisterEventRegister value)? register,
+    TResult Function(ComposerRegisterEventRegisterMusicalForm value)?
+        registerMusicalForm,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $ComposerRegisterEventCopyWith<ComposerRegisterEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,10 +67,6 @@ abstract class $ComposerRegisterEventCopyWith<$Res> {
   factory $ComposerRegisterEventCopyWith(ComposerRegisterEvent value,
           $Res Function(ComposerRegisterEvent) then) =
       _$ComposerRegisterEventCopyWithImpl<$Res, ComposerRegisterEvent>;
-  @useResult
-  $Res call({Composer composer});
-
-  $ComposerCopyWith<$Res> get composer;
 }
 
 /// @nodoc
@@ -76,41 +79,17 @@ class _$ComposerRegisterEventCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? composer = null,
-  }) {
-    return _then(_value.copyWith(
-      composer: null == composer
-          ? _value.composer
-          : composer // ignore: cast_nullable_to_non_nullable
-              as Composer,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ComposerCopyWith<$Res> get composer {
-    return $ComposerCopyWith<$Res>(_value.composer, (value) {
-      return _then(_value.copyWith(composer: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$ComposerRegisterEventRegisterCopyWith<$Res>
-    implements $ComposerRegisterEventCopyWith<$Res> {
+abstract class _$$ComposerRegisterEventRegisterCopyWith<$Res> {
   factory _$$ComposerRegisterEventRegisterCopyWith(
           _$ComposerRegisterEventRegister value,
           $Res Function(_$ComposerRegisterEventRegister) then) =
       __$$ComposerRegisterEventRegisterCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({Composer composer});
 
-  @override
   $ComposerCopyWith<$Res> get composer;
 }
 
@@ -135,6 +114,14 @@ class __$$ComposerRegisterEventRegisterCopyWithImpl<$Res>
           : composer // ignore: cast_nullable_to_non_nullable
               as Composer,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ComposerCopyWith<$Res> get composer {
+    return $ComposerCopyWith<$Res>(_value.composer, (value) {
+      return _then(_value.copyWith(composer: value));
+    });
   }
 }
 
@@ -174,6 +161,8 @@ class _$ComposerRegisterEventRegister implements ComposerRegisterEventRegister {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Composer composer) register,
+    required TResult Function(String composerId, MusicalForm musicalForm)
+        registerMusicalForm,
   }) {
     return register(composer);
   }
@@ -182,6 +171,8 @@ class _$ComposerRegisterEventRegister implements ComposerRegisterEventRegister {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Composer composer)? register,
+    TResult? Function(String composerId, MusicalForm musicalForm)?
+        registerMusicalForm,
   }) {
     return register?.call(composer);
   }
@@ -190,6 +181,8 @@ class _$ComposerRegisterEventRegister implements ComposerRegisterEventRegister {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Composer composer)? register,
+    TResult Function(String composerId, MusicalForm musicalForm)?
+        registerMusicalForm,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -202,6 +195,8 @@ class _$ComposerRegisterEventRegister implements ComposerRegisterEventRegister {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ComposerRegisterEventRegister value) register,
+    required TResult Function(ComposerRegisterEventRegisterMusicalForm value)
+        registerMusicalForm,
   }) {
     return register(this);
   }
@@ -210,6 +205,8 @@ class _$ComposerRegisterEventRegister implements ComposerRegisterEventRegister {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ComposerRegisterEventRegister value)? register,
+    TResult? Function(ComposerRegisterEventRegisterMusicalForm value)?
+        registerMusicalForm,
   }) {
     return register?.call(this);
   }
@@ -218,6 +215,8 @@ class _$ComposerRegisterEventRegister implements ComposerRegisterEventRegister {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ComposerRegisterEventRegister value)? register,
+    TResult Function(ComposerRegisterEventRegisterMusicalForm value)?
+        registerMusicalForm,
     required TResult orElse(),
   }) {
     if (register != null) {
@@ -231,10 +230,178 @@ abstract class ComposerRegisterEventRegister implements ComposerRegisterEvent {
   factory ComposerRegisterEventRegister(final Composer composer) =
       _$ComposerRegisterEventRegister;
 
-  @override
   Composer get composer;
-  @override
   @JsonKey(ignore: true)
   _$$ComposerRegisterEventRegisterCopyWith<_$ComposerRegisterEventRegister>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ComposerRegisterEventRegisterMusicalFormCopyWith<$Res> {
+  factory _$$ComposerRegisterEventRegisterMusicalFormCopyWith(
+          _$ComposerRegisterEventRegisterMusicalForm value,
+          $Res Function(_$ComposerRegisterEventRegisterMusicalForm) then) =
+      __$$ComposerRegisterEventRegisterMusicalFormCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String composerId, MusicalForm musicalForm});
+
+  $MusicalFormCopyWith<$Res> get musicalForm;
+}
+
+/// @nodoc
+class __$$ComposerRegisterEventRegisterMusicalFormCopyWithImpl<$Res>
+    extends _$ComposerRegisterEventCopyWithImpl<$Res,
+        _$ComposerRegisterEventRegisterMusicalForm>
+    implements _$$ComposerRegisterEventRegisterMusicalFormCopyWith<$Res> {
+  __$$ComposerRegisterEventRegisterMusicalFormCopyWithImpl(
+      _$ComposerRegisterEventRegisterMusicalForm _value,
+      $Res Function(_$ComposerRegisterEventRegisterMusicalForm) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? composerId = null,
+    Object? musicalForm = null,
+  }) {
+    return _then(_$ComposerRegisterEventRegisterMusicalForm(
+      null == composerId
+          ? _value.composerId
+          : composerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == musicalForm
+          ? _value.musicalForm
+          : musicalForm // ignore: cast_nullable_to_non_nullable
+              as MusicalForm,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MusicalFormCopyWith<$Res> get musicalForm {
+    return $MusicalFormCopyWith<$Res>(_value.musicalForm, (value) {
+      return _then(_value.copyWith(musicalForm: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ComposerRegisterEventRegisterMusicalForm
+    implements ComposerRegisterEventRegisterMusicalForm {
+  _$ComposerRegisterEventRegisterMusicalForm(this.composerId, this.musicalForm);
+
+  @override
+  final String composerId;
+  @override
+  final MusicalForm musicalForm;
+
+  @override
+  String toString() {
+    return 'ComposerRegisterEvent.registerMusicalForm(composerId: $composerId, musicalForm: $musicalForm)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ComposerRegisterEventRegisterMusicalForm &&
+            (identical(other.composerId, composerId) ||
+                other.composerId == composerId) &&
+            (identical(other.musicalForm, musicalForm) ||
+                other.musicalForm == musicalForm));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, composerId, musicalForm);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ComposerRegisterEventRegisterMusicalFormCopyWith<
+          _$ComposerRegisterEventRegisterMusicalForm>
+      get copyWith => __$$ComposerRegisterEventRegisterMusicalFormCopyWithImpl<
+          _$ComposerRegisterEventRegisterMusicalForm>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Composer composer) register,
+    required TResult Function(String composerId, MusicalForm musicalForm)
+        registerMusicalForm,
+  }) {
+    return registerMusicalForm(composerId, musicalForm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Composer composer)? register,
+    TResult? Function(String composerId, MusicalForm musicalForm)?
+        registerMusicalForm,
+  }) {
+    return registerMusicalForm?.call(composerId, musicalForm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Composer composer)? register,
+    TResult Function(String composerId, MusicalForm musicalForm)?
+        registerMusicalForm,
+    required TResult orElse(),
+  }) {
+    if (registerMusicalForm != null) {
+      return registerMusicalForm(composerId, musicalForm);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ComposerRegisterEventRegister value) register,
+    required TResult Function(ComposerRegisterEventRegisterMusicalForm value)
+        registerMusicalForm,
+  }) {
+    return registerMusicalForm(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ComposerRegisterEventRegister value)? register,
+    TResult? Function(ComposerRegisterEventRegisterMusicalForm value)?
+        registerMusicalForm,
+  }) {
+    return registerMusicalForm?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ComposerRegisterEventRegister value)? register,
+    TResult Function(ComposerRegisterEventRegisterMusicalForm value)?
+        registerMusicalForm,
+    required TResult orElse(),
+  }) {
+    if (registerMusicalForm != null) {
+      return registerMusicalForm(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ComposerRegisterEventRegisterMusicalForm
+    implements ComposerRegisterEvent {
+  factory ComposerRegisterEventRegisterMusicalForm(
+          final String composerId, final MusicalForm musicalForm) =
+      _$ComposerRegisterEventRegisterMusicalForm;
+
+  String get composerId;
+  MusicalForm get musicalForm;
+  @JsonKey(ignore: true)
+  _$$ComposerRegisterEventRegisterMusicalFormCopyWith<
+          _$ComposerRegisterEventRegisterMusicalForm>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -21,6 +21,7 @@ MusicalForm _$MusicalFormFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MusicalForm {
   String get name => throw _privateConstructorUsedError;
+  String get engName => throw _privateConstructorUsedError;
   List<Music> get musics => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +36,7 @@ abstract class $MusicalFormCopyWith<$Res> {
           MusicalForm value, $Res Function(MusicalForm) then) =
       _$MusicalFormCopyWithImpl<$Res, MusicalForm>;
   @useResult
-  $Res call({String name, List<Music> musics});
+  $Res call({String name, String engName, List<Music> musics});
 }
 
 /// @nodoc
@@ -52,12 +53,17 @@ class _$MusicalFormCopyWithImpl<$Res, $Val extends MusicalForm>
   @override
   $Res call({
     Object? name = null,
+    Object? engName = null,
     Object? musics = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      engName: null == engName
+          ? _value.engName
+          : engName // ignore: cast_nullable_to_non_nullable
               as String,
       musics: null == musics
           ? _value.musics
@@ -75,7 +81,7 @@ abstract class _$$_MusicalFormCopyWith<$Res>
       __$$_MusicalFormCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, List<Music> musics});
+  $Res call({String name, String engName, List<Music> musics});
 }
 
 /// @nodoc
@@ -90,12 +96,17 @@ class __$$_MusicalFormCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
+    Object? engName = null,
     Object? musics = null,
   }) {
     return _then(_$_MusicalForm(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      engName: null == engName
+          ? _value.engName
+          : engName // ignore: cast_nullable_to_non_nullable
               as String,
       musics: null == musics
           ? _value._musics
@@ -107,15 +118,21 @@ class __$$_MusicalFormCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_MusicalForm implements _MusicalForm {
-  _$_MusicalForm({required this.name, final List<Music> musics = const []})
-      : _musics = musics;
+class _$_MusicalForm extends _MusicalForm {
+  _$_MusicalForm(
+      {required this.name,
+      required this.engName,
+      final List<Music> musics = const []})
+      : _musics = musics,
+        super._();
 
   factory _$_MusicalForm.fromJson(Map<String, dynamic> json) =>
       _$$_MusicalFormFromJson(json);
 
   @override
   final String name;
+  @override
+  final String engName;
   final List<Music> _musics;
   @override
   @JsonKey()
@@ -126,7 +143,7 @@ class _$_MusicalForm implements _MusicalForm {
 
   @override
   String toString() {
-    return 'MusicalForm(name: $name, musics: $musics)';
+    return 'MusicalForm(name: $name, engName: $engName, musics: $musics)';
   }
 
   @override
@@ -135,13 +152,14 @@ class _$_MusicalForm implements _MusicalForm {
         (other.runtimeType == runtimeType &&
             other is _$_MusicalForm &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.engName, engName) || other.engName == engName) &&
             const DeepCollectionEquality().equals(other._musics, _musics));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, name, const DeepCollectionEquality().hash(_musics));
+      runtimeType, name, engName, const DeepCollectionEquality().hash(_musics));
 
   @JsonKey(ignore: true)
   @override
@@ -157,15 +175,20 @@ class _$_MusicalForm implements _MusicalForm {
   }
 }
 
-abstract class _MusicalForm implements MusicalForm {
-  factory _MusicalForm({required final String name, final List<Music> musics}) =
-      _$_MusicalForm;
+abstract class _MusicalForm extends MusicalForm {
+  factory _MusicalForm(
+      {required final String name,
+      required final String engName,
+      final List<Music> musics}) = _$_MusicalForm;
+  _MusicalForm._() : super._();
 
   factory _MusicalForm.fromJson(Map<String, dynamic> json) =
       _$_MusicalForm.fromJson;
 
   @override
   String get name;
+  @override
+  String get engName;
   @override
   List<Music> get musics;
   @override

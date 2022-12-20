@@ -7,7 +7,7 @@ part 'composer.freezed.dart';
 part 'composer.g.dart';
 
 @freezed
-class Composer extends Autocompletable with _$Composer {
+class Composer with _$Composer, Autocompletable {
   Composer._();
 
   factory Composer({
@@ -27,7 +27,10 @@ class Composer extends Autocompletable with _$Composer {
   String get id => engFullname.replaceAll(" ", "");
 
   @override
-  String get displayString => "$name - $engFullname";
+  String displayString() => "$name - $engFullname";
+
+  @override
+  Widget? displayWidget() => null;
 
   @override
   bool isMatch(String inputText) {

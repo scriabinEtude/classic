@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ComposerAutoCompleteState {
   Status get status => throw _privateConstructorUsedError;
   List<Composer> get composers => throw _privateConstructorUsedError;
+  Composer? get composer => throw _privateConstructorUsedError;
+  MusicalForm? get musicalForm => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ComposerAutoCompleteStateCopyWith<ComposerAutoCompleteState> get copyWith =>
@@ -30,9 +32,15 @@ abstract class $ComposerAutoCompleteStateCopyWith<$Res> {
           $Res Function(ComposerAutoCompleteState) then) =
       _$ComposerAutoCompleteStateCopyWithImpl<$Res, ComposerAutoCompleteState>;
   @useResult
-  $Res call({Status status, List<Composer> composers});
+  $Res call(
+      {Status status,
+      List<Composer> composers,
+      Composer? composer,
+      MusicalForm? musicalForm});
 
   $StatusCopyWith<$Res> get status;
+  $ComposerCopyWith<$Res>? get composer;
+  $MusicalFormCopyWith<$Res>? get musicalForm;
 }
 
 /// @nodoc
@@ -51,6 +59,8 @@ class _$ComposerAutoCompleteStateCopyWithImpl<$Res,
   $Res call({
     Object? status = null,
     Object? composers = null,
+    Object? composer = freezed,
+    Object? musicalForm = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -61,6 +71,14 @@ class _$ComposerAutoCompleteStateCopyWithImpl<$Res,
           ? _value.composers
           : composers // ignore: cast_nullable_to_non_nullable
               as List<Composer>,
+      composer: freezed == composer
+          ? _value.composer
+          : composer // ignore: cast_nullable_to_non_nullable
+              as Composer?,
+      musicalForm: freezed == musicalForm
+          ? _value.musicalForm
+          : musicalForm // ignore: cast_nullable_to_non_nullable
+              as MusicalForm?,
     ) as $Val);
   }
 
@@ -69,6 +87,30 @@ class _$ComposerAutoCompleteStateCopyWithImpl<$Res,
   $StatusCopyWith<$Res> get status {
     return $StatusCopyWith<$Res>(_value.status, (value) {
       return _then(_value.copyWith(status: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ComposerCopyWith<$Res>? get composer {
+    if (_value.composer == null) {
+      return null;
+    }
+
+    return $ComposerCopyWith<$Res>(_value.composer!, (value) {
+      return _then(_value.copyWith(composer: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MusicalFormCopyWith<$Res>? get musicalForm {
+    if (_value.musicalForm == null) {
+      return null;
+    }
+
+    return $MusicalFormCopyWith<$Res>(_value.musicalForm!, (value) {
+      return _then(_value.copyWith(musicalForm: value) as $Val);
     });
   }
 }
@@ -82,10 +124,18 @@ abstract class _$$_ComposerAutoCompleteStateCopyWith<$Res>
       __$$_ComposerAutoCompleteStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status, List<Composer> composers});
+  $Res call(
+      {Status status,
+      List<Composer> composers,
+      Composer? composer,
+      MusicalForm? musicalForm});
 
   @override
   $StatusCopyWith<$Res> get status;
+  @override
+  $ComposerCopyWith<$Res>? get composer;
+  @override
+  $MusicalFormCopyWith<$Res>? get musicalForm;
 }
 
 /// @nodoc
@@ -103,6 +153,8 @@ class __$$_ComposerAutoCompleteStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? composers = null,
+    Object? composer = freezed,
+    Object? musicalForm = freezed,
   }) {
     return _then(_$_ComposerAutoCompleteState(
       status: null == status
@@ -113,6 +165,14 @@ class __$$_ComposerAutoCompleteStateCopyWithImpl<$Res>
           ? _value._composers
           : composers // ignore: cast_nullable_to_non_nullable
               as List<Composer>,
+      composer: freezed == composer
+          ? _value.composer
+          : composer // ignore: cast_nullable_to_non_nullable
+              as Composer?,
+      musicalForm: freezed == musicalForm
+          ? _value.musicalForm
+          : musicalForm // ignore: cast_nullable_to_non_nullable
+              as MusicalForm?,
     ));
   }
 }
@@ -121,7 +181,10 @@ class __$$_ComposerAutoCompleteStateCopyWithImpl<$Res>
 
 class _$_ComposerAutoCompleteState implements _ComposerAutoCompleteState {
   _$_ComposerAutoCompleteState(
-      {required this.status, final List<Composer> composers = const []})
+      {required this.status,
+      final List<Composer> composers = const [],
+      this.composer,
+      this.musicalForm})
       : _composers = composers;
 
   @override
@@ -135,8 +198,13 @@ class _$_ComposerAutoCompleteState implements _ComposerAutoCompleteState {
   }
 
   @override
+  final Composer? composer;
+  @override
+  final MusicalForm? musicalForm;
+
+  @override
   String toString() {
-    return 'ComposerAutoCompleteState(status: $status, composers: $composers)';
+    return 'ComposerAutoCompleteState(status: $status, composers: $composers, composer: $composer, musicalForm: $musicalForm)';
   }
 
   @override
@@ -146,12 +214,16 @@ class _$_ComposerAutoCompleteState implements _ComposerAutoCompleteState {
             other is _$_ComposerAutoCompleteState &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
-                .equals(other._composers, _composers));
+                .equals(other._composers, _composers) &&
+            (identical(other.composer, composer) ||
+                other.composer == composer) &&
+            (identical(other.musicalForm, musicalForm) ||
+                other.musicalForm == musicalForm));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, status, const DeepCollectionEquality().hash(_composers));
+  int get hashCode => Object.hash(runtimeType, status,
+      const DeepCollectionEquality().hash(_composers), composer, musicalForm);
 
   @JsonKey(ignore: true)
   @override
@@ -164,12 +236,18 @@ class _$_ComposerAutoCompleteState implements _ComposerAutoCompleteState {
 abstract class _ComposerAutoCompleteState implements ComposerAutoCompleteState {
   factory _ComposerAutoCompleteState(
       {required final Status status,
-      final List<Composer> composers}) = _$_ComposerAutoCompleteState;
+      final List<Composer> composers,
+      final Composer? composer,
+      final MusicalForm? musicalForm}) = _$_ComposerAutoCompleteState;
 
   @override
   Status get status;
   @override
   List<Composer> get composers;
+  @override
+  Composer? get composer;
+  @override
+  MusicalForm? get musicalForm;
   @override
   @JsonKey(ignore: true)
   _$$_ComposerAutoCompleteStateCopyWith<_$_ComposerAutoCompleteState>

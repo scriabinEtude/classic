@@ -2,17 +2,17 @@ import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_bloc.d
 import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_event.dart';
 import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_state.dart';
 import 'package:classic/common/imports.dart';
-import 'package:classic/data/model/composer.dart';
-import 'package:classic/presentation/screen/composer/composer_register_screen.dart';
+import 'package:classic/data/model/musical_form.dart';
 import 'package:classic/presentation/widget/autocomplete/app_autocomplete.dart';
 import 'package:classic/presentation/widget/autocomplete/custom_options/custom_option_add.dart';
 import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
 
-class ComposerAutoComplete extends StatelessWidget {
-  const ComposerAutoComplete({super.key});
+class MusicalFormAutoComplete extends StatelessWidget {
+  const MusicalFormAutoComplete({super.key});
 
-  pushComposerRegisterScreen(BuildContext context) {
-    context.pushNamed(ComposerRegisterScreen.routeName);
+  pushComposerRegisterScreen(
+      BuildContext context, ComposerAutoCompleteState state) {
+    context.push('/composer/${state.composer!.id}/musicalform/register');
   }
 
   @override
@@ -20,19 +20,19 @@ class ComposerAutoComplete extends StatelessWidget {
     return BlocBuilder<ComposerAutoCompleteBloc, ComposerAutoCompleteState>(
       builder: (context, state) {
         return AppAutoComplete<Autocompletable>(
-          label: "작곡가",
+          label: "형식",
           options: [
             CustomOptionIconAndText(
-              onSelect: () => pushComposerRegisterScreen(context),
-              text: "작곡가 추가",
+              onSelect: () => pushComposerRegisterScreen(context, state),
+              text: "형식 추가",
             ),
-            ...state.composers
+            if (state.composer != null) ...state.composer!.musicalForms,
           ],
           status: state.status,
-          onSelected: (composer) {
-            if (composer is Composer) {
+          onSelected: (form) {
+            if (form is MusicalForm) {
               BlocProvider.of<ComposerAutoCompleteBloc>(context)
-                  .add(ComposerAutoCompleteEvent.select(composer));
+                  .add(ComposerAutoCompleteEvent.selectMusicalForm(form));
             }
           },
         );

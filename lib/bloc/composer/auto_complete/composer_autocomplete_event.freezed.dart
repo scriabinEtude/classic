@@ -20,18 +20,30 @@ mixin _$ComposerAutoCompleteEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(Composer composer) add,
+    required TResult Function(Composer composer) select,
+    required TResult Function(MusicalForm musicalForm) selectMusicalForm,
+    required TResult Function(String composerId, MusicalForm musicalForm)
+        updateMusicalForm,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(Composer composer)? add,
+    TResult? Function(Composer composer)? select,
+    TResult? Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult? Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(Composer composer)? add,
+    TResult Function(Composer composer)? select,
+    TResult Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +51,33 @@ mixin _$ComposerAutoCompleteEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(ComposerAutoCompleteEventInit value) init,
     required TResult Function(ComposerAutoCompleteEventAdd value) add,
+    required TResult Function(ComposerAutoCompleteEventSelect value) select,
+    required TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)
+        selectMusicalForm,
+    required TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)
+        updateMusicalForm,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ComposerAutoCompleteEventInit value)? init,
     TResult? Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult? Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult? Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult? Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ComposerAutoCompleteEventInit value)? init,
     TResult Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,6 +146,10 @@ class _$ComposerAutoCompleteEventInit implements ComposerAutoCompleteEventInit {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(Composer composer) add,
+    required TResult Function(Composer composer) select,
+    required TResult Function(MusicalForm musicalForm) selectMusicalForm,
+    required TResult Function(String composerId, MusicalForm musicalForm)
+        updateMusicalForm,
   }) {
     return init();
   }
@@ -128,6 +159,10 @@ class _$ComposerAutoCompleteEventInit implements ComposerAutoCompleteEventInit {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(Composer composer)? add,
+    TResult? Function(Composer composer)? select,
+    TResult? Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult? Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
   }) {
     return init?.call();
   }
@@ -137,6 +172,10 @@ class _$ComposerAutoCompleteEventInit implements ComposerAutoCompleteEventInit {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(Composer composer)? add,
+    TResult Function(Composer composer)? select,
+    TResult Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -150,6 +189,11 @@ class _$ComposerAutoCompleteEventInit implements ComposerAutoCompleteEventInit {
   TResult map<TResult extends Object?>({
     required TResult Function(ComposerAutoCompleteEventInit value) init,
     required TResult Function(ComposerAutoCompleteEventAdd value) add,
+    required TResult Function(ComposerAutoCompleteEventSelect value) select,
+    required TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)
+        selectMusicalForm,
+    required TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)
+        updateMusicalForm,
   }) {
     return init(this);
   }
@@ -159,6 +203,11 @@ class _$ComposerAutoCompleteEventInit implements ComposerAutoCompleteEventInit {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ComposerAutoCompleteEventInit value)? init,
     TResult? Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult? Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult? Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult? Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
   }) {
     return init?.call(this);
   }
@@ -168,6 +217,11 @@ class _$ComposerAutoCompleteEventInit implements ComposerAutoCompleteEventInit {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ComposerAutoCompleteEventInit value)? init,
     TResult Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
     required TResult orElse(),
   }) {
     if (init != null) {
@@ -263,6 +317,10 @@ class _$ComposerAutoCompleteEventAdd implements ComposerAutoCompleteEventAdd {
   TResult when<TResult extends Object?>({
     required TResult Function() init,
     required TResult Function(Composer composer) add,
+    required TResult Function(Composer composer) select,
+    required TResult Function(MusicalForm musicalForm) selectMusicalForm,
+    required TResult Function(String composerId, MusicalForm musicalForm)
+        updateMusicalForm,
   }) {
     return add(composer);
   }
@@ -272,6 +330,10 @@ class _$ComposerAutoCompleteEventAdd implements ComposerAutoCompleteEventAdd {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
     TResult? Function(Composer composer)? add,
+    TResult? Function(Composer composer)? select,
+    TResult? Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult? Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
   }) {
     return add?.call(composer);
   }
@@ -281,6 +343,10 @@ class _$ComposerAutoCompleteEventAdd implements ComposerAutoCompleteEventAdd {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
     TResult Function(Composer composer)? add,
+    TResult Function(Composer composer)? select,
+    TResult Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
     required TResult orElse(),
   }) {
     if (add != null) {
@@ -294,6 +360,11 @@ class _$ComposerAutoCompleteEventAdd implements ComposerAutoCompleteEventAdd {
   TResult map<TResult extends Object?>({
     required TResult Function(ComposerAutoCompleteEventInit value) init,
     required TResult Function(ComposerAutoCompleteEventAdd value) add,
+    required TResult Function(ComposerAutoCompleteEventSelect value) select,
+    required TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)
+        selectMusicalForm,
+    required TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)
+        updateMusicalForm,
   }) {
     return add(this);
   }
@@ -303,6 +374,11 @@ class _$ComposerAutoCompleteEventAdd implements ComposerAutoCompleteEventAdd {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ComposerAutoCompleteEventInit value)? init,
     TResult? Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult? Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult? Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult? Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
   }) {
     return add?.call(this);
   }
@@ -312,6 +388,11 @@ class _$ComposerAutoCompleteEventAdd implements ComposerAutoCompleteEventAdd {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ComposerAutoCompleteEventInit value)? init,
     TResult Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
     required TResult orElse(),
   }) {
     if (add != null) {
@@ -329,5 +410,558 @@ abstract class ComposerAutoCompleteEventAdd
   Composer get composer;
   @JsonKey(ignore: true)
   _$$ComposerAutoCompleteEventAddCopyWith<_$ComposerAutoCompleteEventAdd>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ComposerAutoCompleteEventSelectCopyWith<$Res> {
+  factory _$$ComposerAutoCompleteEventSelectCopyWith(
+          _$ComposerAutoCompleteEventSelect value,
+          $Res Function(_$ComposerAutoCompleteEventSelect) then) =
+      __$$ComposerAutoCompleteEventSelectCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Composer composer});
+
+  $ComposerCopyWith<$Res> get composer;
+}
+
+/// @nodoc
+class __$$ComposerAutoCompleteEventSelectCopyWithImpl<$Res>
+    extends _$ComposerAutoCompleteEventCopyWithImpl<$Res,
+        _$ComposerAutoCompleteEventSelect>
+    implements _$$ComposerAutoCompleteEventSelectCopyWith<$Res> {
+  __$$ComposerAutoCompleteEventSelectCopyWithImpl(
+      _$ComposerAutoCompleteEventSelect _value,
+      $Res Function(_$ComposerAutoCompleteEventSelect) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? composer = null,
+  }) {
+    return _then(_$ComposerAutoCompleteEventSelect(
+      null == composer
+          ? _value.composer
+          : composer // ignore: cast_nullable_to_non_nullable
+              as Composer,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ComposerCopyWith<$Res> get composer {
+    return $ComposerCopyWith<$Res>(_value.composer, (value) {
+      return _then(_value.copyWith(composer: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ComposerAutoCompleteEventSelect
+    implements ComposerAutoCompleteEventSelect {
+  _$ComposerAutoCompleteEventSelect(this.composer);
+
+  @override
+  final Composer composer;
+
+  @override
+  String toString() {
+    return 'ComposerAutoCompleteEvent.select(composer: $composer)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ComposerAutoCompleteEventSelect &&
+            (identical(other.composer, composer) ||
+                other.composer == composer));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, composer);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ComposerAutoCompleteEventSelectCopyWith<_$ComposerAutoCompleteEventSelect>
+      get copyWith => __$$ComposerAutoCompleteEventSelectCopyWithImpl<
+          _$ComposerAutoCompleteEventSelect>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function(Composer composer) add,
+    required TResult Function(Composer composer) select,
+    required TResult Function(MusicalForm musicalForm) selectMusicalForm,
+    required TResult Function(String composerId, MusicalForm musicalForm)
+        updateMusicalForm,
+  }) {
+    return select(composer);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function(Composer composer)? add,
+    TResult? Function(Composer composer)? select,
+    TResult? Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult? Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
+  }) {
+    return select?.call(composer);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(Composer composer)? add,
+    TResult Function(Composer composer)? select,
+    TResult Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
+    required TResult orElse(),
+  }) {
+    if (select != null) {
+      return select(composer);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ComposerAutoCompleteEventInit value) init,
+    required TResult Function(ComposerAutoCompleteEventAdd value) add,
+    required TResult Function(ComposerAutoCompleteEventSelect value) select,
+    required TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)
+        selectMusicalForm,
+    required TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)
+        updateMusicalForm,
+  }) {
+    return select(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ComposerAutoCompleteEventInit value)? init,
+    TResult? Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult? Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult? Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult? Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
+  }) {
+    return select?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ComposerAutoCompleteEventInit value)? init,
+    TResult Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
+    required TResult orElse(),
+  }) {
+    if (select != null) {
+      return select(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ComposerAutoCompleteEventSelect
+    implements ComposerAutoCompleteEvent {
+  factory ComposerAutoCompleteEventSelect(final Composer composer) =
+      _$ComposerAutoCompleteEventSelect;
+
+  Composer get composer;
+  @JsonKey(ignore: true)
+  _$$ComposerAutoCompleteEventSelectCopyWith<_$ComposerAutoCompleteEventSelect>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ComposerAutoCompleteEventSelectMusicalFormCopyWith<$Res> {
+  factory _$$ComposerAutoCompleteEventSelectMusicalFormCopyWith(
+          _$ComposerAutoCompleteEventSelectMusicalForm value,
+          $Res Function(_$ComposerAutoCompleteEventSelectMusicalForm) then) =
+      __$$ComposerAutoCompleteEventSelectMusicalFormCopyWithImpl<$Res>;
+  @useResult
+  $Res call({MusicalForm musicalForm});
+
+  $MusicalFormCopyWith<$Res> get musicalForm;
+}
+
+/// @nodoc
+class __$$ComposerAutoCompleteEventSelectMusicalFormCopyWithImpl<$Res>
+    extends _$ComposerAutoCompleteEventCopyWithImpl<$Res,
+        _$ComposerAutoCompleteEventSelectMusicalForm>
+    implements _$$ComposerAutoCompleteEventSelectMusicalFormCopyWith<$Res> {
+  __$$ComposerAutoCompleteEventSelectMusicalFormCopyWithImpl(
+      _$ComposerAutoCompleteEventSelectMusicalForm _value,
+      $Res Function(_$ComposerAutoCompleteEventSelectMusicalForm) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? musicalForm = null,
+  }) {
+    return _then(_$ComposerAutoCompleteEventSelectMusicalForm(
+      null == musicalForm
+          ? _value.musicalForm
+          : musicalForm // ignore: cast_nullable_to_non_nullable
+              as MusicalForm,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MusicalFormCopyWith<$Res> get musicalForm {
+    return $MusicalFormCopyWith<$Res>(_value.musicalForm, (value) {
+      return _then(_value.copyWith(musicalForm: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ComposerAutoCompleteEventSelectMusicalForm
+    implements ComposerAutoCompleteEventSelectMusicalForm {
+  _$ComposerAutoCompleteEventSelectMusicalForm(this.musicalForm);
+
+  @override
+  final MusicalForm musicalForm;
+
+  @override
+  String toString() {
+    return 'ComposerAutoCompleteEvent.selectMusicalForm(musicalForm: $musicalForm)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ComposerAutoCompleteEventSelectMusicalForm &&
+            (identical(other.musicalForm, musicalForm) ||
+                other.musicalForm == musicalForm));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, musicalForm);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ComposerAutoCompleteEventSelectMusicalFormCopyWith<
+          _$ComposerAutoCompleteEventSelectMusicalForm>
+      get copyWith =>
+          __$$ComposerAutoCompleteEventSelectMusicalFormCopyWithImpl<
+              _$ComposerAutoCompleteEventSelectMusicalForm>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function(Composer composer) add,
+    required TResult Function(Composer composer) select,
+    required TResult Function(MusicalForm musicalForm) selectMusicalForm,
+    required TResult Function(String composerId, MusicalForm musicalForm)
+        updateMusicalForm,
+  }) {
+    return selectMusicalForm(musicalForm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function(Composer composer)? add,
+    TResult? Function(Composer composer)? select,
+    TResult? Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult? Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
+  }) {
+    return selectMusicalForm?.call(musicalForm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(Composer composer)? add,
+    TResult Function(Composer composer)? select,
+    TResult Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
+    required TResult orElse(),
+  }) {
+    if (selectMusicalForm != null) {
+      return selectMusicalForm(musicalForm);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ComposerAutoCompleteEventInit value) init,
+    required TResult Function(ComposerAutoCompleteEventAdd value) add,
+    required TResult Function(ComposerAutoCompleteEventSelect value) select,
+    required TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)
+        selectMusicalForm,
+    required TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)
+        updateMusicalForm,
+  }) {
+    return selectMusicalForm(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ComposerAutoCompleteEventInit value)? init,
+    TResult? Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult? Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult? Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult? Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
+  }) {
+    return selectMusicalForm?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ComposerAutoCompleteEventInit value)? init,
+    TResult Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
+    required TResult orElse(),
+  }) {
+    if (selectMusicalForm != null) {
+      return selectMusicalForm(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ComposerAutoCompleteEventSelectMusicalForm
+    implements ComposerAutoCompleteEvent {
+  factory ComposerAutoCompleteEventSelectMusicalForm(
+          final MusicalForm musicalForm) =
+      _$ComposerAutoCompleteEventSelectMusicalForm;
+
+  MusicalForm get musicalForm;
+  @JsonKey(ignore: true)
+  _$$ComposerAutoCompleteEventSelectMusicalFormCopyWith<
+          _$ComposerAutoCompleteEventSelectMusicalForm>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ComposerAutoCompleteEventUpdateMusicalFormCopyWith<$Res> {
+  factory _$$ComposerAutoCompleteEventUpdateMusicalFormCopyWith(
+          _$ComposerAutoCompleteEventUpdateMusicalForm value,
+          $Res Function(_$ComposerAutoCompleteEventUpdateMusicalForm) then) =
+      __$$ComposerAutoCompleteEventUpdateMusicalFormCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String composerId, MusicalForm musicalForm});
+
+  $MusicalFormCopyWith<$Res> get musicalForm;
+}
+
+/// @nodoc
+class __$$ComposerAutoCompleteEventUpdateMusicalFormCopyWithImpl<$Res>
+    extends _$ComposerAutoCompleteEventCopyWithImpl<$Res,
+        _$ComposerAutoCompleteEventUpdateMusicalForm>
+    implements _$$ComposerAutoCompleteEventUpdateMusicalFormCopyWith<$Res> {
+  __$$ComposerAutoCompleteEventUpdateMusicalFormCopyWithImpl(
+      _$ComposerAutoCompleteEventUpdateMusicalForm _value,
+      $Res Function(_$ComposerAutoCompleteEventUpdateMusicalForm) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? composerId = null,
+    Object? musicalForm = null,
+  }) {
+    return _then(_$ComposerAutoCompleteEventUpdateMusicalForm(
+      null == composerId
+          ? _value.composerId
+          : composerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == musicalForm
+          ? _value.musicalForm
+          : musicalForm // ignore: cast_nullable_to_non_nullable
+              as MusicalForm,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MusicalFormCopyWith<$Res> get musicalForm {
+    return $MusicalFormCopyWith<$Res>(_value.musicalForm, (value) {
+      return _then(_value.copyWith(musicalForm: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$ComposerAutoCompleteEventUpdateMusicalForm
+    implements ComposerAutoCompleteEventUpdateMusicalForm {
+  _$ComposerAutoCompleteEventUpdateMusicalForm(
+      this.composerId, this.musicalForm);
+
+  @override
+  final String composerId;
+  @override
+  final MusicalForm musicalForm;
+
+  @override
+  String toString() {
+    return 'ComposerAutoCompleteEvent.updateMusicalForm(composerId: $composerId, musicalForm: $musicalForm)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ComposerAutoCompleteEventUpdateMusicalForm &&
+            (identical(other.composerId, composerId) ||
+                other.composerId == composerId) &&
+            (identical(other.musicalForm, musicalForm) ||
+                other.musicalForm == musicalForm));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, composerId, musicalForm);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ComposerAutoCompleteEventUpdateMusicalFormCopyWith<
+          _$ComposerAutoCompleteEventUpdateMusicalForm>
+      get copyWith =>
+          __$$ComposerAutoCompleteEventUpdateMusicalFormCopyWithImpl<
+              _$ComposerAutoCompleteEventUpdateMusicalForm>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() init,
+    required TResult Function(Composer composer) add,
+    required TResult Function(Composer composer) select,
+    required TResult Function(MusicalForm musicalForm) selectMusicalForm,
+    required TResult Function(String composerId, MusicalForm musicalForm)
+        updateMusicalForm,
+  }) {
+    return updateMusicalForm(composerId, musicalForm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? init,
+    TResult? Function(Composer composer)? add,
+    TResult? Function(Composer composer)? select,
+    TResult? Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult? Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
+  }) {
+    return updateMusicalForm?.call(composerId, musicalForm);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? init,
+    TResult Function(Composer composer)? add,
+    TResult Function(Composer composer)? select,
+    TResult Function(MusicalForm musicalForm)? selectMusicalForm,
+    TResult Function(String composerId, MusicalForm musicalForm)?
+        updateMusicalForm,
+    required TResult orElse(),
+  }) {
+    if (updateMusicalForm != null) {
+      return updateMusicalForm(composerId, musicalForm);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ComposerAutoCompleteEventInit value) init,
+    required TResult Function(ComposerAutoCompleteEventAdd value) add,
+    required TResult Function(ComposerAutoCompleteEventSelect value) select,
+    required TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)
+        selectMusicalForm,
+    required TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)
+        updateMusicalForm,
+  }) {
+    return updateMusicalForm(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(ComposerAutoCompleteEventInit value)? init,
+    TResult? Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult? Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult? Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult? Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
+  }) {
+    return updateMusicalForm?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ComposerAutoCompleteEventInit value)? init,
+    TResult Function(ComposerAutoCompleteEventAdd value)? add,
+    TResult Function(ComposerAutoCompleteEventSelect value)? select,
+    TResult Function(ComposerAutoCompleteEventSelectMusicalForm value)?
+        selectMusicalForm,
+    TResult Function(ComposerAutoCompleteEventUpdateMusicalForm value)?
+        updateMusicalForm,
+    required TResult orElse(),
+  }) {
+    if (updateMusicalForm != null) {
+      return updateMusicalForm(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ComposerAutoCompleteEventUpdateMusicalForm
+    implements ComposerAutoCompleteEvent {
+  factory ComposerAutoCompleteEventUpdateMusicalForm(
+          final String composerId, final MusicalForm musicalForm) =
+      _$ComposerAutoCompleteEventUpdateMusicalForm;
+
+  String get composerId;
+  MusicalForm get musicalForm;
+  @JsonKey(ignore: true)
+  _$$ComposerAutoCompleteEventUpdateMusicalFormCopyWith<
+          _$ComposerAutoCompleteEventUpdateMusicalForm>
       get copyWith => throw _privateConstructorUsedError;
 }

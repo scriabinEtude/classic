@@ -16,10 +16,10 @@ class CustomOptionIconAndText extends Autocompletable {
   bool isMatch(String inputText) => true;
 
   @override
-  String get displayString => text;
+  String displayString() => text;
 
   @override
-  Widget get displayWidget => InkWell(
+  Widget displayWidget() => InkWell(
         onTap: onSelect,
         child: Row(
           children: [
