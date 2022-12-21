@@ -19,8 +19,8 @@ mixin _$ComposerAutoCompleteState {
   Status get status => throw _privateConstructorUsedError;
   List<Composer> get composers => throw _privateConstructorUsedError;
   Composer? get composer => throw _privateConstructorUsedError;
-  List<MusicalForm> get musicalForms => throw _privateConstructorUsedError;
   MusicalForm? get musicalForm => throw _privateConstructorUsedError;
+  Music? get music => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ComposerAutoCompleteStateCopyWith<ComposerAutoCompleteState> get copyWith =>
@@ -37,12 +37,13 @@ abstract class $ComposerAutoCompleteStateCopyWith<$Res> {
       {Status status,
       List<Composer> composers,
       Composer? composer,
-      List<MusicalForm> musicalForms,
-      MusicalForm? musicalForm});
+      MusicalForm? musicalForm,
+      Music? music});
 
   $StatusCopyWith<$Res> get status;
   $ComposerCopyWith<$Res>? get composer;
   $MusicalFormCopyWith<$Res>? get musicalForm;
+  $MusicCopyWith<$Res>? get music;
 }
 
 /// @nodoc
@@ -62,8 +63,8 @@ class _$ComposerAutoCompleteStateCopyWithImpl<$Res,
     Object? status = null,
     Object? composers = null,
     Object? composer = freezed,
-    Object? musicalForms = null,
     Object? musicalForm = freezed,
+    Object? music = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -78,14 +79,14 @@ class _$ComposerAutoCompleteStateCopyWithImpl<$Res,
           ? _value.composer
           : composer // ignore: cast_nullable_to_non_nullable
               as Composer?,
-      musicalForms: null == musicalForms
-          ? _value.musicalForms
-          : musicalForms // ignore: cast_nullable_to_non_nullable
-              as List<MusicalForm>,
       musicalForm: freezed == musicalForm
           ? _value.musicalForm
           : musicalForm // ignore: cast_nullable_to_non_nullable
               as MusicalForm?,
+      music: freezed == music
+          ? _value.music
+          : music // ignore: cast_nullable_to_non_nullable
+              as Music?,
     ) as $Val);
   }
 
@@ -120,6 +121,18 @@ class _$ComposerAutoCompleteStateCopyWithImpl<$Res,
       return _then(_value.copyWith(musicalForm: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MusicCopyWith<$Res>? get music {
+    if (_value.music == null) {
+      return null;
+    }
+
+    return $MusicCopyWith<$Res>(_value.music!, (value) {
+      return _then(_value.copyWith(music: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -135,8 +148,8 @@ abstract class _$$_ComposerAutoCompleteStateCopyWith<$Res>
       {Status status,
       List<Composer> composers,
       Composer? composer,
-      List<MusicalForm> musicalForms,
-      MusicalForm? musicalForm});
+      MusicalForm? musicalForm,
+      Music? music});
 
   @override
   $StatusCopyWith<$Res> get status;
@@ -144,6 +157,8 @@ abstract class _$$_ComposerAutoCompleteStateCopyWith<$Res>
   $ComposerCopyWith<$Res>? get composer;
   @override
   $MusicalFormCopyWith<$Res>? get musicalForm;
+  @override
+  $MusicCopyWith<$Res>? get music;
 }
 
 /// @nodoc
@@ -162,8 +177,8 @@ class __$$_ComposerAutoCompleteStateCopyWithImpl<$Res>
     Object? status = null,
     Object? composers = null,
     Object? composer = freezed,
-    Object? musicalForms = null,
     Object? musicalForm = freezed,
+    Object? music = freezed,
   }) {
     return _then(_$_ComposerAutoCompleteState(
       status: null == status
@@ -178,14 +193,14 @@ class __$$_ComposerAutoCompleteStateCopyWithImpl<$Res>
           ? _value.composer
           : composer // ignore: cast_nullable_to_non_nullable
               as Composer?,
-      musicalForms: null == musicalForms
-          ? _value._musicalForms
-          : musicalForms // ignore: cast_nullable_to_non_nullable
-              as List<MusicalForm>,
       musicalForm: freezed == musicalForm
           ? _value.musicalForm
           : musicalForm // ignore: cast_nullable_to_non_nullable
               as MusicalForm?,
+      music: freezed == music
+          ? _value.music
+          : music // ignore: cast_nullable_to_non_nullable
+              as Music?,
     ));
   }
 }
@@ -197,10 +212,9 @@ class _$_ComposerAutoCompleteState implements _ComposerAutoCompleteState {
       {required this.status,
       final List<Composer> composers = const [],
       this.composer,
-      final List<MusicalForm> musicalForms = const [],
-      this.musicalForm})
-      : _composers = composers,
-        _musicalForms = musicalForms;
+      this.musicalForm,
+      this.music})
+      : _composers = composers;
 
   @override
   final Status status;
@@ -214,20 +228,14 @@ class _$_ComposerAutoCompleteState implements _ComposerAutoCompleteState {
 
   @override
   final Composer? composer;
-  final List<MusicalForm> _musicalForms;
-  @override
-  @JsonKey()
-  List<MusicalForm> get musicalForms {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_musicalForms);
-  }
-
   @override
   final MusicalForm? musicalForm;
+  @override
+  final Music? music;
 
   @override
   String toString() {
-    return 'ComposerAutoCompleteState(status: $status, composers: $composers, composer: $composer, musicalForms: $musicalForms, musicalForm: $musicalForm)';
+    return 'ComposerAutoCompleteState(status: $status, composers: $composers, composer: $composer, musicalForm: $musicalForm, music: $music)';
   }
 
   @override
@@ -240,10 +248,9 @@ class _$_ComposerAutoCompleteState implements _ComposerAutoCompleteState {
                 .equals(other._composers, _composers) &&
             (identical(other.composer, composer) ||
                 other.composer == composer) &&
-            const DeepCollectionEquality()
-                .equals(other._musicalForms, _musicalForms) &&
             (identical(other.musicalForm, musicalForm) ||
-                other.musicalForm == musicalForm));
+                other.musicalForm == musicalForm) &&
+            (identical(other.music, music) || other.music == music));
   }
 
   @override
@@ -252,8 +259,8 @@ class _$_ComposerAutoCompleteState implements _ComposerAutoCompleteState {
       status,
       const DeepCollectionEquality().hash(_composers),
       composer,
-      const DeepCollectionEquality().hash(_musicalForms),
-      musicalForm);
+      musicalForm,
+      music);
 
   @JsonKey(ignore: true)
   @override
@@ -268,8 +275,8 @@ abstract class _ComposerAutoCompleteState implements ComposerAutoCompleteState {
       {required final Status status,
       final List<Composer> composers,
       final Composer? composer,
-      final List<MusicalForm> musicalForms,
-      final MusicalForm? musicalForm}) = _$_ComposerAutoCompleteState;
+      final MusicalForm? musicalForm,
+      final Music? music}) = _$_ComposerAutoCompleteState;
 
   @override
   Status get status;
@@ -278,9 +285,9 @@ abstract class _ComposerAutoCompleteState implements ComposerAutoCompleteState {
   @override
   Composer? get composer;
   @override
-  List<MusicalForm> get musicalForms;
-  @override
   MusicalForm? get musicalForm;
+  @override
+  Music? get music;
   @override
   @JsonKey(ignore: true)
   _$$_ComposerAutoCompleteStateCopyWith<_$_ComposerAutoCompleteState>

@@ -1,4 +1,5 @@
 import 'package:classic/data/model/composer.dart';
+import 'package:classic/data/model/music.dart';
 import 'package:classic/data/model/musical_form.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -12,4 +13,8 @@ class ComposerRegisterEvent with _$ComposerRegisterEvent {
   factory ComposerRegisterEvent.registerMusicalForm(
           String composerId, MusicalForm musicalForm) =
       ComposerRegisterEventRegisterMusicalForm;
+
+  factory ComposerRegisterEvent.registerMusic(
+          String composerId, String musicformId, Music music) =
+      ComposerRegisterEventRegisterMusic;
 }

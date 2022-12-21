@@ -8,40 +8,43 @@ import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/input_formatter/capitalize_input_formatter.dart';
 import 'package:classic/common/util/validator.dart';
 import 'package:classic/data/const/code.dart';
-import 'package:classic/data/model/composer.dart';
+import 'package:classic/data/model/music.dart';
+import 'package:classic/data/model/musical_form.dart';
 
-class ComposerRegisterScreen extends StatefulWidget {
-  const ComposerRegisterScreen({super.key});
+class MusicRegisterScreen extends StatefulWidget {
+  const MusicRegisterScreen({
+    super.key,
+    required this.composerId,
+    required this.musicalformId,
+  });
 
-  static const String routeName = "/link/register/composer";
+  final String composerId;
+  final String musicalformId;
+
+  static String routeName(String composerId, String musicalformId) =>
+      "/link/register/:$composerId/:$musicalformId/musicalform";
 
   @override
-  State<ComposerRegisterScreen> createState() => _ComposerRegisterScreenState();
+  State<MusicRegisterScreen> createState() => _MusicRegisterScreenState();
 }
 
-class _ComposerRegisterScreenState extends State<ComposerRegisterScreen> {
+class _MusicRegisterScreenState extends State<MusicRegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  String? name;
+  String? title;
+  String? subTitle;
 
-  String? fullname;
-
-  String? engName;
-
-  String? engFullname;
-
-  Composer get composer => Composer(
-      name: name!,
-      fullname: fullname!,
-      engName: engName!,
-      engFullname: engFullname!,
-      createdAt: DateTime.now());
+  Music get music => Music(
+        title: title!,
+        subTitle: subTitle!,
+      );
 
   onSubmit(BuildContext context) {
     if (_formKey.currentState?.validate() == true) {
       _formKey.currentState?.save();
-      BlocProvider.of<ComposerRegisterBloc>(context)
-          .add(ComposerRegisterEvent.register(composer));
+      BlocProvider.of<ComposerRegisterBloc>(context).add(
+          ComposerRegisterEvent.registerMusic(
+              widget.composerId, widget.musicalformId, music));
     }
   }
 
@@ -51,9 +54,10 @@ class _ComposerRegisterScreenState extends State<ComposerRegisterScreen> {
       listener: (context, state) {
         state.status.whenOrNull(
           success: (code) {
-            if (code == CODE_COMPOSER_REGISTER_SUCCESS) {
-              BlocProvider.of<ComposerAutoCompleteBloc>(context)
-                  .add(ComposerAutoCompleteEvent.add(composer));
+            if (code == CODE_MUSICAL_FORM_REGISTER_SUCCESS) {
+              BlocProvider.of<ComposerAutoCompleteBloc>(context).add(
+                  ComposerAutoCompleteEvent.updateMusic(
+                      widget.composerId, widget.musicalformId, music));
               context.pop();
             }
           },
@@ -61,7 +65,7 @@ class _ComposerRegisterScreenState extends State<ComposerRegisterScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('작곡가 추가'),
+          title: const Text('음악 형식 추가'),
           centerTitle: true,
           actions: [_SubmitButton(onSubmit: onSubmit)],
         ),
@@ -74,41 +78,23 @@ class _ComposerRegisterScreenState extends State<ComposerRegisterScreen> {
                 const _ErrorText(),
                 TextFormField(
                   decoration: const InputDecoration(
-                    label: Text('작곡가 이름 (한글)'),
-                    hintText: "쇼팽",
+                    label: Text('주제'),
+                    hintText: "Ballade No.1 in G Minor, Op.23",
                   ),
-                  validator: (value) =>
-                      Validator.korValidator(value, "작곡가 이름", "쇼팽"),
-                  onSaved: (newValue) => name = newValue!,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    label: Text('작곡가 성명 (한글)'),
-                    hintText: "프레데릭 프랑수아 쇼팽",
-                  ),
-                  validator: (value) =>
-                      Validator.korValidator(value, "작곡가 성명", "프레데릭 프랑수아 쇼팽"),
-                  onSaved: (newValue) => fullname = newValue!,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    label: Text('작곡가 이름 (영어)'),
-                    hintText: "Chopin",
-                  ),
-                  validator: (value) =>
-                      Validator.engValidator(value, "작곡가 이름", "Chopin"),
+                  validator: (value) => Validator.titleValidator(
+                      value, "주제 이름", "Chopin: Ballade No.1 in G Minor, Op.23"),
                   inputFormatters: [CapitalizeInputFormatter()],
-                  onSaved: (newValue) => engName = newValue!,
+                  onSaved: (newValue) => title = newValue!,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(
-                    label: Text('작곡가 성명 (영어)'),
-                    hintText: "Frederic Francois Chopin",
+                    label: Text('부제'),
+                    hintText: "",
                   ),
-                  validator: (value) => Validator.engValidator(
-                      value, "작곡가 성명", "Frederic Francois Chopin"),
+                  validator: (value) =>
+                      Validator.titleValidator(value, "형식 이름", "Rain Drop"),
                   inputFormatters: [CapitalizeInputFormatter()],
-                  onSaved: (newValue) => engFullname = newValue!,
+                  onSaved: (newValue) => subTitle = newValue!,
                 ),
               ],
             ),

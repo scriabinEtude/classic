@@ -20,6 +20,8 @@ Music _$MusicFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Music {
+  String get title => throw _privateConstructorUsedError;
+  String get subTitle => throw _privateConstructorUsedError;
   List<Link> get links => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -32,7 +34,7 @@ abstract class $MusicCopyWith<$Res> {
   factory $MusicCopyWith(Music value, $Res Function(Music) then) =
       _$MusicCopyWithImpl<$Res, Music>;
   @useResult
-  $Res call({List<Link> links});
+  $Res call({String title, String subTitle, List<Link> links});
 }
 
 /// @nodoc
@@ -48,9 +50,19 @@ class _$MusicCopyWithImpl<$Res, $Val extends Music>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? title = null,
+    Object? subTitle = null,
     Object? links = null,
   }) {
     return _then(_value.copyWith(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      subTitle: null == subTitle
+          ? _value.subTitle
+          : subTitle // ignore: cast_nullable_to_non_nullable
+              as String,
       links: null == links
           ? _value.links
           : links // ignore: cast_nullable_to_non_nullable
@@ -65,7 +77,7 @@ abstract class _$$_MusicCopyWith<$Res> implements $MusicCopyWith<$Res> {
       __$$_MusicCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Link> links});
+  $Res call({String title, String subTitle, List<Link> links});
 }
 
 /// @nodoc
@@ -77,9 +89,19 @@ class __$$_MusicCopyWithImpl<$Res> extends _$MusicCopyWithImpl<$Res, _$_Music>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? title = null,
+    Object? subTitle = null,
     Object? links = null,
   }) {
     return _then(_$_Music(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      subTitle: null == subTitle
+          ? _value.subTitle
+          : subTitle // ignore: cast_nullable_to_non_nullable
+              as String,
       links: null == links
           ? _value._links
           : links // ignore: cast_nullable_to_non_nullable
@@ -90,12 +112,21 @@ class __$$_MusicCopyWithImpl<$Res> extends _$MusicCopyWithImpl<$Res, _$_Music>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Music implements _Music {
-  _$_Music({final List<Link> links = const []}) : _links = links;
+class _$_Music extends _Music {
+  _$_Music(
+      {required this.title,
+      required this.subTitle,
+      final List<Link> links = const []})
+      : _links = links,
+        super._();
 
   factory _$_Music.fromJson(Map<String, dynamic> json) =>
       _$$_MusicFromJson(json);
 
+  @override
+  final String title;
+  @override
+  final String subTitle;
   final List<Link> _links;
   @override
   @JsonKey()
@@ -106,7 +137,7 @@ class _$_Music implements _Music {
 
   @override
   String toString() {
-    return 'Music(links: $links)';
+    return 'Music(title: $title, subTitle: $subTitle, links: $links)';
   }
 
   @override
@@ -114,13 +145,16 @@ class _$_Music implements _Music {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Music &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.subTitle, subTitle) ||
+                other.subTitle == subTitle) &&
             const DeepCollectionEquality().equals(other._links, _links));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_links));
+  int get hashCode => Object.hash(runtimeType, title, subTitle,
+      const DeepCollectionEquality().hash(_links));
 
   @JsonKey(ignore: true)
   @override
@@ -136,11 +170,19 @@ class _$_Music implements _Music {
   }
 }
 
-abstract class _Music implements Music {
-  factory _Music({final List<Link> links}) = _$_Music;
+abstract class _Music extends Music {
+  factory _Music(
+      {required final String title,
+      required final String subTitle,
+      final List<Link> links}) = _$_Music;
+  _Music._() : super._();
 
   factory _Music.fromJson(Map<String, dynamic> json) = _$_Music.fromJson;
 
+  @override
+  String get title;
+  @override
+  String get subTitle;
   @override
   List<Link> get links;
   @override

@@ -6,6 +6,7 @@ import 'package:classic/bloc/composer/register/composer_register_state.dart';
 import 'package:classic/common/imports.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/input_formatter/capitalize_input_formatter.dart';
+import 'package:classic/common/util/validator.dart';
 import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/musical_form.dart';
 
@@ -29,26 +30,6 @@ class _MusicalFormRegisterScreenState extends State<MusicalFormRegisterScreen> {
 
   String? name;
   String? engName;
-
-  String? korValidator(String? value, String label, String example) {
-    if (value == null || value.isEmpty) {
-      return "$label을 입력해 주세요. (예: $example)";
-    } else if (RegExp(r'[^가-힣 ]').hasMatch(value)) {
-      return "한글과 공백만 가능합니다 (자음, 모음 제외)";
-    } else {
-      return null;
-    }
-  }
-
-  String? engValidator(String? value, String label, String example) {
-    if (value == null || value.isEmpty) {
-      return "$label을 입력해 주세요. (예: $example)";
-    } else if (RegExp(r'[^a-zA-Z ]').hasMatch(value)) {
-      return "영어와 공백만 가능합니다";
-    } else {
-      return null;
-    }
-  }
 
   MusicalForm get musicalform => MusicalForm(
         name: name!,
@@ -97,7 +78,8 @@ class _MusicalFormRegisterScreenState extends State<MusicalFormRegisterScreen> {
                     label: Text('형식 이름 (한글)'),
                     hintText: "소나타",
                   ),
-                  validator: (value) => korValidator(value, "형식 이름", "소나타"),
+                  validator: (value) =>
+                      Validator.korValidator(value, "형식 이름", "소나타"),
                   onSaved: (newValue) => name = newValue!,
                 ),
                 TextFormField(
@@ -105,7 +87,8 @@ class _MusicalFormRegisterScreenState extends State<MusicalFormRegisterScreen> {
                     label: Text('형식 이름 (영어)'),
                     hintText: "Sonata",
                   ),
-                  validator: (value) => engValidator(value, "형식 이름", "Sonata"),
+                  validator: (value) =>
+                      Validator.engValidator(value, "형식 이름", "Sonata"),
                   inputFormatters: [CapitalizeInputFormatter()],
                   onSaved: (newValue) => engName = newValue!,
                 ),

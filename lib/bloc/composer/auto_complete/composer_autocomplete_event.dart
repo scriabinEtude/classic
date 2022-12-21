@@ -1,4 +1,5 @@
 import 'package:classic/data/model/composer.dart';
+import 'package:classic/data/model/music.dart';
 import 'package:classic/data/model/musical_form.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -17,6 +18,12 @@ class ComposerAutoCompleteEvent with _$ComposerAutoCompleteEvent {
   factory ComposerAutoCompleteEvent.updateMusicalForm(
           String composerId, MusicalForm musicalForm) =
       ComposerAutoCompleteEventUpdateMusicalForm;
+  factory ComposerAutoCompleteEvent.selectMusic(Music music) =
+      ComposerAutoCompleteEventSelectMusic;
+
+  factory ComposerAutoCompleteEvent.updateMusic(
+          String composerId, String musicalFormId, Music music) =
+      ComposerAutoCompleteEventUpdateMusic;
 
   factory ComposerAutoCompleteEvent.resetSelect() =
       ComposerAutoCompleteEventResetSelect;

@@ -2,16 +2,16 @@ import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_bloc.d
 import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_event.dart';
 import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_state.dart';
 import 'package:classic/common/imports.dart';
+import 'package:classic/data/model/music.dart';
 import 'package:classic/data/model/musical_form.dart';
 import 'package:classic/presentation/widget/autocomplete/app_autocomplete.dart';
 import 'package:classic/presentation/widget/autocomplete/custom_options/custom_option_add.dart';
 import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
 
-class MusicalFormAutoComplete extends StatelessWidget {
-  const MusicalFormAutoComplete({super.key});
+class MusicAutoComplete extends StatelessWidget {
+  const MusicAutoComplete({super.key});
 
-  goMusicalFormRegisterScreen(
-      BuildContext context, ComposerAutoCompleteState state) {
+  goMusicRegisterScreen(BuildContext context, ComposerAutoCompleteState state) {
     context.go('/link/register/${state.composer!.id}/musicalform');
   }
 
@@ -20,25 +20,24 @@ class MusicalFormAutoComplete extends StatelessWidget {
     return BlocBuilder<ComposerAutoCompleteBloc, ComposerAutoCompleteState>(
       builder: (context, state) {
         return AnimatedOpacity(
-          opacity: state.composer == null ? 0 : 1,
+          opacity: state.musicalForm == null ? 0 : 1,
           duration: const Duration(milliseconds: 250),
           child: AppAutoComplete<Autocompletable>(
-            initialValue: state.musicalForm == null
-                ? ""
-                : state.musicalForm!.displayString(),
-            label: "형식",
+            initialValue:
+                state.music == null ? "" : state.music!.displayString(),
+            label: "제목",
             options: [
               CustomOptionIconAndText(
-                onSelect: () => goMusicalFormRegisterScreen(context, state),
-                text: "형식 추가",
+                onSelect: () => goMusicRegisterScreen(context, state),
+                text: "제목 추가",
               ),
-              if (state.composer != null) ...state.composer!.musicalForms,
+              if (state.musicalForm != null) ...state.musicalForm!.musics,
             ],
             status: state.status,
-            onSelected: (form) {
-              if (form is MusicalForm) {
+            onSelected: (music) {
+              if (music is Music) {
                 BlocProvider.of<ComposerAutoCompleteBloc>(context)
-                    .add(ComposerAutoCompleteEvent.selectMusicalForm(form));
+                    .add(ComposerAutoCompleteEvent.selectMusic(music));
               }
             },
           ),
