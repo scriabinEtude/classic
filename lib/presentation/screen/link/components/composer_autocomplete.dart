@@ -12,7 +12,7 @@ class ComposerAutoComplete extends StatelessWidget {
   const ComposerAutoComplete({super.key});
 
   pushComposerRegisterScreen(BuildContext context) {
-    context.pushNamed(ComposerRegisterScreen.routeName);
+    context.go(ComposerRegisterScreen.routeName);
   }
 
   @override
@@ -20,6 +20,8 @@ class ComposerAutoComplete extends StatelessWidget {
     return BlocBuilder<ComposerAutoCompleteBloc, ComposerAutoCompleteState>(
       builder: (context, state) {
         return AppAutoComplete<Autocompletable>(
+          initialValue:
+              state.composer == null ? "" : state.composer!.displayString(),
           label: "작곡가",
           options: [
             CustomOptionIconAndText(

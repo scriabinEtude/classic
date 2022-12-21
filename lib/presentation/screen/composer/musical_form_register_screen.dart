@@ -7,7 +7,6 @@ import 'package:classic/common/imports.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/input_formatter/capitalize_input_formatter.dart';
 import 'package:classic/data/const/code.dart';
-import 'package:classic/data/model/composer.dart';
 import 'package:classic/data/model/musical_form.dart';
 
 class MusicalFormRegisterScreen extends StatefulWidget {
@@ -16,7 +15,8 @@ class MusicalFormRegisterScreen extends StatefulWidget {
     required this.composerId,
   });
 
-  static const String routeName = "/composer/musicalform/register";
+  static String routeName(String composerId) =>
+      "/link/register/composer/:$composerId/musicalform";
   final String composerId;
 
   @override

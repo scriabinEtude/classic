@@ -12,29 +12,36 @@ class MusicalFormAutoComplete extends StatelessWidget {
 
   pushComposerRegisterScreen(
       BuildContext context, ComposerAutoCompleteState state) {
-    context.push('/composer/${state.composer!.id}/musicalform/register');
+    context.go('/link/register/${state.composer!.id}/musicalform');
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ComposerAutoCompleteBloc, ComposerAutoCompleteState>(
       builder: (context, state) {
-        return AppAutoComplete<Autocompletable>(
-          label: "형식",
-          options: [
-            CustomOptionIconAndText(
-              onSelect: () => pushComposerRegisterScreen(context, state),
-              text: "형식 추가",
-            ),
-            if (state.composer != null) ...state.composer!.musicalForms,
-          ],
-          status: state.status,
-          onSelected: (form) {
-            if (form is MusicalForm) {
-              BlocProvider.of<ComposerAutoCompleteBloc>(context)
-                  .add(ComposerAutoCompleteEvent.selectMusicalForm(form));
-            }
-          },
+        return AnimatedOpacity(
+          opacity: state.composer == null ? 0 : 1,
+          duration: const Duration(milliseconds: 250),
+          child: AppAutoComplete<Autocompletable>(
+            initialValue: state.musicalForm == null
+                ? ""
+                : state.musicalForm!.displayString(),
+            label: "형식",
+            options: [
+              CustomOptionIconAndText(
+                onSelect: () => pushComposerRegisterScreen(context, state),
+                text: "형식 추가",
+              ),
+              if (state.composer != null) ...state.composer!.musicalForms,
+            ],
+            status: state.status,
+            onSelected: (form) {
+              if (form is MusicalForm) {
+                BlocProvider.of<ComposerAutoCompleteBloc>(context)
+                    .add(ComposerAutoCompleteEvent.selectMusicalForm(form));
+              }
+            },
+          ),
         );
       },
     );

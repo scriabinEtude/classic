@@ -93,28 +93,28 @@ class GrassRouter {
                 ],
               ),
               GoRoute(
-                path: 'link/register',
-                name: LinkRegisterScreen.routeName,
-                builder: (context, state) => BlocProvider(
-                    create: (context) => LinkRegisterBloc(),
-                    child: LinkRegisterScreen()),
-              ),
-              GoRoute(
-                path: 'composer/register',
-                name: ComposerRegisterScreen.routeName,
-                builder: (context, state) => BlocProvider(
-                    create: (context) => ComposerRegisterBloc(),
-                    child: const ComposerRegisterScreen()),
-              ),
-              GoRoute(
-                path: 'composer/:composerId/musicalform/register',
-                name: MusicalFormRegisterScreen.routeName,
-                builder: (context, state) => BlocProvider(
-                    create: (context) => ComposerRegisterBloc(),
-                    child: MusicalFormRegisterScreen(
-                      composerId: state.params['composerId']!,
-                    )),
-              ),
+                  path: 'link/register',
+                  name: LinkRegisterScreen.routeName,
+                  builder: (context, state) => BlocProvider(
+                      create: (context) => LinkRegisterBloc(),
+                      child: LinkRegisterScreen()),
+                  routes: [
+                    GoRoute(
+                      path: 'composer',
+                      name: ComposerRegisterScreen.routeName,
+                      builder: (context, state) => BlocProvider(
+                          create: (context) => ComposerRegisterBloc(),
+                          child: const ComposerRegisterScreen()),
+                    ),
+                    GoRoute(
+                      path: ':composerId/musicalform',
+                      builder: (context, state) => BlocProvider(
+                          create: (context) => ComposerRegisterBloc(),
+                          child: MusicalFormRegisterScreen(
+                            composerId: state.params['composerId']!,
+                          )),
+                    ),
+                  ]),
             ])
       ],
     );

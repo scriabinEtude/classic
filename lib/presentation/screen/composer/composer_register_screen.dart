@@ -12,7 +12,7 @@ import 'package:classic/data/model/composer.dart';
 class ComposerRegisterScreen extends StatefulWidget {
   const ComposerRegisterScreen({super.key});
 
-  static const String routeName = "/composer/register";
+  static const String routeName = "/link/register/composer";
 
   @override
   State<ComposerRegisterScreen> createState() => _ComposerRegisterScreenState();

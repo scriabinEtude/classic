@@ -18,6 +18,7 @@ class ComposerAutoCompleteBloc
     on<ComposerAutoCompleteEventSelect>(_select);
     on<ComposerAutoCompleteEventSelectMusicalForm>(_selectMusicalForm);
     on<ComposerAutoCompleteEventUpdateMusicalForm>(_updateMusicalForm);
+    on<ComposerAutoCompleteEventResetSelect>(_resetSelect);
     add(ComposerAutoCompleteEvent.init());
   }
 
@@ -29,7 +30,7 @@ class ComposerAutoCompleteBloc
     try {
       emit(state.copyWith(status: StatusLoading()));
 
-      final result = await _composerRepository.getAllAutocomplete();
+      final result = await _composerRepository.getAllComposerSearch();
       result.when(
         success: (composers) {
           emit(state.copyWith(
@@ -44,6 +45,7 @@ class ComposerAutoCompleteBloc
       );
     } catch (e) {
       if (e is Failure) {
+        l.el('composer autocomplete _init catch', e.message);
         emit(state.copyWith(
             status: Status.fail(code: e.status, message: e.message)));
       } else {
@@ -55,12 +57,10 @@ class ComposerAutoCompleteBloc
   }
 
   _select(ComposerAutoCompleteEventSelect event, Emitter emit) async {
-    if (state.composers.isNotEmpty) return;
-
     try {
       emit(state.copyWith(status: StatusLoading()));
-
-      final result = await _composerRepository.getAllAutocomplete();
+      final result =
+          await _composerRepository.getComposerById(event.composer.id);
       result.when(
         success: (composer) {
           emit(state.copyWith(
@@ -75,12 +75,13 @@ class ComposerAutoCompleteBloc
       );
     } catch (e) {
       if (e is Failure) {
+        l.el('composer autocomplete _select Failure', e.message);
         emit(state.copyWith(
             status: Status.fail(code: e.status, message: e.message)));
       } else {
-        l.el('composer autocomplete _init catch', e);
+        l.el('composer autocomplete _select catch', e);
         emit(state.copyWith(
-            status: Status.fail(message: "작곡가를 불러오는데 실패하였습니다.")));
+            status: Status.fail(message: "작곡가 목록을 불러오는데 실패하였습니다.")));
       }
     }
   }
@@ -115,6 +116,13 @@ class ComposerAutoCompleteBloc
       composers: composers,
       composer: composer,
       musicalForm: event.musicalForm,
+    ));
+  }
+
+  _resetSelect(ComposerAutoCompleteEventResetSelect event, Emitter emit) {
+    emit(ComposerAutoCompleteState(
+      status: StatusSuccess(),
+      composers: state.composers,
     ));
   }
 }

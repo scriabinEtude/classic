@@ -9,6 +9,7 @@ part './components/seperator.dart';
 
 class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
   const AppAutoComplete({
+    required this.initialValue,
     required this.label,
     required this.options,
     this.readOnly = false,
@@ -18,6 +19,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  final String initialValue;
   final List<T> options;
   final String label;
   final bool readOnly;
@@ -35,6 +37,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return Autocomplete<T>(
+        initialValue: TextEditingValue(text: initialValue),
         optionsBuilder: (textEditingValue) =>
             options.where((option) => option.isMatch(textEditingValue.text)),
         displayStringForOption: (option) => option.displayString(),

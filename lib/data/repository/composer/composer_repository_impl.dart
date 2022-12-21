@@ -35,7 +35,7 @@ class ComposerRepositoryImpl implements ComposerRepository {
   }
 
   @override
-  Future<Result<List<Composer>>> getAllAutocomplete() async {
+  Future<Result<List<Composer>>> getAllComposerSearch() async {
     try {
       QuerySnapshot<Map<String, dynamic>> snapshot =
           await client.collection(COL_COMPOSER_SEARCH).get();
@@ -78,7 +78,7 @@ class ComposerRepositoryImpl implements ComposerRepository {
             .where((element) => element.id == musicalForm.id)
             .isEmpty) {
           await ref.update({
-            'musicalForms': FieldValue.arrayUnion([musicalForm])
+            'musicalForms': FieldValue.arrayUnion([musicalForm.toJson()])
           });
           return Success(null);
         } else {

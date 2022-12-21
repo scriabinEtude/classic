@@ -12,18 +12,25 @@ import 'package:classic/data/model/link.dart';
 import 'package:classic/data/repository/link/register/link_register_repository.dart';
 
 class LinkRegisterBloc extends Bloc<LinkRegisterEvent, LinkRegisterState> {
+  static final LinkRegisterState _initState = LinkRegisterState(
+    status: StatusInit(),
+    linkValidation: LinkValidation.init(),
+  );
+
   LinkRegisterBloc()
       : _linkRegisterRepository = di.get<LinkRegisterRepository>(),
-        super(LinkRegisterState(
-          status: StatusInit(),
-          linkValidation: LinkValidation.init(),
-        )) {
+        super(_initState) {
     on<LinkRegisterEventRegist>(_regist);
     on<LinkRegisterEventLinkValidate>(_linkValidate);
+    on<LinkRegisterEventInit>(_init);
   }
 
   final YoutubeApi _youtube = YoutubeApi();
   final LinkRegisterRepository _linkRegisterRepository;
+
+  _init(LinkRegisterEventInit event, Emitter emit) {
+    emit(_initState);
+  }
 
   _linkValidate(LinkRegisterEventLinkValidate event, Emitter emit) async {
     try {

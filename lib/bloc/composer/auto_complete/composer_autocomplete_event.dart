@@ -17,4 +17,7 @@ class ComposerAutoCompleteEvent with _$ComposerAutoCompleteEvent {
   factory ComposerAutoCompleteEvent.updateMusicalForm(
           String composerId, MusicalForm musicalForm) =
       ComposerAutoCompleteEventUpdateMusicalForm;
+
+  factory ComposerAutoCompleteEvent.resetSelect() =
+      ComposerAutoCompleteEventResetSelect;
 }

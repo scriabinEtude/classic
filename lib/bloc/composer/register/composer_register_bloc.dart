@@ -11,18 +11,18 @@ import 'package:classic/data/repository/composer/composer_repository.dart';
 class ComposerRegisterBloc
     extends Bloc<ComposerRegisterEvent, ComposerRegisterState> {
   ComposerRegisterBloc()
-      : _composerRegisterRepository = di.get<ComposerRepository>(),
+      : _composerRepository = di.get<ComposerRepository>(),
         super(ComposerRegisterState(status: StatusInit())) {
     on<ComposerRegisterEventRegister>(_register);
     on<ComposerRegisterEventRegisterMusicalForm>(_registerMusicalForm);
   }
 
-  final ComposerRepository _composerRegisterRepository;
+  final ComposerRepository _composerRepository;
 
   _register(ComposerRegisterEventRegister event, Emitter emit) async {
     try {
       emit(state.copyWith(status: StatusLoading()));
-      final result = await _composerRegisterRepository.register(event.composer);
+      final result = await _composerRepository.register(event.composer);
 
       result.when(
         failure: (status, message) {
@@ -49,7 +49,7 @@ class ComposerRegisterBloc
       ComposerRegisterEventRegisterMusicalForm event, Emitter emit) async {
     try {
       emit(state.copyWith(status: StatusLoading()));
-      final result = await _composerRegisterRepository.postMusicalForm(
+      final result = await _composerRepository.postMusicalForm(
           event.composerId, event.musicalForm);
 
       result.when(
@@ -59,16 +59,18 @@ class ComposerRegisterBloc
         },
         success: (videos) async {
           emit(state.copyWith(
-              status: StatusSuccess(code: CODE_COMPOSER_REGISTER_SUCCESS)));
+              status: StatusSuccess(code: CODE_MUSICAL_FORM_REGISTER_SUCCESS)));
         },
       );
     } catch (e) {
       if (e is Failure) {
+        l.el('ComposerRegisterBloc _registerMusicalForm fail', e.message);
         emit(state.copyWith(
             status: Status.fail(code: e.status, message: e.message)));
       } else {
-        l.el('composer _register catch', e);
-        emit(state.copyWith(status: Status.fail(message: "작곡가 등록에 실패하였습니다.")));
+        l.el('ComposerRegisterBloc _registerMusicalForm catch', e);
+        emit(state.copyWith(
+            status: Status.fail(message: "음악 형식 등록에 실패하였습니다..")));
       }
     }
   }
