@@ -15,6 +15,7 @@ class ComposerRegisterBloc
         super(ComposerRegisterState(status: StatusInit())) {
     on<ComposerRegisterEventRegister>(_register);
     on<ComposerRegisterEventRegisterMusicalForm>(_registerMusicalForm);
+    on<ComposerRegisterEventRegisterMusic>(_registerMusic);
   }
 
   final ComposerRepository _composerRepository;
@@ -71,6 +72,34 @@ class ComposerRegisterBloc
         l.el('ComposerRegisterBloc _registerMusicalForm catch', e);
         emit(state.copyWith(
             status: Status.fail(message: "음악 형식 등록에 실패하였습니다..")));
+      }
+    }
+  }
+
+  _registerMusic(ComposerRegisterEventRegisterMusic event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: StatusLoading()));
+      final result = await _composerRepository.postMusic(
+          event.composerId, event.musicformId, event.music);
+
+      result.when(
+        failure: (status, message) {
+          emit(state.copyWith(
+              status: Status.fail(code: status, message: message)));
+        },
+        success: (videos) async {
+          emit(state.copyWith(
+              status: StatusSuccess(code: CODE_MUSIC_REGISTER_SUCCESS)));
+        },
+      );
+    } catch (e) {
+      if (e is Failure) {
+        l.el('ComposerRegisterBloc _registerMusic fail', e.message);
+        emit(state.copyWith(
+            status: Status.fail(code: e.status, message: e.message)));
+      } else {
+        l.el('ComposerRegisterBloc _registerMusic catch', e);
+        emit(state.copyWith(status: Status.fail(message: "재목 등록에 실패하였습니다.")));
       }
     }
   }

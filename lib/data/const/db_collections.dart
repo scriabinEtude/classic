@@ -2,4 +2,4 @@
 const String COL_USER = "user";
 const String COL_LINK = "link";
 const String COL_COMPOSER = "composer";
-const String COL_COMPOSER_SEARCH = "composer-search";
+const String COL_MUSICALFORMS = "musicalForms";

@@ -9,7 +9,6 @@ import 'package:classic/common/util/input_formatter/capitalize_input_formatter.d
 import 'package:classic/common/util/validator.dart';
 import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/music.dart';
-import 'package:classic/data/model/musical_form.dart';
 
 class MusicRegisterScreen extends StatefulWidget {
   const MusicRegisterScreen({
@@ -54,7 +53,7 @@ class _MusicRegisterScreenState extends State<MusicRegisterScreen> {
       listener: (context, state) {
         state.status.whenOrNull(
           success: (code) {
-            if (code == CODE_MUSICAL_FORM_REGISTER_SUCCESS) {
+            if (code == CODE_MUSIC_REGISTER_SUCCESS) {
               BlocProvider.of<ComposerAutoCompleteBloc>(context).add(
                   ComposerAutoCompleteEvent.updateMusic(
                       widget.composerId, widget.musicalformId, music));
@@ -65,7 +64,7 @@ class _MusicRegisterScreenState extends State<MusicRegisterScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('음악 형식 추가'),
+          title: const Text('제목 추가'),
           centerTitle: true,
           actions: [_SubmitButton(onSubmit: onSubmit)],
         ),

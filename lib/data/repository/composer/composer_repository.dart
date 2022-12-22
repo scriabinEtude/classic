@@ -1,5 +1,6 @@
 import 'package:classic/common/object/result/result.dart';
 import 'package:classic/data/model/composer.dart';
+import 'package:classic/data/model/music.dart';
 import 'package:classic/data/model/musical_form.dart';
 
 abstract class ComposerRepository {
@@ -8,4 +9,6 @@ abstract class ComposerRepository {
   Future<Result<Composer>> getComposerById(String id);
   Future<Result<void>> postMusicalForm(
       String composerId, MusicalForm musicalForm);
+  Future<Result<void>> postMusic(
+      String composerId, String musicalFormId, Music music);
 }

@@ -21,7 +21,7 @@ class MusicalFormAutoComplete extends StatelessWidget {
       builder: (context, state) {
         return AnimatedOpacity(
           opacity: state.composer == null ? 0 : 1,
-          duration: const Duration(milliseconds: 250),
+          duration: const Duration(milliseconds: 200),
           child: AppAutoComplete<Autocompletable>(
             initialValue: state.musicalForm == null
                 ? ""

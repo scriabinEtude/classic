@@ -135,27 +135,6 @@ class _$_Music extends _Music {
     return EqualUnmodifiableListView(_links);
   }
 
-  @override
-  String toString() {
-    return 'Music(title: $title, subTitle: $subTitle, links: $links)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_Music &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.subTitle, subTitle) ||
-                other.subTitle == subTitle) &&
-            const DeepCollectionEquality().equals(other._links, _links));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, title, subTitle,
-      const DeepCollectionEquality().hash(_links));
-
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')

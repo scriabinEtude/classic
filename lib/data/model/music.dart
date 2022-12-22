@@ -1,13 +1,14 @@
 import 'package:classic/data/model/link.dart';
 import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'music.freezed.dart';
 part 'music.g.dart';
 
-@freezed
-class Music with _$Music, Autocompletable {
+@Freezed(equal: false)
+class Music extends Equatable with _$Music, Autocompletable {
   Music._();
 
   factory Music({
@@ -29,4 +30,9 @@ class Music with _$Music, Autocompletable {
       .replaceAll(r"[^가-힣a-zA-Z]", "")
       .toLowerCase()
       .contains(inputText.toLowerCase());
+
+  @override
+  List<Object?> get props => [
+        title.replaceAll(r"[^가-힣a-zA-Z]", ""),
+      ];
 }
