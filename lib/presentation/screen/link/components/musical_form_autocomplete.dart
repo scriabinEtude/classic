@@ -5,7 +5,7 @@ import 'package:classic/common/imports.dart';
 import 'package:classic/data/model/musical_form.dart';
 import 'package:classic/presentation/widget/autocomplete/app_autocomplete.dart';
 import 'package:classic/presentation/widget/autocomplete/custom_options/custom_option_add.dart';
-import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
+import 'package:classic/presentation/widget/autocomplete/data/autocompletable.dart';
 
 class MusicalFormAutoComplete extends StatelessWidget {
   const MusicalFormAutoComplete({super.key});
@@ -23,9 +23,6 @@ class MusicalFormAutoComplete extends StatelessWidget {
           opacity: state.composer == null ? 0 : 1,
           duration: const Duration(milliseconds: 200),
           child: AppAutoComplete<Autocompletable>(
-            initialValue: state.musicalForm == null
-                ? ""
-                : state.musicalForm!.displayString(),
             label: "형식",
             options: [
               CustomOptionIconAndText(
@@ -40,6 +37,15 @@ class MusicalFormAutoComplete extends StatelessWidget {
                 BlocProvider.of<ComposerAutoCompleteBloc>(context)
                     .add(ComposerAutoCompleteEvent.selectMusicalForm(form));
               }
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) return "음악형식을 입력해주세요.";
+              if (state.musicalForms
+                  .where((musicalForm) => musicalForm.displayString() == value)
+                  .isEmpty) {
+                return "등록되지 않은 음악형식입니다. 목록에서 선택하거나 추가해주세요.";
+              }
+              return null;
             },
           ),
         );

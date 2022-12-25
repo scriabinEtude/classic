@@ -6,7 +6,7 @@ import 'package:classic/data/model/composer.dart';
 import 'package:classic/presentation/screen/composer/composer_register_screen.dart';
 import 'package:classic/presentation/widget/autocomplete/app_autocomplete.dart';
 import 'package:classic/presentation/widget/autocomplete/custom_options/custom_option_add.dart';
-import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
+import 'package:classic/presentation/widget/autocomplete/data/autocompletable.dart';
 
 class ComposerAutoComplete extends StatelessWidget {
   const ComposerAutoComplete({super.key});
@@ -20,8 +20,6 @@ class ComposerAutoComplete extends StatelessWidget {
     return BlocBuilder<ComposerAutoCompleteBloc, ComposerAutoCompleteState>(
       builder: (context, state) {
         return AppAutoComplete<Autocompletable>(
-          initialValue:
-              state.composer == null ? "" : state.composer!.displayString(),
           label: "작곡가",
           options: [
             CustomOptionIconAndText(
@@ -36,6 +34,15 @@ class ComposerAutoComplete extends StatelessWidget {
               BlocProvider.of<ComposerAutoCompleteBloc>(context)
                   .add(ComposerAutoCompleteEvent.select(composer));
             }
+          },
+          validator: (value) {
+            if (value == null || value.isEmpty) return "작곡가를 입력해주세요.";
+            if (state.composers
+                .where((composer) => composer.displayString() == value)
+                .isEmpty) {
+              return "등록되지 않은 작곡가입니다. 목록에서 선택하거나 추가해주세요.";
+            }
+            return null;
           },
         );
       },

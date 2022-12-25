@@ -14,7 +14,7 @@ class YoutubeSnippet with _$YoutubeSnippet {
     required String description,
     required YoutubeThumbnails thumbnails,
     required String channelTitle,
-    required List<String> tags,
+    @Default([]) List<String>? tags,
     required String categoryId,
     required String liveBroadcastContent,
     required YoutubeLocalized localized,

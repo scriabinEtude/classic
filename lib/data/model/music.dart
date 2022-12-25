@@ -1,5 +1,6 @@
 import 'package:classic/data/model/link.dart';
-import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
+import 'package:classic/presentation/widget/autocomplete/data/autocompletable.dart';
+import 'package:classic/presentation/widget/autocomplete/util/match_util.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -30,10 +31,12 @@ class Music extends Equatable with _$Music, Autocompletable {
   Widget? displayWidget() => null;
 
   @override
-  bool isMatch(String inputText) => '$title$subTitle'
-      .replaceAll(r"[^가-힣a-zA-Z]", "")
-      .toLowerCase()
-      .contains(inputText.toLowerCase());
+  bool isMatch(String inputText) {
+    return MatchUtil.factorMatcher([
+      title,
+      subTitle,
+    ], inputText);
+  }
 
   @override
   List<Object?> get props => [

@@ -1,5 +1,6 @@
 import 'package:classic/data/model/music.dart';
-import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
+import 'package:classic/presentation/widget/autocomplete/data/autocompletable.dart';
+import 'package:classic/presentation/widget/autocomplete/util/match_util.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -30,9 +31,9 @@ class MusicalForm with _$MusicalForm, Autocompletable {
 
   @override
   bool isMatch(String inputText) {
-    return "$name$engName"
-        .replaceAll(r"[^가-힣a-zA-Z]", "")
-        .toLowerCase()
-        .contains(inputText.toLowerCase());
+    return MatchUtil.factorMatcher([
+      name,
+      engName,
+    ], inputText);
   }
 }

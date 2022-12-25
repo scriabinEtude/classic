@@ -17,6 +17,7 @@ class YoutubeApi {
       }
 
       Response res = await _dio.get(_getApiUrl(id));
+      print(res.data);
       YoutubeVideos videos = YoutubeVideos.fromJson(res.data);
       cache[id] = videos;
 

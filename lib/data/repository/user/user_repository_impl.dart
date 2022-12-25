@@ -50,7 +50,7 @@ class UserRepositoryImpl extends UserRepository {
         .get();
 
     if (result.docs.isEmpty) {
-      return Failure(CODE_USER_LOGIN_FAILD_EMAIL_NOT_FOUND, '등록되지 않았습니다.');
+      return Failure(CODE_USER_LOGIN_FAILD_EMAIL_NOT_FOUND, '등록되지 않은 계정입니다.');
     } else {
       password = EncodingUtil.passwordEncode(password);
 

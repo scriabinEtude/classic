@@ -15,7 +15,7 @@ class Classic extends StatelessWidget {
       routerDelegate: routeBloc.state.goRouter.routerDelegate,
       routeInformationProvider:
           routeBloc.state.goRouter.routeInformationProvider,
-      title: 'Flutter Demo',
+      title: 'classic',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,

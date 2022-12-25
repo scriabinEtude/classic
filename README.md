@@ -1,16 +1,13 @@
-# classic
+# 목표
+### 뭘듣지?
+### 더 알아보고 싶다
 
-A new Flutter project.
+# 다른 플랫폼과 차이
+### 태그 및 메타데이터 등록 및 수집
+### 강의 제공
+### 읽을거리 제공
+### 다양한 형태의 음악 리스트 제공 (년도, 장르, 음악 형식 등)
+### 댓글 및 사용자 참여를 유도 (태그 등록)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# 연계
+### 유튜브 플레이 리스트 제작

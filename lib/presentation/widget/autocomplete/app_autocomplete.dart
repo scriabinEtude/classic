@@ -1,5 +1,5 @@
 import 'package:classic/common/object/status/status.dart';
-import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
+import 'package:classic/presentation/widget/autocomplete/data/autocompletable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,17 +9,18 @@ part './components/seperator.dart';
 
 class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
   const AppAutoComplete({
-    required this.initialValue,
+    this.initialValue,
     required this.label,
     required this.options,
     this.readOnly = false,
     this.customOptions = const [],
     this.status,
     this.onSelected,
+    this.validator,
     Key? key,
   }) : super(key: key);
 
-  final String initialValue;
+  final String? initialValue;
   final List<T> options;
   final String label;
   final bool readOnly;
@@ -32,12 +33,14 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
   final List<Widget> customOptions;
   final Status? status;
   final void Function(T)? onSelected;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       return Autocomplete<T>(
-        initialValue: TextEditingValue(text: initialValue),
+        initialValue:
+            initialValue != null ? TextEditingValue(text: initialValue!) : null,
         optionsBuilder: (textEditingValue) =>
             options.where((option) => option.isMatch(textEditingValue.text)),
         displayStringForOption: (option) => option.displayString(),
@@ -53,6 +56,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
             decoration: InputDecoration(
               label: Text(label),
             ),
+            validator: validator,
           );
         },
         onSelected: onSelected,

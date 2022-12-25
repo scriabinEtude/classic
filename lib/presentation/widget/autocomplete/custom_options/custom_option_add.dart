@@ -1,5 +1,5 @@
 import 'package:classic/common/imports.dart';
-import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
+import 'package:classic/presentation/widget/autocomplete/data/autocompletable.dart';
 
 class CustomOptionIconAndText extends Autocompletable {
   CustomOptionIconAndText({

@@ -12,12 +12,18 @@ import 'package:classic/presentation/screen/link/components/link_widget.dart';
 import 'package:classic/presentation/screen/link/components/music_autocomplete.dart';
 import 'package:classic/presentation/screen/link/components/musical_form_autocomplete.dart';
 
-class LinkRegisterScreen extends StatelessWidget {
-  LinkRegisterScreen({super.key});
+class LinkRegisterScreen extends StatefulWidget {
+  const LinkRegisterScreen({super.key});
 
   static const String routeName = "/link/register";
 
+  @override
+  State<LinkRegisterScreen> createState() => _LinkRegisterScreenState();
+}
+
+class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _linkController = TextEditingController();
 
   regist(BuildContext context) {

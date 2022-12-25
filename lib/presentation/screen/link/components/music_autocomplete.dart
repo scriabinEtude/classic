@@ -5,7 +5,7 @@ import 'package:classic/common/imports.dart';
 import 'package:classic/data/model/music.dart';
 import 'package:classic/presentation/widget/autocomplete/app_autocomplete.dart';
 import 'package:classic/presentation/widget/autocomplete/custom_options/custom_option_add.dart';
-import 'package:classic/presentation/widget/autocomplete/data/mixin_autocompletable.dart';
+import 'package:classic/presentation/widget/autocomplete/data/autocompletable.dart';
 
 class MusicAutoComplete extends StatelessWidget {
   const MusicAutoComplete({super.key});
@@ -23,8 +23,6 @@ class MusicAutoComplete extends StatelessWidget {
           opacity: state.musicalForm == null ? 0 : 1,
           duration: const Duration(milliseconds: 200),
           child: AppAutoComplete<Autocompletable>(
-            initialValue:
-                state.music == null ? "" : state.music!.displayString(),
             label: "제목",
             options: [
               CustomOptionIconAndText(
@@ -39,6 +37,15 @@ class MusicAutoComplete extends StatelessWidget {
                 BlocProvider.of<ComposerAutoCompleteBloc>(context)
                     .add(ComposerAutoCompleteEvent.selectMusic(music));
               }
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) return "음악형식을 입력해주세요.";
+              if (state.musics
+                  .where((musics) => musics.displayString() == value)
+                  .isEmpty) {
+                return "등록되지 않은 제목입니다. 목록에서 선택하거나 추가해주세요.";
+              }
+              return null;
             },
           ),
         );
