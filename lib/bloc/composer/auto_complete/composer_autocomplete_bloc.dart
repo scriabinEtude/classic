@@ -62,12 +62,13 @@ class ComposerAutoCompleteBloc
   _select(ComposerAutoCompleteEventSelect event, Emitter emit) async {
     try {
       emit(state.copyWith(status: StatusLoading()));
-      final result =
-          await _composerRepository.getComposerById(event.composer.id);
+      final result = await _composerRepository
+          .getMusicalFormByComposerId(event.composer.id);
       result.when(
-        success: (composer) {
+        success: (musicalForms) {
           emit(state.copyWith(
-            composer: composer,
+            composer: event.composer,
+            musicalForms: musicalForms,
             status: Status.success(),
           ));
         },
@@ -84,7 +85,7 @@ class ComposerAutoCompleteBloc
       } else {
         l.el('composer autocomplete _select catch', e);
         emit(state.copyWith(
-            status: Status.fail(message: "작곡가 목록을 불러오는데 실패하였습니다.")));
+            status: Status.fail(message: "음악 형식 목록을 불러오는데 실패하였습니다.")));
       }
     }
   }
@@ -96,30 +97,41 @@ class ComposerAutoCompleteBloc
   }
 
   _selectMusicalForm(
-      ComposerAutoCompleteEventSelectMusicalForm event, Emitter emit) {
-    emit(state.copyWith(
-      musicalForm: event.musicalForm,
-    ));
+      ComposerAutoCompleteEventSelectMusicalForm event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: StatusLoading()));
+      final result = await _composerRepository
+          .getMusicByMusicalFormId(event.musicalForm.id);
+
+      result.when(
+        success: (musics) {
+          emit(state.copyWith(
+            musicalForm: event.musicalForm,
+            musics: musics,
+            status: Status.success(),
+          ));
+        },
+        failure: (code, message) {
+          l.el('composer autocomplete _selectMusicalForm failure', message);
+          emit(state.copyWith(status: Status.fail()));
+        },
+      );
+    } catch (e) {
+      if (e is Failure) {
+        l.el('composer autocomplete _select Failure', e.message);
+        emit(state.copyWith(
+            status: Status.fail(code: e.status, message: e.message)));
+      } else {
+        l.el('composer autocomplete _select catch', e);
+        emit(state.copyWith(
+            status: Status.fail(message: "음악 형식 목록을 불러오는데 실패하였습니다.")));
+      }
+    }
   }
 
   _updateMusicalForm(
       ComposerAutoCompleteEventUpdateMusicalForm event, Emitter emit) {
-    List<Composer> composers = state.composers
-        .map((c) => c.id == event.composerId
-            ? c.copyWith(musicalForms: [...c.musicalForms, event.musicalForm])
-            : c)
-        .toList();
-
-    Composer composer = state.composer?.id == event.composerId
-        ? state.composer!.copyWith(
-            musicalForms: [...state.composer!.musicalForms, event.musicalForm])
-        : state.composer!;
-
-    emit(state.copyWith(
-      composers: composers,
-      composer: composer,
-      musicalForm: event.musicalForm,
-    ));
+    add(ComposerAutoCompleteEvent.select(state.composer!));
   }
 
   _selectMusic(ComposerAutoCompleteEventSelectMusic event, Emitter emit) {
@@ -129,38 +141,7 @@ class ComposerAutoCompleteBloc
   }
 
   _updateMusic(ComposerAutoCompleteEventUpdateMusic event, Emitter emit) {
-    List<Composer> composers = state.composers
-        .map((c) => c.id == event.composerId
-            ? c.copyWith(
-                musicalForms: c.musicalForms
-                    .map((f) => f.id == event.musicalFormId
-                        ? f.copyWith(musics: [event.music, ...f.musics])
-                        : f)
-                    .toList())
-            : c)
-        .toList();
-
-    Composer composer = state.composer?.id == event.composerId
-        ? state.composer!.copyWith(
-            musicalForms: state.composer!.musicalForms
-                .map((f) => f.id == event.musicalFormId
-                    ? f.copyWith(musics: [event.music, ...f.musics])
-                    : f)
-                .toList(),
-          )
-        : state.composer!;
-
-    MusicalForm musicalForm = state.musicalForm?.id == event.musicalFormId
-        ? state.musicalForm!
-            .copyWith(musics: [event.music, ...state.musicalForm!.musics])
-        : state.musicalForm!;
-
-    emit(state.copyWith(
-      composers: composers,
-      composer: composer,
-      musicalForm: musicalForm,
-      music: event.music,
-    ));
+    add(ComposerAutoCompleteEvent.selectMusicalForm(state.musicalForm!));
   }
 
   _resetSelect(ComposerAutoCompleteEventResetSelect event, Emitter emit) {

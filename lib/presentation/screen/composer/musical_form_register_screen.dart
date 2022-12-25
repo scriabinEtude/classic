@@ -17,7 +17,7 @@ class MusicalFormRegisterScreen extends StatefulWidget {
   });
 
   static String routeName(String composerId) =>
-      "/link/register/composer/:$composerId/musicalform";
+      "/link/register/composer/:$composerId/musicalForm";
   final String composerId;
 
   @override
@@ -31,7 +31,8 @@ class _MusicalFormRegisterScreenState extends State<MusicalFormRegisterScreen> {
   String? name;
   String? engName;
 
-  MusicalForm get musicalform => MusicalForm(
+  MusicalForm get musicalForm => MusicalForm(
+        composerId: widget.composerId,
         name: name!,
         engName: engName!,
       );
@@ -41,7 +42,7 @@ class _MusicalFormRegisterScreenState extends State<MusicalFormRegisterScreen> {
       _formKey.currentState?.save();
       BlocProvider.of<ComposerRegisterBloc>(context).add(
           ComposerRegisterEvent.registerMusicalForm(
-              widget.composerId, musicalform));
+              widget.composerId, musicalForm));
     }
   }
 
@@ -54,7 +55,7 @@ class _MusicalFormRegisterScreenState extends State<MusicalFormRegisterScreen> {
             if (code == CODE_MUSICAL_FORM_REGISTER_SUCCESS) {
               BlocProvider.of<ComposerAutoCompleteBloc>(context).add(
                   ComposerAutoCompleteEvent.updateMusicalForm(
-                      widget.composerId, musicalform));
+                      widget.composerId, musicalForm));
               context.pop();
             }
           },

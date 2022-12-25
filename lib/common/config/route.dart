@@ -108,7 +108,7 @@ class GrassRouter {
                           child: const ComposerRegisterScreen()),
                     ),
                     GoRoute(
-                      path: ':composerId/musicalform',
+                      path: ':composerId/musicalForm',
                       builder: (context, state) => BlocProvider(
                           create: (context) => ComposerRegisterBloc(),
                           child: MusicalFormRegisterScreen(
@@ -116,12 +116,12 @@ class GrassRouter {
                           )),
                     ),
                     GoRoute(
-                      path: ':composerId/:musicalformId/music',
+                      path: ':composerId/:musicalFormId/music',
                       builder: (context, state) => BlocProvider(
                           create: (context) => ComposerRegisterBloc(),
                           child: MusicRegisterScreen(
                               composerId: state.params['composerId']!,
-                              musicalformId: state.params['musicalformId']!)),
+                              musicalFormId: state.params['musicalFormId']!)),
                     ),
                   ]),
             ])

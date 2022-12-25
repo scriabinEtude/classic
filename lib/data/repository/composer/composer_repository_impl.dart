@@ -50,17 +50,7 @@ class ComposerRepositoryImpl implements ComposerRepository {
           await client.collection(COL_COMPOSER).doc(id).get();
 
       if (snapshot.exists) {
-        QuerySnapshot<Map<String, dynamic>> musicalformSnapshot = await client
-            .collection(COL_COMPOSER)
-            .doc(id)
-            .collection(COL_MUSICALFORMS)
-            .get();
-
-        Map<String, dynamic> resultData = snapshot.data()!;
-        resultData['musicalForms'] =
-            musicalformSnapshot.docs.map((e) => e.data()).toList();
-
-        return Result.success(Composer.fromJson(resultData));
+        return Success(Composer.fromJson(snapshot.data()!));
       } else {
         return Result.failure(CODE_COMPOSER_NOT_EXIST, "작곡가가 없습니다.");
       }
@@ -71,30 +61,39 @@ class ComposerRepositoryImpl implements ComposerRepository {
   }
 
   @override
-  Future<Result<void>> postMusicalForm(
-      String composerId, MusicalForm musicalForm) async {
+  Future<Result<List<MusicalForm>>> getMusicalFormByComposerId(
+      String composerId) async {
     try {
-      DocumentReference<Map<String, dynamic>> composerRef =
-          client.collection(COL_COMPOSER).doc(composerId);
-      DocumentSnapshot<Map<String, dynamic>> snapshot = await composerRef.get();
-      if (!snapshot.exists) {
+      QuerySnapshot<Map<String, dynamic>> snapshot = await client
+          .collection(COL_MUSICALFORMS)
+          .where('composerId', isEqualTo: composerId)
+          .get();
+
+      return Result.success(snapshot.toModels(MusicalForm.fromJson));
+    } catch (e) {
+      l.el('ComposerRepositoryImpl getMusicalFormByComposerId catch', e);
+      return Result.failure(Result.CODE_FAILURE, "음악 형식 찾기를 실패하였습니다");
+    }
+  }
+
+  @override
+  Future<Result<void>> postMusicalForm(
+    String composerId,
+    MusicalForm musicalForm,
+  ) async {
+    try {
+      if (!(await client.collection(COL_COMPOSER).doc(composerId).get())
+          .exists) {
         throw Failure(CODE_COMPOSER_NOT_EXIST, "작곡가를 먼저 등록해 주세요");
       } else {
-        QuerySnapshot<Map<String, dynamic>> snapshot =
-            await composerRef.collection(COL_MUSICALFORMS).get();
-        List<MusicalForm> musicalForms =
-            snapshot.toModels(MusicalForm.fromJson);
-        if (musicalForms
-            .where((element) => element.id == musicalForm.id)
-            .isEmpty) {
-          await composerRef
-              .collection(COL_MUSICALFORMS)
-              .doc(musicalForm.id)
-              .set(musicalForm.toJson());
+        DocumentReference<Map<String, dynamic>> musicalFormRef =
+            client.collection(COL_MUSICALFORMS).doc(musicalForm.id);
 
-          return Success(null);
-        } else {
+        if ((await musicalFormRef.get()).exists) {
           throw Failure(CODE_MUSICAL_FORM_DUPLICATED, '이미 등록된 음악 형식입니다.');
+        } else {
+          await musicalFormRef.set(musicalForm.toJson());
+          return Success(null);
         }
       }
     } catch (e) {
@@ -105,29 +104,39 @@ class ComposerRepositoryImpl implements ComposerRepository {
   }
 
   @override
-  Future<Result<void>> postMusic(
-      String composerId, String musicalFormId, Music music) async {
+  Future<Result<List<Music>>> getMusicByMusicalFormId(
+      String musicalFormId) async {
     try {
-      DocumentReference<Map<String, dynamic>> musicalformRef = client
-          .collection(COL_COMPOSER)
-          .doc(composerId)
-          .collection(COL_MUSICALFORMS)
-          .doc(musicalFormId);
+      QuerySnapshot<Map<String, dynamic>> snapshot = await client
+          .collection(COL_MUSIC)
+          .where('musicalFormId', isEqualTo: musicalFormId)
+          .get();
 
-      DocumentSnapshot<Map<String, dynamic>> snapshot =
-          await musicalformRef.get();
-      if (!snapshot.exists) {
-        throw Failure(CODE_COMPOSER_NOT_EXIST, "음악 형식을 먼저 등록해 주세요");
+      return Result.success(snapshot.toModels(Music.fromJson));
+    } catch (e) {
+      l.el('ComposerRepositoryImpl getMusicalFormByComposerId catch', e);
+      return Result.failure(Result.CODE_FAILURE, "제목 찾기를 실패하였습니다");
+    }
+  }
+
+  @override
+  Future<Result<void>> postMusic(
+    String composerId,
+    String musicalFormId,
+    Music music,
+  ) async {
+    try {
+      if (!(await client.collection(COL_MUSICALFORMS).doc(musicalFormId).get())
+          .exists) {
+        throw Failure(CODE_MUSICAL_FORM_NOT_EXIST, "음악 형식을 먼저 등록해 주세요");
       } else {
-        MusicalForm musicalForm = MusicalForm.fromJson(snapshot.data()!);
-        if (musicalForm.musics
-            .where((element) => element == music)
-            .isNotEmpty) {
-          throw Failure(CODE_MUSIC_DUPLICATED, "이미 등록된 제목입니다");
+        DocumentReference<Map<String, dynamic>> musicRef =
+            client.collection(COL_MUSIC).doc(music.id);
+
+        if ((await musicRef.get()).exists) {
+          throw Failure(CODE_MUSICAL_FORM_DUPLICATED, '이미 등록된 음악 제목 입니다.');
         } else {
-          musicalformRef.update({
-            'musics': FieldValue.arrayUnion([music.toJson()])
-          });
+          await musicRef.set(music.toJson());
           return Success(null);
         }
       }

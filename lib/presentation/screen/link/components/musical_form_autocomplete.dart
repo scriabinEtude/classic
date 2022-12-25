@@ -12,7 +12,7 @@ class MusicalFormAutoComplete extends StatelessWidget {
 
   goMusicalFormRegisterScreen(
       BuildContext context, ComposerAutoCompleteState state) {
-    context.go('/link/register/${state.composer!.id}/musicalform');
+    context.go('/link/register/${state.composer!.id}/musicalForm');
   }
 
   @override
@@ -32,7 +32,7 @@ class MusicalFormAutoComplete extends StatelessWidget {
                 onSelect: () => goMusicalFormRegisterScreen(context, state),
                 text: "형식 추가",
               ),
-              if (state.composer != null) ...state.composer!.musicalForms,
+              ...state.musicalForms,
             ],
             status: state.status,
             onSelected: (form) {

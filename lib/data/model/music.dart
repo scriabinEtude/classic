@@ -12,12 +12,16 @@ class Music extends Equatable with _$Music, Autocompletable {
   Music._();
 
   factory Music({
+    required String composerId,
+    required String musicalFormId,
     required String title,
     required String subTitle,
     @Default([]) List<Link> links,
   }) = _Music;
 
   factory Music.fromJson(Map<String, dynamic> json) => _$MusicFromJson(json);
+
+  String get id => "$musicalFormId${title..replaceAll(r"[^가-힣a-zA-Z]", "")}";
 
   @override
   String displayString() => '$title - $subTitle';

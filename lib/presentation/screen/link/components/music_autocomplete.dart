@@ -31,7 +31,7 @@ class MusicAutoComplete extends StatelessWidget {
                 onSelect: () => goMusicRegisterScreen(context, state),
                 text: "제목 추가",
               ),
-              if (state.musicalForm != null) ...state.musicalForm!.musics,
+              ...state.musics,
             ],
             status: state.status,
             onSelected: (music) {

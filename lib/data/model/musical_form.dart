@@ -11,6 +11,7 @@ class MusicalForm with _$MusicalForm, Autocompletable {
   MusicalForm._();
 
   factory MusicalForm({
+    required String composerId,
     required String name,
     required String engName,
     @Default([]) List<Music> musics,
@@ -19,7 +20,7 @@ class MusicalForm with _$MusicalForm, Autocompletable {
   factory MusicalForm.fromJson(Map<String, dynamic> json) =>
       _$MusicalFormFromJson(json);
 
-  String get id => engName;
+  String get id => "$composerId$engName";
 
   @override
   String displayString() => "$name - $engName";

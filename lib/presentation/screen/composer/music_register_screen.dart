@@ -14,14 +14,14 @@ class MusicRegisterScreen extends StatefulWidget {
   const MusicRegisterScreen({
     super.key,
     required this.composerId,
-    required this.musicalformId,
+    required this.musicalFormId,
   });
 
   final String composerId;
-  final String musicalformId;
+  final String musicalFormId;
 
-  static String routeName(String composerId, String musicalformId) =>
-      "/link/register/:$composerId/:$musicalformId/musicalform";
+  static String routeName(String composerId, String musicalFormId) =>
+      "/link/register/:$composerId/:$musicalFormId/musicalForm";
 
   @override
   State<MusicRegisterScreen> createState() => _MusicRegisterScreenState();
@@ -34,6 +34,8 @@ class _MusicRegisterScreenState extends State<MusicRegisterScreen> {
   String? subTitle;
 
   Music get music => Music(
+        composerId: widget.composerId,
+        musicalFormId: widget.musicalFormId,
         title: title!,
         subTitle: subTitle!,
       );
@@ -43,7 +45,7 @@ class _MusicRegisterScreenState extends State<MusicRegisterScreen> {
       _formKey.currentState?.save();
       BlocProvider.of<ComposerRegisterBloc>(context).add(
           ComposerRegisterEvent.registerMusic(
-              widget.composerId, widget.musicalformId, music));
+              widget.composerId, widget.musicalFormId, music));
     }
   }
 
@@ -56,7 +58,7 @@ class _MusicRegisterScreenState extends State<MusicRegisterScreen> {
             if (code == CODE_MUSIC_REGISTER_SUCCESS) {
               BlocProvider.of<ComposerAutoCompleteBloc>(context).add(
                   ComposerAutoCompleteEvent.updateMusic(
-                      widget.composerId, widget.musicalformId, music));
+                      widget.composerId, widget.musicalFormId, music));
               context.pop();
             }
           },

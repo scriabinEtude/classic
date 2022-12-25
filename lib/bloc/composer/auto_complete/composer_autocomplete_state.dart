@@ -12,7 +12,9 @@ class ComposerAutoCompleteState with _$ComposerAutoCompleteState {
     required Status status,
     @Default([]) List<Composer> composers,
     Composer? composer,
+    @Default([]) List<MusicalForm> musicalForms,
     MusicalForm? musicalForm,
+    @Default([]) List<Music> musics,
     Music? music,
   }) = _ComposerAutoCompleteState;
 }

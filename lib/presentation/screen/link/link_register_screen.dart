@@ -7,7 +7,6 @@ import 'package:classic/common/imports.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/bloc_util.dart';
 import 'package:classic/data/const/code.dart';
-import 'package:classic/presentation/screen/composer/music_register_screen.dart';
 import 'package:classic/presentation/screen/link/components/composer_autocomplete.dart';
 import 'package:classic/presentation/screen/link/components/link_widget.dart';
 import 'package:classic/presentation/screen/link/components/music_autocomplete.dart';
