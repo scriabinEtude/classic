@@ -1,5 +1,5 @@
-import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_bloc.dart';
-import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_event.dart';
+import 'package:classic/bloc/composer/auto_complete/autocomplete_bloc.dart';
+import 'package:classic/bloc/composer/auto_complete/autocomplete_event.dart';
 import 'package:classic/bloc/composer/register/composer_register_bloc.dart';
 import 'package:classic/bloc/composer/register/composer_register_event.dart';
 import 'package:classic/bloc/composer/register/composer_register_state.dart';
@@ -56,8 +56,8 @@ class _MusicRegisterScreenState extends State<MusicRegisterScreen> {
         state.status.whenOrNull(
           success: (code) {
             if (code == CODE_MUSIC_REGISTER_SUCCESS) {
-              BlocProvider.of<ComposerAutoCompleteBloc>(context).add(
-                  ComposerAutoCompleteEvent.updateMusic(
+              BlocProvider.of<AutoCompleteBloc>(context).add(
+                  AutoCompleteEvent.updateMusic(
                       widget.composerId, widget.musicalFormId, music));
               context.pop();
             }

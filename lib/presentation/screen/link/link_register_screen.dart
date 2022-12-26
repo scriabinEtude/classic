@@ -1,3 +1,5 @@
+import 'package:classic/bloc/composer/auto_complete/autocomplete_bloc.dart';
+import 'package:classic/bloc/composer/auto_complete/autocomplete_event.dart';
 import 'package:classic/bloc/link/link/link_bloc.dart';
 import 'package:classic/bloc/link/link/link_event.dart';
 import 'package:classic/bloc/link/register/link_register_bloc.dart';
@@ -11,6 +13,7 @@ import 'package:classic/presentation/screen/link/components/composer_autocomplet
 import 'package:classic/presentation/screen/link/components/link_widget.dart';
 import 'package:classic/presentation/screen/link/components/music_autocomplete.dart';
 import 'package:classic/presentation/screen/link/components/musical_form_autocomplete.dart';
+import 'package:classic/presentation/screen/link/components/player_autocomplete.dart';
 
 class LinkRegisterScreen extends StatefulWidget {
   const LinkRegisterScreen({super.key});
@@ -25,6 +28,18 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _linkController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    initSearch();
+  }
+
+  initSearch() {
+    BlocProvider.of<AutoCompleteBloc>(context)
+      ..add(AutoCompleteEvent.getComposers())
+      ..add(AutoCompleteEvent.getPlayers());
+  }
 
   regist(BuildContext context) {
     if (_formKey.currentState?.validate() == true) {
@@ -66,6 +81,7 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
                   const _LinkPreview(),
                   _LinkFormField(controller: _linkController),
                   const ComposerAutoComplete(),
+                  const PlayerAutoComplete(),
                   const MusicalFormAutoComplete(),
                   const MusicAutoComplete(),
                 ],

@@ -6,6 +6,8 @@ import 'package:classic/data/repository/link/link/link_repository.dart';
 import 'package:classic/data/repository/link/link/link_repository_impl.dart';
 import 'package:classic/data/repository/link/register/link_register_repository.dart';
 import 'package:classic/data/repository/link/register/link_register_repository_impl.dart';
+import 'package:classic/data/repository/player/player_repository.dart';
+import 'package:classic/data/repository/player/player_repository_impl.dart';
 import 'package:classic/data/repository/user/user_repository_impl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:classic/data/repository/user/user_repository.dart';
@@ -25,5 +27,6 @@ class Di {
         LinkRegisterRepositoryImpl(db));
     di.registerSingleton<LinkRepository>(LinkRepositoryImpl(db));
     di.registerSingleton<ComposerRepository>(ComposerRepositoryImpl(db));
+    di.registerSingleton<PlayerRepository>(PlayerRepositoryImpl(db));
   }
 }

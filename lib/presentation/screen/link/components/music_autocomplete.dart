@@ -1,6 +1,6 @@
-import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_bloc.dart';
-import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_event.dart';
-import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_state.dart';
+import 'package:classic/bloc/composer/auto_complete/autocomplete_bloc.dart';
+import 'package:classic/bloc/composer/auto_complete/autocomplete_event.dart';
+import 'package:classic/bloc/composer/auto_complete/autocomplete_state.dart';
 import 'package:classic/common/imports.dart';
 import 'package:classic/data/model/music.dart';
 import 'package:classic/presentation/widget/autocomplete/app_autocomplete.dart';
@@ -10,14 +10,14 @@ import 'package:classic/presentation/widget/autocomplete/data/autocompletable.da
 class MusicAutoComplete extends StatelessWidget {
   const MusicAutoComplete({super.key});
 
-  goMusicRegisterScreen(BuildContext context, ComposerAutoCompleteState state) {
+  goMusicRegisterScreen(BuildContext context, AutoCompleteState state) {
     context.go(
         '/link/register/${state.composer!.id}/${state.musicalForm!.id}/music');
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ComposerAutoCompleteBloc, ComposerAutoCompleteState>(
+    return BlocBuilder<AutoCompleteBloc, AutoCompleteState>(
       builder: (context, state) {
         return AnimatedOpacity(
           opacity: state.musicalForm == null ? 0 : 1,
@@ -34,8 +34,8 @@ class MusicAutoComplete extends StatelessWidget {
             status: state.status,
             onSelected: (music) {
               if (music is Music) {
-                BlocProvider.of<ComposerAutoCompleteBloc>(context)
-                    .add(ComposerAutoCompleteEvent.selectMusic(music));
+                BlocProvider.of<AutoCompleteBloc>(context)
+                    .add(AutoCompleteEvent.selectMusic(music));
               }
             },
             validator: (value) {

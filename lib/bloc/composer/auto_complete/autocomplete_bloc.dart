@@ -1,33 +1,35 @@
 import 'package:bloc/bloc.dart';
-import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_event.dart';
-import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_state.dart';
+import 'package:classic/bloc/composer/auto_complete/autocomplete_event.dart';
+import 'package:classic/bloc/composer/auto_complete/autocomplete_state.dart';
 import 'package:classic/common/config/di.dart';
 import 'package:classic/common/object/logger/logger.dart';
 import 'package:classic/common/object/result/result.dart';
 import 'package:classic/common/object/status/status.dart';
-import 'package:classic/data/model/composer.dart';
-import 'package:classic/data/model/musical_form.dart';
 import 'package:classic/data/repository/composer/composer_repository.dart';
+import 'package:classic/data/repository/player/player_repository.dart';
 
-class ComposerAutoCompleteBloc
-    extends Bloc<ComposerAutoCompleteEvent, ComposerAutoCompleteState> {
-  ComposerAutoCompleteBloc()
+class AutoCompleteBloc extends Bloc<AutoCompleteEvent, AutoCompleteState> {
+  AutoCompleteBloc()
       : _composerRepository = di.get<ComposerRepository>(),
-        super(ComposerAutoCompleteState(status: StatusInit())) {
-    on<ComposerAutoCompleteEventInit>(_init);
-    on<ComposerAutoCompleteEventAdd>(_add);
-    on<ComposerAutoCompleteEventSelect>(_select);
-    on<ComposerAutoCompleteEventSelectMusicalForm>(_selectMusicalForm);
-    on<ComposerAutoCompleteEventUpdateMusicalForm>(_updateMusicalForm);
-    on<ComposerAutoCompleteEventSelectMusic>(_selectMusic);
-    on<ComposerAutoCompleteEventUpdateMusic>(_updateMusic);
-    on<ComposerAutoCompleteEventResetSelect>(_resetSelect);
-    add(ComposerAutoCompleteEvent.init());
+        _playerRepository = di.get<PlayerRepository>(),
+        super(AutoCompleteState(status: StatusInit())) {
+    on<AutoCompleteEventGetComposer>(_init);
+    on<AutoCompleteEventAdd>(_add);
+    on<AutoCompleteEventSelect>(_select);
+    on<AutoCompleteEventSelectMusicalForm>(_selectMusicalForm);
+    on<AutoCompleteEventUpdateMusicalForm>(_updateMusicalForm);
+    on<AutoCompleteEventSelectMusic>(_selectMusic);
+    on<AutoCompleteEventUpdateMusic>(_updateMusic);
+    on<AutoCompleteEventResetSelect>(_resetSelect);
+
+    on<AutoCompleteEventGetPlayers>(_getPlayers);
+    on<AutoCompleteEventSelectPlayer>(_selectPlayer);
   }
 
   final ComposerRepository _composerRepository;
+  final PlayerRepository _playerRepository;
 
-  _init(ComposerAutoCompleteEventInit event, Emitter emit) async {
+  _init(AutoCompleteEventGetComposer event, Emitter emit) async {
     if (state.composers.isNotEmpty) return;
 
     try {
@@ -59,7 +61,7 @@ class ComposerAutoCompleteBloc
     }
   }
 
-  _select(ComposerAutoCompleteEventSelect event, Emitter emit) async {
+  _select(AutoCompleteEventSelect event, Emitter emit) async {
     try {
       emit(state.copyWith(status: StatusLoading()));
       final result = await _composerRepository
@@ -90,14 +92,14 @@ class ComposerAutoCompleteBloc
     }
   }
 
-  _add(ComposerAutoCompleteEventAdd event, Emitter emit) {
+  _add(AutoCompleteEventAdd event, Emitter emit) {
     emit(state.copyWith(
       composers: [...state.composers, event.composer],
     ));
   }
 
   _selectMusicalForm(
-      ComposerAutoCompleteEventSelectMusicalForm event, Emitter emit) async {
+      AutoCompleteEventSelectMusicalForm event, Emitter emit) async {
     try {
       emit(state.copyWith(status: StatusLoading()));
       final result = await _composerRepository
@@ -129,25 +131,58 @@ class ComposerAutoCompleteBloc
     }
   }
 
-  _updateMusicalForm(
-      ComposerAutoCompleteEventUpdateMusicalForm event, Emitter emit) {
-    add(ComposerAutoCompleteEvent.select(state.composer!));
+  _updateMusicalForm(AutoCompleteEventUpdateMusicalForm event, Emitter emit) {
+    add(AutoCompleteEvent.select(state.composer!));
   }
 
-  _selectMusic(ComposerAutoCompleteEventSelectMusic event, Emitter emit) {
+  _selectMusic(AutoCompleteEventSelectMusic event, Emitter emit) {
     emit(state.copyWith(
       music: event.music,
     ));
   }
 
-  _updateMusic(ComposerAutoCompleteEventUpdateMusic event, Emitter emit) {
-    add(ComposerAutoCompleteEvent.selectMusicalForm(state.musicalForm!));
+  _updateMusic(AutoCompleteEventUpdateMusic event, Emitter emit) {
+    add(AutoCompleteEvent.selectMusicalForm(state.musicalForm!));
   }
 
-  _resetSelect(ComposerAutoCompleteEventResetSelect event, Emitter emit) {
-    emit(ComposerAutoCompleteState(
+  _resetSelect(AutoCompleteEventResetSelect event, Emitter emit) {
+    emit(AutoCompleteState(
       status: StatusSuccess(),
       composers: state.composers,
     ));
+  }
+
+  _getPlayers(AutoCompleteEventGetPlayers event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: StatusLoading()));
+      final result = await _playerRepository.getPlayers();
+
+      result.when(
+        success: (players) {
+          emit(state.copyWith(
+            players: players,
+            status: Status.success(),
+          ));
+        },
+        failure: (code, message) {
+          l.el('composer autocomplete _getPlayers failure', message);
+          emit(state.copyWith(status: Status.fail()));
+        },
+      );
+    } catch (e) {
+      if (e is Failure) {
+        l.el('composer autocomplete _getPlayers Failure', e.message);
+        emit(state.copyWith(
+            status: Status.fail(code: e.status, message: e.message)));
+      } else {
+        l.el('composer autocomplete _getPlayers catch', e);
+        emit(state.copyWith(
+            status: Status.fail(message: "연주지를 불러오는데 실패하였습니다.")));
+      }
+    }
+  }
+
+  _selectPlayer(AutoCompleteEventSelectPlayer event, Emitter emit) async {
+    emit(state.copyWith(player: event.player));
   }
 }

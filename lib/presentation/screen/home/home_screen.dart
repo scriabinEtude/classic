@@ -1,5 +1,5 @@
-import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_bloc.dart';
-import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_event.dart';
+import 'package:classic/bloc/composer/auto_complete/autocomplete_bloc.dart';
+import 'package:classic/bloc/composer/auto_complete/autocomplete_event.dart';
 import 'package:classic/bloc/home/home_bloc.dart';
 import 'package:classic/bloc/home/home_state.dart';
 import 'package:classic/bloc/user/user_bloc.dart';
@@ -40,8 +40,8 @@ class HomeScreen extends StatelessWidget {
               backgroundColor: lightColorTheme.primaryColor,
               child: const Icon(Icons.add),
               onPressed: () {
-                BlocProvider.of<ComposerAutoCompleteBloc>(context)
-                    .add(ComposerAutoCompleteEvent.resetSelect());
+                BlocProvider.of<AutoCompleteBloc>(context)
+                    .add(AutoCompleteEvent.resetSelect());
                 context.pushNamed(LinkRegisterScreen.routeName);
               },
             ),

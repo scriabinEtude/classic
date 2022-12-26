@@ -1,4 +1,4 @@
-import 'package:classic/bloc/composer/auto_complete/composer_autocomplete_bloc.dart';
+import 'package:classic/bloc/composer/auto_complete/autocomplete_bloc.dart';
 import 'package:classic/bloc/link/link/link_bloc.dart';
 import 'package:classic/bloc/route/route_bloc.dart';
 import 'package:classic/bloc/user/user_bloc.dart';
@@ -18,7 +18,7 @@ class Providers {
                 userBloc: userBloc,
               )),
       BlocProvider(create: (context) => LinkBloc()),
-      BlocProvider(create: (context) => ComposerAutoCompleteBloc()),
+      BlocProvider(create: (context) => AutoCompleteBloc()),
     ];
   }
 }
