@@ -6,12 +6,14 @@ import 'package:classic/common/object/logger/logger.dart';
 import 'package:classic/common/object/result/result.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/data/repository/composer/composer_repository.dart';
+import 'package:classic/data/repository/conductor/conductor_repository.dart';
 import 'package:classic/data/repository/player/player_repository.dart';
 
 class AutoCompleteBloc extends Bloc<AutoCompleteEvent, AutoCompleteState> {
   AutoCompleteBloc()
       : _composerRepository = di.get<ComposerRepository>(),
         _playerRepository = di.get<PlayerRepository>(),
+        _conductorRepository = di.get<ConductorRepository>(),
         super(AutoCompleteState(status: StatusInit())) {
     on<AutoCompleteEventGetComposer>(_init);
     on<AutoCompleteEventAdd>(_add);
@@ -24,10 +26,14 @@ class AutoCompleteBloc extends Bloc<AutoCompleteEvent, AutoCompleteState> {
 
     on<AutoCompleteEventGetPlayers>(_getPlayers);
     on<AutoCompleteEventSelectPlayer>(_selectPlayer);
+
+    on<AutoCompleteEventGetConductors>(_getConductors);
+    on<AutoCompleteEventSelectConductor>(_selectConductor);
   }
 
   final ComposerRepository _composerRepository;
   final PlayerRepository _playerRepository;
+  final ConductorRepository _conductorRepository;
 
   _init(AutoCompleteEventGetComposer event, Emitter emit) async {
     if (state.composers.isNotEmpty) return;
@@ -149,6 +155,10 @@ class AutoCompleteBloc extends Bloc<AutoCompleteEvent, AutoCompleteState> {
     emit(AutoCompleteState(
       status: StatusSuccess(),
       composers: state.composers,
+      conductors: state.conductors,
+      musicalForms: state.musicalForms,
+      musics: state.musics,
+      players: state.players,
     ));
   }
 
@@ -184,5 +194,39 @@ class AutoCompleteBloc extends Bloc<AutoCompleteEvent, AutoCompleteState> {
 
   _selectPlayer(AutoCompleteEventSelectPlayer event, Emitter emit) async {
     emit(state.copyWith(player: event.player));
+  }
+
+  _getConductors(AutoCompleteEventGetConductors event, Emitter emit) async {
+    try {
+      emit(state.copyWith(status: StatusLoading()));
+      final result = await _conductorRepository.getConductors();
+
+      result.when(
+        success: (conductors) {
+          emit(state.copyWith(
+            players: conductors,
+            status: Status.success(),
+          ));
+        },
+        failure: (code, message) {
+          l.el('composer autocomplete _getConductors failure', message);
+          emit(state.copyWith(status: Status.fail()));
+        },
+      );
+    } catch (e) {
+      if (e is Failure) {
+        l.el('composer autocomplete _getConductors Failure', e.message);
+        emit(state.copyWith(
+            status: Status.fail(code: e.status, message: e.message)));
+      } else {
+        l.el('composer autocomplete _getConductors catch', e);
+        emit(state.copyWith(
+            status: Status.fail(message: "지휘자를 불러오는데 실패하였습니다.")));
+      }
+    }
+  }
+
+  _selectConductor(AutoCompleteEventSelectConductor event, Emitter emit) async {
+    emit(state.copyWith(conductor: event.conductor));
   }
 }

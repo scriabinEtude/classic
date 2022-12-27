@@ -11,6 +11,7 @@ class LinkRegisterState with _$LinkRegisterState {
   factory LinkRegisterState({
     required Status status,
     required LinkValidation linkValidation,
+    @Default(false) showConductorField,
   }) = _LinkRegisterState;
 }
 

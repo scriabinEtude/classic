@@ -1,4 +1,5 @@
 import 'package:classic/data/model/composer.dart';
+import 'package:classic/data/model/conductor.dart';
 import 'package:classic/data/model/music.dart';
 import 'package:classic/data/model/musical_form.dart';
 import 'package:classic/data/model/player.dart';
@@ -27,5 +28,10 @@ class AutoCompleteEvent with _$AutoCompleteEvent {
   factory AutoCompleteEvent.getPlayers() = AutoCompleteEventGetPlayers;
   factory AutoCompleteEvent.selectPlayer(Player player) =
       AutoCompleteEventSelectPlayer;
+
+  factory AutoCompleteEvent.getConductors() = AutoCompleteEventGetConductors;
+  factory AutoCompleteEvent.selectConductor(Conductor conductor) =
+      AutoCompleteEventSelectConductor;
+
   factory AutoCompleteEvent.resetSelect() = AutoCompleteEventResetSelect;
 }

@@ -15,8 +15,4 @@ abstract class ComposerRepository {
   Future<Result<List<Music>>> getMusicByMusicalFormId(String musicalFormId);
   Future<Result<void>> postMusic(
       String composerId, String musicalFormId, Music music);
-  // Future<Result<void>> post( // TODO
-  //     String composerId, String musicalFormId, Music music);
-  // Future<Result<void>> postMusic(
-  //     String composerId, String musicalFormId, Music music);
 }

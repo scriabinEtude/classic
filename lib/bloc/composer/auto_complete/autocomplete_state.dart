@@ -1,5 +1,6 @@
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/data/model/composer.dart';
+import 'package:classic/data/model/conductor.dart';
 import 'package:classic/data/model/music.dart';
 import 'package:classic/data/model/musical_form.dart';
 import 'package:classic/data/model/player.dart';
@@ -19,5 +20,7 @@ class AutoCompleteState with _$AutoCompleteState {
     Music? music,
     @Default([]) List<Player> players,
     Player? player,
+    @Default([]) List<Conductor> conductors,
+    Conductor? conductor,
   }) = _AutoCompleteState;
 }

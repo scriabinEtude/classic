@@ -10,6 +10,7 @@ import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/bloc_util.dart';
 import 'package:classic/data/const/code.dart';
 import 'package:classic/presentation/screen/link/components/composer_autocomplete.dart';
+import 'package:classic/presentation/screen/link/components/conductor_autocomplete.dart';
 import 'package:classic/presentation/screen/link/components/link_widget.dart';
 import 'package:classic/presentation/screen/link/components/music_autocomplete.dart';
 import 'package:classic/presentation/screen/link/components/musical_form_autocomplete.dart';
@@ -52,22 +53,23 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LinkRegisterBloc, LinkRegisterState>(
-      listener: (context, state) {
-        state.status.whenOrNull(success: (code) {
-          if (code == CODE_LINK_REGISTER_SUCCESS) {
-            BlocProvider.of<LinkBloc>(context).add(LinkEvent.getLinks());
-            context.pop();
-          }
-        });
-      },
-      child: GestureDetector(
+    return BlocConsumer<LinkRegisterBloc, LinkRegisterState>(
+        listener: (context, state) {
+      state.status.whenOrNull(success: (code) {
+        if (code == CODE_LINK_REGISTER_SUCCESS) {
+          BlocProvider.of<LinkBloc>(context).add(LinkEvent.getLinks());
+          context.pop();
+        }
+      });
+    }, builder: (context, state) {
+      return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
           appBar: AppBar(
             title: const Text('링크 등록'),
           ),
-          floatingActionButton: _FloatingButton(
+          floatingActionButton: _FAB(
+            state: state,
             onTap: () => regist(context),
           ),
           body: Padding(
@@ -77,38 +79,104 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const _ErrorText(),
-                  const _LinkPreview(),
+                  _ErrorText(state),
+                  _LinkPreview(state),
                   _LinkFormField(controller: _linkController),
                   const ComposerAutoComplete(),
                   const PlayerAutoComplete(),
                   const MusicalFormAutoComplete(),
                   const MusicAutoComplete(),
+                  const _TextFieldAdd(),
+                  if (state.showConductorField) const ConductorAutoComplete(),
+                  // TODO 두번 호출되는 문제
+                  // flutter: \^[[38;5;12m💡 BLOC EVENT => AutoCompleteEvent.getComposers()<…>
+                  // flutter: \^[[38;5;12m💡 BLOC EVENT => AutoCompleteEvent.getPlayers()<…>
+                  // flutter: \^[[38;5;12m💡 BLOC EVENT => LinkRegisterEvent.showConductorField(show: true)<…>
+                  // [GoRouter] going to /link/register/player
+                  // flutter: \^[[38;5;12m💡 BLOC EVENT => AutoCompleteEvent.getComposers()<…>
+                  // flutter: \^[[38;5;12m💡 BLOC EVENT => AutoCompleteEvent.getPlayers()<…>
                 ],
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
+  }
+}
+
+class _TextFieldAdd extends StatelessWidget {
+  const _TextFieldAdd();
+
+  showAddButtomSheet(BuildContext blocContext) {
+    showModalBottomSheet(
+        context: blocContext,
+        builder: ((context) {
+          return SizedBox(
+            height: 100.w,
+            width: MediaQuery.of(context).size.width,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _BottomSheetItem('지휘자 추가', () {
+                    BlocProvider.of<LinkRegisterBloc>(blocContext)
+                        .add(LinkRegisterEvent.showConductorField(true));
+                    Navigator.pop(context);
+                  }),
+                ],
+              ),
+            ),
+          );
+        }));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: () => showAddButtomSheet(context),
+        icon: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Icon(
+              Icons.add,
+            ),
+            Text('정보 추가'),
+          ],
+        ));
+  }
+}
+
+class _BottomSheetItem extends StatelessWidget {
+  const _BottomSheetItem(this.title, this.onPressed);
+  final String title;
+  final void Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: onPressed,
+        icon: Text(
+          title,
+          style: const TextStyle(color: Colors.black),
+        ));
   }
 }
 
 class _LinkPreview extends StatelessWidget {
-  const _LinkPreview();
+  const _LinkPreview(this.state);
+
+  final LinkRegisterState state;
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<LinkRegisterBloc, LinkRegisterState, LinkValidation>(
-      selector: (state) => state.linkValidation,
-      builder: (context, linkValidation) {
-        if (linkValidation.validate && linkValidation.link != null) {
-          return LinkWidget(linkValidation.link!);
-        } else {
-          return const SizedBox.shrink();
-        }
-      },
-    );
+    if (state.linkValidation.validate && state.linkValidation.link != null) {
+      return LinkWidget(state.linkValidation.link!);
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 }
 
@@ -145,31 +213,32 @@ class _LinkFormField extends StatelessWidget {
 }
 
 class _ErrorText extends StatelessWidget {
-  const _ErrorText();
+  const _ErrorText(this.state);
+
+  final LinkRegisterState state;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LinkRegisterBloc, LinkRegisterState>(
-      builder: (context, state) {
-        if (state.status is StatusFail) {
-          return Text(
-            (state.status as StatusFail).message!,
-            style: const TextStyle(color: Colors.red),
-          );
-        } else {
-          return const SizedBox.shrink();
-        }
-      },
-    );
+    if (state.status is StatusFail) {
+      return Text(
+        (state.status as StatusFail).message!,
+        style: const TextStyle(color: Colors.red),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 }
 
-class _FloatingButton extends StatelessWidget {
-  const _FloatingButton({required this.onTap});
+class _FAB extends StatelessWidget {
+  const _FAB({required this.onTap, required this.state});
 
   final void Function() onTap;
+  final LinkRegisterState state;
   @override
   Widget build(BuildContext context) {
+    final status = state.status;
+
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -179,31 +248,28 @@ class _FloatingButton extends StatelessWidget {
             color: lightColorTheme.primaryColor,
             borderRadius: BorderRadius.circular(20),
           ),
-          child: BlocSelector<LinkRegisterBloc, LinkRegisterState, Status>(
-            selector: (state) => state.status,
-            builder: (context, status) {
-              if (status is StatusLoading) {
-                return const SizedBox(
-                  height: 24,
-                  width: 24,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                    strokeWidth: 2.5,
-                  ),
-                );
-              } else if (status is StatusFail) {
-                return const Icon(
-                  Icons.priority_high_rounded,
+          child: Builder(builder: (context) {
+            if (status is StatusLoading) {
+              return const SizedBox(
+                height: 24,
+                width: 24,
+                child: CircularProgressIndicator(
                   color: Colors.white,
-                );
-              } else {
-                return const Icon(
-                  Icons.check,
-                  color: Colors.white,
-                );
-              }
-            },
-          )),
+                  strokeWidth: 2.5,
+                ),
+              );
+            } else if (status is StatusFail) {
+              return const Icon(
+                Icons.priority_high_rounded,
+                color: Colors.white,
+              );
+            } else {
+              return const Icon(
+                Icons.check,
+                color: Colors.white,
+              );
+            }
+          })),
     );
   }
 }

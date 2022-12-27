@@ -17,6 +17,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
     this.status,
     this.onSelected,
     this.validator,
+    this.suffixIcon,
     Key? key,
   }) : super(key: key);
 
@@ -34,6 +35,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
   final Status? status;
   final void Function(T)? onSelected;
   final String? Function(String?)? validator;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
             },
             decoration: InputDecoration(
               label: Text(label),
+              suffixIcon: suffixIcon,
             ),
             validator: validator,
           );

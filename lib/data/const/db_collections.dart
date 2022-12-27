@@ -5,3 +5,4 @@ const String COL_COMPOSER = "composer";
 const String COL_MUSICALFORMS = "musicalForm";
 const String COL_MUSIC = 'music';
 const String COL_PLAYER = 'player';
+const String COL_CONDUCTOR = 'conductor';

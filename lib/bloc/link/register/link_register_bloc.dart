@@ -23,6 +23,7 @@ class LinkRegisterBloc extends Bloc<LinkRegisterEvent, LinkRegisterState> {
     on<LinkRegisterEventRegist>(_regist);
     on<LinkRegisterEventLinkValidate>(_linkValidate);
     on<LinkRegisterEventInit>(_init);
+    on<LinkRegisterEventShowConductorField>(_showConductorField);
   }
 
   final YoutubeApi _youtube = YoutubeApi();
@@ -111,5 +112,9 @@ class LinkRegisterBloc extends Bloc<LinkRegisterEvent, LinkRegisterState> {
         emit(state.copyWith(status: Status.fail(message: "링크 등록에 실패하였습니다.")));
       }
     }
+  }
+
+  _showConductorField(LinkRegisterEventShowConductorField event, Emitter emit) {
+    emit(state.copyWith(showConductorField: event.show));
   }
 }

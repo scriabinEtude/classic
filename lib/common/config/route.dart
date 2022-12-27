@@ -5,6 +5,7 @@ import 'package:classic/bloc/user/user_event.dart';
 import 'package:classic/presentation/screen/composer/composer_register_screen.dart';
 import 'package:classic/presentation/screen/composer/music_register_screen.dart';
 import 'package:classic/presentation/screen/composer/musical_form_register_screen.dart';
+import 'package:classic/presentation/screen/conductor/conductor_register_screen.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
 import 'package:classic/presentation/screen/player/player_register_screen.dart';
 import 'package:flutter/material.dart';
@@ -114,6 +115,13 @@ class GrassRouter {
                       builder: (context, state) => BlocProvider(
                           create: (context) => ComposerRegisterBloc(),
                           child: const PlayerRegisterScreen()),
+                    ),
+                    GoRoute(
+                      path: 'conductor',
+                      name: ConductorRegisterScreen.routeName,
+                      builder: (context, state) => BlocProvider(
+                          create: (context) => ComposerRegisterBloc(),
+                          child: const ConductorRegisterScreen()),
                     ),
                     GoRoute(
                       path: ':composerId/musicalForm',

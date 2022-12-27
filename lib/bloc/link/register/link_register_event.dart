@@ -9,4 +9,6 @@ class LinkRegisterEvent with _$LinkRegisterEvent {
       LinkRegisterEventRegist;
   factory LinkRegisterEvent.linkValidate(String url) =
       LinkRegisterEventLinkValidate;
+  factory LinkRegisterEvent.showConductorField(bool show) =
+      LinkRegisterEventShowConductorField;
 }

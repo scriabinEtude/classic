@@ -14,6 +14,7 @@ class Conductor with _$Conductor, Autocompletable {
     required String fullname,
     required String engFullname,
     required String engName,
+    required DateTime createdAt,
   }) = _Conductor;
 
   factory Conductor.fromJson(Map<String, dynamic> json) =>
