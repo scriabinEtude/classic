@@ -28,6 +28,8 @@ class AutoCompleteEvent with _$AutoCompleteEvent {
   factory AutoCompleteEvent.getPlayers() = AutoCompleteEventGetPlayers;
   factory AutoCompleteEvent.selectPlayer(Player player) =
       AutoCompleteEventSelectPlayer;
+  factory AutoCompleteEvent.updatePlayer(Player player) =
+      AutoCompleteEventUpdatePlayer;
 
   factory AutoCompleteEvent.getConductors() = AutoCompleteEventGetConductors;
   factory AutoCompleteEvent.selectConductor(Conductor conductor) =

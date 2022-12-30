@@ -37,4 +37,12 @@ class Player with _$Player, Autocompletable {
       engName,
     ], inputText);
   }
+
+  factory Player.test() => Player(
+        name: 'name',
+        fullname: 'fullname',
+        engFullname: 'engFullname',
+        engName: 'engName',
+        createdAt: DateTime.now(),
+      );
 }

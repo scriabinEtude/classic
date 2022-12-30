@@ -36,4 +36,10 @@ class MusicalForm with _$MusicalForm, Autocompletable {
       engName,
     ], inputText);
   }
+
+  factory MusicalForm.test() => MusicalForm(
+        composerId: 'composerId',
+        name: 'name',
+        engName: 'engName',
+      );
 }

@@ -47,6 +47,7 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
       BlocProvider.of<LinkRegisterBloc>(context).add(LinkRegisterEvent.regist(
         BlocUtil.getUser(context)!.id,
         _linkController.text,
+        BlocProvider.of<AutoCompleteBloc>(context).state,
       ));
     }
   }
@@ -88,13 +89,6 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
                   const MusicAutoComplete(),
                   const _TextFieldAdd(),
                   if (state.showConductorField) const ConductorAutoComplete(),
-                  // TODO 두번 호출되는 문제
-                  // flutter: \^[[38;5;12m💡 BLOC EVENT => AutoCompleteEvent.getComposers()<…>
-                  // flutter: \^[[38;5;12m💡 BLOC EVENT => AutoCompleteEvent.getPlayers()<…>
-                  // flutter: \^[[38;5;12m💡 BLOC EVENT => LinkRegisterEvent.showConductorField(show: true)<…>
-                  // [GoRouter] going to /link/register/player
-                  // flutter: \^[[38;5;12m💡 BLOC EVENT => AutoCompleteEvent.getComposers()<…>
-                  // flutter: \^[[38;5;12m💡 BLOC EVENT => AutoCompleteEvent.getPlayers()<…>
                 ],
               ),
             ),

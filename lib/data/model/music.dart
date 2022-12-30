@@ -42,4 +42,21 @@ class Music extends Equatable with _$Music, Autocompletable {
   List<Object?> get props => [
         title.replaceAll(r"[^가-힣a-zA-Z]", ""),
       ];
+
+  factory Music.oneMore({
+    required String composerId,
+    required String musicalFormId,
+  }) =>
+      Music(
+          composerId: composerId,
+          musicalFormId: musicalFormId,
+          title: '1곡 이상',
+          subTitle: '');
+
+  factory Music.test() => Music(
+        composerId: 'composerId',
+        musicalFormId: 'musicalFormId',
+        title: 'title',
+        subTitle: 'subTitle',
+      );
 }

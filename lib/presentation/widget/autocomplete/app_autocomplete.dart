@@ -60,6 +60,7 @@ class AppAutoComplete<T extends Autocompletable> extends StatelessWidget {
               suffixIcon: suffixIcon,
             ),
             validator: validator,
+            autocorrect: false,
           );
         },
         onSelected: onSelected,

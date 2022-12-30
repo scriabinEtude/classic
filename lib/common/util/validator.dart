@@ -12,8 +12,8 @@ class Validator {
   static String? engValidator(String? value, String label, String example) {
     if (value == null || value.isEmpty) {
       return "$label을 입력해 주세요. (예: $example)";
-    } else if (RegExp(r'[^a-zA-Z ]').hasMatch(value)) {
-      return "영어와 공백만 가능합니다";
+    } else if (RegExp(r'[^a-zA-Z -]').hasMatch(value)) {
+      return "영어와 공백, 특수문자(-)만 가능합니다";
     } else {
       return null;
     }

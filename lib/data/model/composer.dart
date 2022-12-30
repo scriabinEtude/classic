@@ -43,6 +43,14 @@ class Composer with _$Composer, Autocompletable {
     ], inputText);
   }
 
+  factory Composer.test() => Composer(
+        name: '쇼팽',
+        fullname: '프레데릭 쇼팽',
+        engName: "asd",
+        engFullname: "asd qwe",
+        createdAt: DateTime.now(),
+      );
+
   static List<Composer> testSet() {
     return [
       Composer(

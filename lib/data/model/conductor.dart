@@ -37,4 +37,12 @@ class Conductor with _$Conductor, Autocompletable {
       engName,
     ], inputText);
   }
+
+  factory Conductor.test() => Conductor(
+        name: 'name',
+        fullname: 'fullname',
+        engFullname: 'engFullname',
+        engName: 'engName',
+        createdAt: DateTime.now(),
+      );
 }

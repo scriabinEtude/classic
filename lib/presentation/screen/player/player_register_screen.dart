@@ -53,7 +53,7 @@ class _PlayerRegisterScreenState extends State<PlayerRegisterScreen> {
           success: (code) {
             if (code == CODE_PLAYER_REGISTER_SUCCES) {
               BlocProvider.of<AutoCompleteBloc>(context)
-                  .add(AutoCompleteEvent.selectPlayer(player));
+                  .add(AutoCompleteEvent.updatePlayer(player));
               context.pop();
             }
           },

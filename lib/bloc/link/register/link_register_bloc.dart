@@ -8,7 +8,11 @@ import 'package:classic/bloc/link/register/link_register_event.dart';
 import 'package:classic/bloc/link/register/link_register_state.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/data/const/code.dart';
+import 'package:classic/data/model/composer.dart';
 import 'package:classic/data/model/link.dart';
+import 'package:classic/data/model/music.dart';
+import 'package:classic/data/model/musical_form.dart';
+import 'package:classic/data/model/player.dart';
 import 'package:classic/data/repository/link/register/link_register_repository.dart';
 
 class LinkRegisterBloc extends Bloc<LinkRegisterEvent, LinkRegisterState> {
@@ -62,6 +66,10 @@ class LinkRegisterBloc extends Bloc<LinkRegisterEvent, LinkRegisterState> {
                       userId: '0',
                       provider: 'youtube',
                       link: videos.items.first,
+                      composer: Composer.test(),
+                      music: Music.test(),
+                      musicalForm: MusicalForm.test(),
+                      player: Player.test(),
                       createdAt: DateTime.now())),
               status: StatusSuccess()));
         },
@@ -96,6 +104,11 @@ class LinkRegisterBloc extends Bloc<LinkRegisterEvent, LinkRegisterState> {
             userId: event.userId,
             provider: 'youtube',
             link: videos.items.first,
+            composer: event.autoCompleteState.composer!,
+            musicalForm: event.autoCompleteState.musicalForm!,
+            music: event.autoCompleteState.music!,
+            player: event.autoCompleteState.player!,
+            conductor: event.autoCompleteState.conductor,
             createdAt: DateTime.now(),
           ));
 

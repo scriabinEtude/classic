@@ -5,6 +5,7 @@ import 'package:classic/common/config/di.dart';
 import 'package:classic/common/object/logger/logger.dart';
 import 'package:classic/common/object/result/result.dart';
 import 'package:classic/common/object/status/status.dart';
+import 'package:classic/data/model/music.dart';
 import 'package:classic/data/repository/composer/composer_repository.dart';
 import 'package:classic/data/repository/conductor/conductor_repository.dart';
 import 'package:classic/data/repository/player/player_repository.dart';
@@ -26,6 +27,7 @@ class AutoCompleteBloc extends Bloc<AutoCompleteEvent, AutoCompleteState> {
 
     on<AutoCompleteEventGetPlayers>(_getPlayers);
     on<AutoCompleteEventSelectPlayer>(_selectPlayer);
+    on<AutoCompleteEventUpdatePlayer>(_updatePlayer);
 
     on<AutoCompleteEventGetConductors>(_getConductors);
     on<AutoCompleteEventSelectConductor>(_selectConductor);
@@ -115,7 +117,12 @@ class AutoCompleteBloc extends Bloc<AutoCompleteEvent, AutoCompleteState> {
         success: (musics) {
           emit(state.copyWith(
             musicalForm: event.musicalForm,
-            musics: musics,
+            musics: [
+              ...musics,
+              Music.oneMore(
+                  composerId: state.composer!.id,
+                  musicalFormId: event.musicalForm.id),
+            ],
             status: Status.success(),
           ));
         },
@@ -138,7 +145,8 @@ class AutoCompleteBloc extends Bloc<AutoCompleteEvent, AutoCompleteState> {
   }
 
   _updateMusicalForm(AutoCompleteEventUpdateMusicalForm event, Emitter emit) {
-    add(AutoCompleteEvent.select(state.composer!));
+    emit(state
+        .copyWith(musicalForms: [...state.musicalForms, event.musicalForm]));
   }
 
   _selectMusic(AutoCompleteEventSelectMusic event, Emitter emit) {
@@ -148,7 +156,7 @@ class AutoCompleteBloc extends Bloc<AutoCompleteEvent, AutoCompleteState> {
   }
 
   _updateMusic(AutoCompleteEventUpdateMusic event, Emitter emit) {
-    add(AutoCompleteEvent.selectMusicalForm(state.musicalForm!));
+    emit(state.copyWith(musics: [...state.musics, event.music]));
   }
 
   _resetSelect(AutoCompleteEventResetSelect event, Emitter emit) {
@@ -194,6 +202,10 @@ class AutoCompleteBloc extends Bloc<AutoCompleteEvent, AutoCompleteState> {
 
   _selectPlayer(AutoCompleteEventSelectPlayer event, Emitter emit) async {
     emit(state.copyWith(player: event.player));
+  }
+
+  _updatePlayer(AutoCompleteEventUpdatePlayer event, Emitter emit) async {
+    add(AutoCompleteEvent.getPlayers());
   }
 
   _getConductors(AutoCompleteEventGetConductors event, Emitter emit) async {

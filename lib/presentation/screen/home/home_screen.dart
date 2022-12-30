@@ -42,7 +42,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 BlocProvider.of<AutoCompleteBloc>(context)
                     .add(AutoCompleteEvent.resetSelect());
-                context.pushNamed(LinkRegisterScreen.routeName);
+                context.goNamed(LinkRegisterScreen.routeName);
               },
             ),
             body: const LinkScreen(),
