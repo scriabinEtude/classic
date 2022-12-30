@@ -4,17 +4,25 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 
 class LinkWidget extends StatelessWidget {
-  const LinkWidget(this.link, {Key? key}) : super(key: key);
+  const LinkWidget(
+    this.link, {
+    Key? key,
+    this.onTap,
+  }) : super(key: key);
   final Link link;
+  final void Function(Link)? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        _Thumbnail(link),
-        SizedBox(width: 10.w),
-        _Title(link.link.snippet.title),
-      ],
+    return InkWell(
+      onTap: onTap == null ? null : () => onTap!(link),
+      child: Row(
+        children: [
+          _Thumbnail(link),
+          SizedBox(width: 10.w),
+          _Title(link.link.snippet.title),
+        ],
+      ),
     );
   }
 }

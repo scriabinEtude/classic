@@ -51,6 +51,8 @@ dependencies:
   crypto: ^3.0.2
   cached_network_image: ^3.2.3
   shimmer: ^2.0.0
+  youtube_player_flutter: ^8.1.2
+
 
   # firebase
   firebase_core: ^2.4.0

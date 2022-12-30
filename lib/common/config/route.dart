@@ -2,10 +2,12 @@ import 'package:classic/bloc/composer/register/composer_register_bloc.dart';
 import 'package:classic/bloc/home/home_bloc.dart';
 import 'package:classic/bloc/link/register/link_register_bloc.dart';
 import 'package:classic/bloc/user/user_event.dart';
+import 'package:classic/data/model/link.dart';
 import 'package:classic/presentation/screen/composer/composer_register_screen.dart';
 import 'package:classic/presentation/screen/composer/music_register_screen.dart';
 import 'package:classic/presentation/screen/composer/musical_form_register_screen.dart';
 import 'package:classic/presentation/screen/conductor/conductor_register_screen.dart';
+import 'package:classic/presentation/screen/link/link_detail_screen.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
 import 'package:classic/presentation/screen/player/player_register_screen.dart';
 import 'package:flutter/material.dart';
@@ -95,6 +97,16 @@ class GrassRouter {
                   ),
                 ],
               ),
+              GoRoute(
+                  path: 'link/:linkId',
+                  name: LinkDetailScreen.routeName,
+                  builder: ((context, state) {
+                    Link link;
+                    link = state.extra as Link;
+                    return LinkDetailScreen(
+                      link: link,
+                    );
+                  })),
               GoRoute(
                   path: 'link/register',
                   name: LinkRegisterScreen.routeName,
