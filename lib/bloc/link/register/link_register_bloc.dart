@@ -58,20 +58,20 @@ class LinkRegisterBloc extends Bloc<LinkRegisterEvent, LinkRegisterState> {
           l.dl('youtube api result', result);
           await _linkRegisterRepository.validate(videos.items.first);
 
-          emit(state.copyWith(
-              linkValidation: LinkValidation(
-                  validate: true,
-                  linkUrl: event.url,
-                  link: Link(
-                      userId: '0',
-                      provider: 'youtube',
-                      link: videos.items.first,
-                      composer: Composer.test(),
-                      music: Music.test(),
-                      musicalForm: MusicalForm.test(),
-                      player: Player.test(),
-                      createdAt: DateTime.now())),
-              status: StatusSuccess()));
+          // emit(state.copyWith(
+          //     linkValidation: LinkValidation(
+          //         validate: true,
+          //         linkUrl: event.url,
+          //         link: Link(
+          //             userId: '0',
+          //             provider: 'youtube',
+          //             link: videos.items.first,
+          //             composer: Composer.test(),
+          //             music: Music.test(),
+          //             musicalForm: MusicalForm.test(),
+          //             player: Player.test(),
+          //             createdAt: DateTime.now())),
+          //     status: StatusSuccess()));
         },
       );
     } catch (e) {
@@ -100,17 +100,17 @@ class LinkRegisterBloc extends Bloc<LinkRegisterEvent, LinkRegisterState> {
         },
         success: (videos) async {
           l.dl('youtube api result', result);
-          await _linkRegisterRepository.register(Link(
-            userId: event.userId,
-            provider: 'youtube',
-            link: videos.items.first,
-            composer: event.autoCompleteState.composer!,
-            musicalForm: event.autoCompleteState.musicalForm!,
-            music: event.autoCompleteState.music!,
-            player: event.autoCompleteState.player!,
-            conductor: event.autoCompleteState.conductor,
-            createdAt: DateTime.now(),
-          ));
+          // await _linkRegisterRepository.register(Link(
+          //   userId: event.userId,
+          //   provider: 'youtube',
+          //   link: videos.items.first,
+          //   composer: event.autoCompleteState.composer!,
+          //   musicalForm: event.autoCompleteState.musicalForm!,
+          //   music: event.autoCompleteState.music!,
+          //   player: event.autoCompleteState.player!,
+          //   conductor: event.autoCompleteState.conductor,
+          //   createdAt: DateTime.now(),
+          // ));
 
           emit(state.copyWith(
               status: StatusSuccess(code: CODE_LINK_REGISTER_SUCCESS)));

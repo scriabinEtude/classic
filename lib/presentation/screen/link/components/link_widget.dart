@@ -20,7 +20,7 @@ class LinkWidget extends StatelessWidget {
         children: [
           _Thumbnail(link),
           SizedBox(width: 10.w),
-          _Title(link.link.snippet.title),
+          _Title(link.title),
         ],
       ),
     );
@@ -54,7 +54,7 @@ class _Thumbnail extends StatelessWidget {
       height: 66,
       width: 120,
       fit: BoxFit.fitWidth,
-      imageUrl: link.link.snippet.thumbnails.standardThumbnail.url,
+      imageUrl: link.standardThumbnail,
       errorWidget: (context, url, error) {
         return const Center(
           child: Icon(Icons.image_not_supported),

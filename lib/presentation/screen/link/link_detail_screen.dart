@@ -18,7 +18,7 @@ class LinkDetailScreen extends StatefulWidget {
 
 class _LinkDetailScreenState extends State<LinkDetailScreen> {
   late YoutubePlayerController youtubeController = YoutubePlayerController(
-    initialVideoId: widget.link.link.id,
+    initialVideoId: widget.link.id,
     flags: const YoutubePlayerFlags(
       autoPlay: true,
       mute: false,
@@ -45,7 +45,7 @@ class _LinkDetailScreenState extends State<LinkDetailScreen> {
           appBar: fullscreen
               ? null
               : AppBar(
-                  title: Text(widget.link.link.snippet.title),
+                  title: Text(widget.link.title),
                 ),
           body: SingleChildScrollView(
             child: YoutubePlayerBuilder(

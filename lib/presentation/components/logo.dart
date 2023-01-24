@@ -6,7 +6,7 @@ class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Text(
-      'Classic',
+      'Largo',
       style: TextStyle(fontSize: 30),
     );
   }

@@ -8,10 +8,15 @@ import 'package:classic/presentation/color/light_color.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
 import 'package:classic/presentation/screen/link/link_screen.dart';
 import 'package:classic/presentation/screen/login/login_screen.dart';
+import 'package:classic/presentation/screen/search/search_screen.dart';
 import 'package:classic/presentation/screen/user_info/user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+part 'components/user_button.dart';
+part 'components/search_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -28,12 +33,14 @@ class HomeScreen extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
-              centerTitle: true,
+              centerTitle: false,
               title: const Text(
-                "classic",
+                "Largo",
               ),
-              actions: const [
-                _GoUser(),
+              actions: [
+                const _SearchButton(),
+                SizedBox(width: 16.w),
+                const _GoUser(),
               ],
             ),
             floatingActionButton: FloatingActionButton.small(
@@ -49,43 +56,6 @@ class HomeScreen extends StatelessWidget {
           );
         },
       ),
-    );
-  }
-}
-
-class _GoUser extends StatelessWidget {
-  const _GoUser();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<UserBloc, UserState>(
-      builder: (context, state) {
-        if (state.isLogin) {
-          return InkWell(
-            onTap: () {
-              context.goNamed(UserScreen.routeName);
-            },
-            child: Row(
-              children: const [
-                Icon(Icons.person),
-                SizedBox(width: 20),
-              ],
-            ),
-          );
-        }
-
-        return InkWell(
-          onTap: () {
-            context.goNamed(LoginScreen.routeName);
-          },
-          child: Row(
-            children: const [
-              Text('로그인'),
-              SizedBox(width: 20),
-            ],
-          ),
-        );
-      },
     );
   }
 }

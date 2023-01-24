@@ -2,6 +2,7 @@ import 'package:classic/bloc/link/link/link_bloc.dart';
 import 'package:classic/bloc/link/link/link_state.dart';
 import 'package:classic/bloc/link/link/link_event.dart';
 import 'package:classic/common/imports.dart';
+import 'package:classic/data/model/link.dart';
 import 'package:classic/presentation/screen/link/components/link_widget.dart';
 import 'package:classic/presentation/screen/link/link_detail_screen.dart';
 
@@ -25,9 +26,9 @@ class LinkScreen extends StatelessWidget {
                           EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
                       child: LinkWidget(
                         link,
-                        onTap: (link) {
+                        onTap: (Link link) {
                           context.go(
-                            '/link/:${link.id}',
+                            '/link/:${link.linkId}',
                             extra: link,
                           );
                         },

@@ -15,17 +15,17 @@ class LinkRegisterRepositoryImpl implements LinkRegisterRepository {
   @override
   Future<Result<void>> register(Link link) async {
     try {
-      await validate(link.link);
-      await client.collection(COL_LINK).doc(link.id).set(link.toJson());
-      await client.collection(COL_USER).doc(link.userId).update({
-        'links': FieldValue.arrayUnion([
-          UserLink(
-            linkId: link.id,
-            title: link.link.snippet.title,
-            provider: link.provider,
-          ).toJson(),
-        ])
-      });
+      // await validate(link.link);
+      // await client.collection(COL_LINK).doc(link.id).set(link.toJson());
+      // await client.collection(COL_USER).doc(link.userId).update({
+      //   'links': FieldValue.arrayUnion([
+      //     UserLink(
+      //       linkId: link.id,
+      //       title: link.link.snippet.title,
+      //       provider: link.provider,
+      //     ).toJson(),
+      //   ])
+      // });
       return Success(null);
     } catch (e) {
       l.el('link register catch', e);

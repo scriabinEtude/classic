@@ -1,0 +1,4 @@
+enum SearchResultType {
+  music,
+  person,
+}

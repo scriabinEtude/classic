@@ -1,4 +1,3 @@
-import 'package:classic/bloc/link/link/link_bloc.dart';
 import 'package:classic/common/config/bloc_observer.dart';
 import 'package:classic/common/config/providers.dart';
 import 'package:classic/common/module/firebase/fb.dart';

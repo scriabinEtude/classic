@@ -1,5 +1,4 @@
 import 'package:classic/bloc/composer/auto_complete/autocomplete_bloc.dart';
-import 'package:classic/bloc/composer/auto_complete/autocomplete_event.dart';
 import 'package:classic/bloc/link/link/link_bloc.dart';
 import 'package:classic/bloc/link/link/link_event.dart';
 import 'package:classic/bloc/link/register/link_register_bloc.dart';
@@ -9,12 +8,8 @@ import 'package:classic/common/imports.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/common/util/bloc_util.dart';
 import 'package:classic/data/const/code.dart';
-import 'package:classic/presentation/screen/link/components/composer_autocomplete.dart';
-import 'package:classic/presentation/screen/link/components/conductor_autocomplete.dart';
+import 'package:classic/presentation/screen/link/components/add_dialog.dart';
 import 'package:classic/presentation/screen/link/components/link_widget.dart';
-import 'package:classic/presentation/screen/link/components/music_autocomplete.dart';
-import 'package:classic/presentation/screen/link/components/musical_form_autocomplete.dart';
-import 'package:classic/presentation/screen/link/components/player_autocomplete.dart';
 
 class LinkRegisterScreen extends StatefulWidget {
   const LinkRegisterScreen({super.key});
@@ -33,13 +28,12 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
   @override
   void initState() {
     super.initState();
-    initSearch();
   }
 
-  initSearch() {
-    BlocProvider.of<AutoCompleteBloc>(context)
-      ..add(AutoCompleteEvent.getComposers())
-      ..add(AutoCompleteEvent.getPlayers());
+  @override
+  void dispose() {
+    _linkController.dispose();
+    super.dispose();
   }
 
   regist(BuildContext context) {
@@ -68,10 +62,16 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('링크 등록'),
+            actions: [
+              _Submit(state: state, onTap: () {}),
+            ],
           ),
-          floatingActionButton: _FAB(
-            state: state,
-            onTap: () => regist(context),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => LinkInfoAddDialog.show(context),
+            backgroundColor: lightColorTheme.primaryColor,
+            child: const Icon(Icons.add),
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -83,12 +83,11 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
                   _ErrorText(state),
                   _LinkPreview(state),
                   _LinkFormField(controller: _linkController),
-                  const ComposerAutoComplete(),
-                  const PlayerAutoComplete(),
-                  const MusicalFormAutoComplete(),
-                  const MusicAutoComplete(),
-                  const _TextFieldAdd(),
-                  if (state.showConductorField) const ConductorAutoComplete(),
+                  // const ComposerAutoComplete(),
+                  // const PlayerAutoComplete(),
+                  // const MusicalFormAutoComplete(),
+                  // const MusicAutoComplete(),
+                  // if (state.showConductorField) const ConductorAutoComplete(),
                 ],
               ),
             ),
@@ -96,66 +95,6 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
         ),
       );
     });
-  }
-}
-
-class _TextFieldAdd extends StatelessWidget {
-  const _TextFieldAdd();
-
-  showAddButtomSheet(BuildContext blocContext) {
-    showModalBottomSheet(
-        context: blocContext,
-        builder: ((context) {
-          return SizedBox(
-            height: 100.w,
-            width: MediaQuery.of(context).size.width,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _BottomSheetItem('지휘자 추가', () {
-                    BlocProvider.of<LinkRegisterBloc>(blocContext)
-                        .add(LinkRegisterEvent.showConductorField(true));
-                    Navigator.pop(context);
-                  }),
-                ],
-              ),
-            ),
-          );
-        }));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () => showAddButtomSheet(context),
-        icon: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            Icon(
-              Icons.add,
-            ),
-            Text('정보 추가'),
-          ],
-        ));
-  }
-}
-
-class _BottomSheetItem extends StatelessWidget {
-  const _BottomSheetItem(this.title, this.onPressed);
-  final String title;
-  final void Function() onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: onPressed,
-        icon: Text(
-          title,
-          style: const TextStyle(color: Colors.black),
-        ));
   }
 }
 
@@ -224,8 +163,8 @@ class _ErrorText extends StatelessWidget {
   }
 }
 
-class _FAB extends StatelessWidget {
-  const _FAB({required this.onTap, required this.state});
+class _Submit extends StatelessWidget {
+  const _Submit({required this.onTap, required this.state});
 
   final void Function() onTap;
   final LinkRegisterState state;
@@ -237,31 +176,24 @@ class _FAB extends StatelessWidget {
       onTap: onTap,
       child: Container(
           // height: 35.h,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-          decoration: BoxDecoration(
-            color: lightColorTheme.primaryColor,
-            borderRadius: BorderRadius.circular(20),
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
           child: Builder(builder: (context) {
             if (status is StatusLoading) {
               return const SizedBox(
                 height: 24,
-                width: 24,
+                width: 20,
                 child: CircularProgressIndicator(
-                  color: Colors.white,
+                  color: Colors.black,
                   strokeWidth: 2.5,
                 ),
               );
             } else if (status is StatusFail) {
               return const Icon(
                 Icons.priority_high_rounded,
-                color: Colors.white,
+                color: Colors.red,
               );
             } else {
-              return const Icon(
-                Icons.check,
-                color: Colors.white,
-              );
+              return const Text('완료');
             }
           })),
     );

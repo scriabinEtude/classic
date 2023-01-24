@@ -10,6 +10,8 @@ import 'package:classic/presentation/screen/conductor/conductor_register_screen.
 import 'package:classic/presentation/screen/link/link_detail_screen.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
 import 'package:classic/presentation/screen/player/player_register_screen.dart';
+import 'package:classic/presentation/screen/search/search_screen.dart';
+import 'package:classic/presentation/screen/search/search_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -98,7 +100,27 @@ class GrassRouter {
                 ],
               ),
               GoRoute(
-                  path: 'link/:linkId',
+                  path: 'search/:searchType',
+                  builder: (context, state) {
+                    return SearchScreen(
+                      type: SearchType
+                          .values[int.parse(state.params['searchType']!)],
+                    );
+                  },
+                  routes: [
+                    GoRoute(
+                      path: ':initSearch',
+                      builder: (context, state) {
+                        return SearchScreen(
+                          type: SearchType
+                              .values[int.parse(state.params['searchType']!)],
+                          initSearch: state.params['initSearch'],
+                        );
+                      },
+                    ),
+                  ]),
+              GoRoute(
+                  path: 'link/detail/:linkId',
                   name: LinkDetailScreen.routeName,
                   builder: ((context, state) {
                     Link link;
