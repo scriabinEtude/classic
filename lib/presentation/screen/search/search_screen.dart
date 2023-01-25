@@ -3,7 +3,8 @@ import 'package:classic/bloc/search/search_event.dart';
 import 'package:classic/bloc/search/search_state.dart';
 import 'package:classic/common/imports.dart';
 import 'package:classic/data/model/search_result.dart';
-import 'package:classic/presentation/screen/search/search_type.dart';
+import 'package:classic/data/enum/search_type.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 
 part 'components/search_bar.dart';
 part 'components/search_result_list.dart';
@@ -20,6 +21,15 @@ class SearchScreen extends StatefulWidget {
   final String? initSearch;
 
   static const String routeName = "/search";
+
+  static void push(
+    BuildContext context,
+    SearchType type, {
+    String? initialSearch,
+  }) {
+    context.push(
+        "$routeName/${type.index}${initialSearch == null ? "" : "/$initialSearch"}");
+  }
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -39,6 +49,13 @@ class _SearchScreenState extends State<SearchScreen> {
   initVar() {
     bloc = SearchBloc(type: widget.type);
     controller = TextEditingController(text: widget.initSearch);
+    controller.addListener(() {
+      EasyDebounce.debounce(
+        "SearchBloc.search",
+        const Duration(milliseconds: 400),
+        () => bloc.add(SearchEvent.search(controller.text)),
+      );
+    });
   }
 
   initData() {
@@ -51,7 +68,10 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: _SearchBar(controller: controller),
+        title: _SearchBar(
+          bloc: bloc,
+          controller: controller,
+        ),
       ),
       body: _SearchResultList(bloc: bloc),
     );

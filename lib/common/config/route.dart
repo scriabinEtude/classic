@@ -4,14 +4,14 @@ import 'package:classic/bloc/link/register/link_register_bloc.dart';
 import 'package:classic/bloc/user/user_event.dart';
 import 'package:classic/data/model/link.dart';
 import 'package:classic/presentation/screen/composer/composer_register_screen.dart';
-import 'package:classic/presentation/screen/composer/music_register_screen.dart';
 import 'package:classic/presentation/screen/composer/musical_form_register_screen.dart';
 import 'package:classic/presentation/screen/conductor/conductor_register_screen.dart';
 import 'package:classic/presentation/screen/link/link_detail_screen.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
+import 'package:classic/presentation/screen/music/music_register_screen.dart';
 import 'package:classic/presentation/screen/player/player_register_screen.dart';
 import 'package:classic/presentation/screen/search/search_screen.dart';
-import 'package:classic/presentation/screen/search/search_type.dart';
+import 'package:classic/data/enum/search_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +45,7 @@ class GrassRouter {
       initialLocation: "/splash",
       errorBuilder: (context, state) {
         return const Scaffold(
-          body: Text('error'),
+          body: Center(child: Text('잘못된 접근입니다.')),
         );
       },
       redirect: (context, state) {
@@ -120,6 +120,13 @@ class GrassRouter {
                     ),
                   ]),
               GoRoute(
+                path: '/music/regist/:name',
+                name: MusicRegisterScreen.routeName,
+                builder: (context, state) => MusicRegisterScreen(
+                  name: state.params['name']!,
+                ),
+              ),
+              GoRoute(
                   path: 'link/detail/:linkId',
                   name: LinkDetailScreen.routeName,
                   builder: ((context, state) {
@@ -165,14 +172,14 @@ class GrassRouter {
                             composerId: state.params['composerId']!,
                           )),
                     ),
-                    GoRoute(
-                      path: ':composerId/:musicalFormId/music',
-                      builder: (context, state) => BlocProvider(
-                          create: (context) => ComposerRegisterBloc(),
-                          child: MusicRegisterScreen(
-                              composerId: state.params['composerId']!,
-                              musicalFormId: state.params['musicalFormId']!)),
-                    ),
+                    // GoRoute(
+                    //   path: ':composerId/:musicalFormId/music',
+                    //   builder: (context, state) => BlocProvider(
+                    //       create: (context) => ComposerRegisterBloc(),
+                    //       child: MusicRegisterScreen(
+                    //           composerId: state.params['composerId']!,
+                    //           musicalFormId: state.params['musicalFormId']!)),
+                    // ),
                   ]),
             ])
       ],

@@ -4,6 +4,7 @@ import 'package:classic/bloc/home/home_bloc.dart';
 import 'package:classic/bloc/home/home_state.dart';
 import 'package:classic/bloc/user/user_bloc.dart';
 import 'package:classic/bloc/user/user_state.dart';
+import 'package:classic/data/enum/search_type.dart';
 import 'package:classic/presentation/color/light_color.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
 import 'package:classic/presentation/screen/link/link_screen.dart';

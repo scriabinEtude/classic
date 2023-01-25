@@ -6,6 +6,10 @@ class _SearchResultWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ListTile(
+      title: Text(result.title),
+      subtitle: result.subtitle != null ? Text(result.subtitle!) : null,
+      trailing: Text(result.typeEnum.name),
+    );
   }
 }

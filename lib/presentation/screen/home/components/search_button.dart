@@ -7,7 +7,7 @@ class _SearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.push("${SearchScreen.routeName}/0");
+        SearchScreen.push(context, SearchType.homeSearch);
       },
       child: const Icon(Icons.search),
     );

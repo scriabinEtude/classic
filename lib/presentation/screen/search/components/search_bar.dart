@@ -4,9 +4,11 @@ class _SearchBar extends StatelessWidget {
   const _SearchBar({
     Key? key,
     required this.controller,
+    required this.bloc,
   }) : super(key: key);
 
   final TextEditingController controller;
+  final SearchBloc bloc;
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,5 @@
 import 'package:classic/common/config/app_config.dart';
 import 'package:classic/common/module/firebase/db.dart';
-import 'package:classic/data/model/conductor.dart';
 import 'package:classic/data/repository/composer/composer_repository.dart';
 import 'package:classic/data/repository/composer/composer_repository_impl.dart';
 import 'package:classic/data/repository/conductor/conductor_repository.dart';
@@ -11,6 +10,8 @@ import 'package:classic/data/repository/link/register/link_register_repository.d
 import 'package:classic/data/repository/link/register/link_register_repository_impl.dart';
 import 'package:classic/data/repository/player/player_repository.dart';
 import 'package:classic/data/repository/player/player_repository_impl.dart';
+import 'package:classic/data/repository/search/search_repository.dart';
+import 'package:classic/data/repository/search/search_repository_test.dart';
 import 'package:classic/data/repository/user/user_repository_impl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:classic/data/repository/user/user_repository.dart';
@@ -32,5 +33,6 @@ class Di {
     di.registerSingleton<ComposerRepository>(ComposerRepositoryImpl(db));
     di.registerSingleton<PlayerRepository>(PlayerRepositoryImpl(db));
     di.registerSingleton<ConductorRepository>(ConductorRepositoryImpl(db));
+    di.registerSingleton<SearchRepository>(SearchRepositoryTest());
   }
 }
