@@ -31,7 +31,7 @@ class _SearchResultList extends StatelessWidget {
                 case SearchType.homeSearch:
                   break;
                 case SearchType.linkRegisterMusic:
-                  // TODO: Handle this case.
+                  MusicRegisterScreen.route(context, state.keyword);
                   break;
                 case SearchType.linkRegisterPlayer:
                   // TODO: Handle this case.

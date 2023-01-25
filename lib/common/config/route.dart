@@ -120,7 +120,7 @@ class GrassRouter {
                     ),
                   ]),
               GoRoute(
-                path: '/music/regist/:name',
+                path: 'music/regist/:name',
                 name: MusicRegisterScreen.routeName,
                 builder: (context, state) => MusicRegisterScreen(
                   name: state.params['name']!,

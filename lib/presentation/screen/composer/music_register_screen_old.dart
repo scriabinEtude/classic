@@ -10,8 +10,8 @@ import 'package:classic/common/util/validator.dart';
 import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/music.dart';
 
-class MusicRegisterScreen extends StatefulWidget {
-  const MusicRegisterScreen({
+class MusicRegisterScreenOld extends StatefulWidget {
+  const MusicRegisterScreenOld({
     super.key,
     required this.composerId,
     required this.musicalFormId,
@@ -24,10 +24,10 @@ class MusicRegisterScreen extends StatefulWidget {
       "/link/register/:$composerId/:$musicalFormId/musicalForm";
 
   @override
-  State<MusicRegisterScreen> createState() => _MusicRegisterScreenState();
+  State<MusicRegisterScreenOld> createState() => _MusicRegisterScreenOldState();
 }
 
-class _MusicRegisterScreenState extends State<MusicRegisterScreen> {
+class _MusicRegisterScreenOldState extends State<MusicRegisterScreenOld> {
   final _formKey = GlobalKey<FormState>();
 
   String? title;
