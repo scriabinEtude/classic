@@ -29,59 +29,62 @@ class _MusicRegisterScreenState extends State<MusicRegisterScreen> {
         body: Form(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('작곡가'),
-                    ),
+            child: ListView(
+              itemExtent: 80,
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text('작곡가'),
+                    suffixIcon: Icon(Icons.search),
+                    icon: Icon(Icons.person_outline_outlined),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('시대'),
-                    ),
+                  readOnly: true,
+                  onTap: () {},
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text('시대'),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('음악형식'),
-                    ),
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text('음악형식'),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('작곡년도'),
-                    ),
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text('작곡년도'),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('음악 이름 (한글)'),
-                    ),
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text('음악 이름 (한글)'),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('음악 이름 (영문)'),
-                    ),
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text('음악 이름 (영문)'),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('부제 (한글)'),
-                    ),
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text('부제 (한글)'),
                   ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('부제 (영문)'),
-                    ),
+                ),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text('부제 (영문)'),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

@@ -1,4 +1,3 @@
-import 'package:classic/bloc/composer/auto_complete/autocomplete_bloc.dart';
 import 'package:classic/bloc/link/link/link_bloc.dart';
 import 'package:classic/bloc/link/link/link_event.dart';
 import 'package:classic/bloc/link/register/link_register_bloc.dart';
@@ -6,10 +5,12 @@ import 'package:classic/bloc/link/register/link_register_event.dart';
 import 'package:classic/bloc/link/register/link_register_state.dart';
 import 'package:classic/common/imports.dart';
 import 'package:classic/common/object/status/status.dart';
-import 'package:classic/common/util/bloc_util.dart';
 import 'package:classic/data/const/code.dart';
-import 'package:classic/presentation/screen/link/components/add_dialog.dart';
+import 'package:classic/data/enum/search_type.dart';
 import 'package:classic/presentation/screen/link/components/link_widget.dart';
+import 'package:classic/presentation/screen/search/search_screen.dart';
+
+part 'components/link_form.dart';
 
 class LinkRegisterScreen extends StatefulWidget {
   const LinkRegisterScreen({super.key});
@@ -26,24 +27,13 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
   final TextEditingController _linkController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void dispose() {
     _linkController.dispose();
     super.dispose();
   }
 
   regist(BuildContext context) {
-    if (_formKey.currentState?.validate() == true) {
-      BlocProvider.of<LinkRegisterBloc>(context).add(LinkRegisterEvent.regist(
-        BlocUtil.getUser(context)!.id,
-        _linkController.text,
-        BlocProvider.of<AutoCompleteBloc>(context).state,
-      ));
-    }
+    if (_formKey.currentState?.validate() == true) {}
   }
 
   @override
@@ -66,28 +56,40 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
               _Submit(state: state, onTap: () {}),
             ],
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => LinkInfoAddDialog.show(context),
-            backgroundColor: lightColorTheme.primaryColor,
-            child: const Icon(Icons.add),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Form(
-              key: _formKey,
+          body: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  _ErrorText(state),
-                  _LinkPreview(state),
-                  _LinkFormField(controller: _linkController),
-                  // const ComposerAutoComplete(),
-                  // const PlayerAutoComplete(),
-                  // const MusicalFormAutoComplete(),
-                  // const MusicAutoComplete(),
-                  // if (state.showConductorField) const ConductorAutoComplete(),
+                  SizedBox(height: 20.h),
+                  _LinkForm(
+                    state: state,
+                    controller: _linkController,
+                  ),
+                  SizedBox(height: 16.h),
+                  _Header(
+                    title: '음악',
+                    onTap: () => SearchScreen.push(
+                      context,
+                      SearchType.linkRegisterMusic,
+                    ),
+                  ),
+                  _Header(
+                    title: '연주자',
+                    onTap: () => SearchScreen.push(
+                      context,
+                      SearchType.linkRegisterPlayer,
+                    ),
+                  ),
+                  _Header(
+                    title: '지휘자',
+                    onTap: () => SearchScreen.push(
+                      context,
+                      SearchType.linkRegisterConductor,
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -95,71 +97,6 @@ class _LinkRegisterScreenState extends State<LinkRegisterScreen> {
         ),
       );
     });
-  }
-}
-
-class _LinkPreview extends StatelessWidget {
-  const _LinkPreview(this.state);
-
-  final LinkRegisterState state;
-
-  @override
-  Widget build(BuildContext context) {
-    if (state.linkValidation.validate && state.linkValidation.link != null) {
-      return LinkWidget(state.linkValidation.link!);
-    } else {
-      return const SizedBox.shrink();
-    }
-  }
-}
-
-class _LinkFormField extends StatelessWidget {
-  const _LinkFormField({
-    required this.controller,
-  });
-
-  final TextEditingController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return FocusScope(
-      child: Focus(
-        onFocusChange: (focus) {
-          if (!focus && controller.text.isNotEmpty) {
-            BlocProvider.of<LinkRegisterBloc>(context)
-                .add(LinkRegisterEvent.linkValidate(controller.text));
-          }
-        },
-        child: TextFormField(
-          controller: controller,
-          decoration: const InputDecoration(
-            label: Text('링크'),
-          ),
-          validator: (value) {
-            if (value == null || value.isEmpty) return "링크를 입력해주세요.";
-            return null;
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class _ErrorText extends StatelessWidget {
-  const _ErrorText(this.state);
-
-  final LinkRegisterState state;
-
-  @override
-  Widget build(BuildContext context) {
-    if (state.status is StatusFail) {
-      return Text(
-        (state.status as StatusFail).message!,
-        style: const TextStyle(color: Colors.red),
-      );
-    } else {
-      return const SizedBox.shrink();
-    }
   }
 }
 
@@ -174,28 +111,53 @@ class _Submit extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
-      child: Container(
-          // height: 35.h,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-          child: Builder(builder: (context) {
-            if (status is StatusLoading) {
-              return const SizedBox(
-                height: 24,
-                width: 20,
-                child: CircularProgressIndicator(
-                  color: Colors.black,
-                  strokeWidth: 2.5,
-                ),
-              );
-            } else if (status is StatusFail) {
-              return const Icon(
-                Icons.priority_high_rounded,
-                color: Colors.red,
-              );
-            } else {
-              return const Text('완료');
-            }
-          })),
+      child: Builder(builder: (context) {
+        if (status is StatusLoading) {
+          return const Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2.5,
+              ),
+            ),
+          );
+        } else if (status is StatusFail) {
+          return const Padding(
+            padding: EdgeInsets.only(right: 20.0),
+            child: Icon(
+              Icons.priority_high_rounded,
+              color: Colors.red,
+            ),
+          );
+        } else {
+          return TextButton(onPressed: () {}, child: const Text('완료'));
+        }
+      }),
+    );
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header({
+    required this.title,
+    required this.onTap,
+  });
+
+  final String title;
+  final void Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        title,
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
+      leading: const Icon(Icons.add),
+      minLeadingWidth: 0,
+      onTap: onTap,
     );
   }
 }

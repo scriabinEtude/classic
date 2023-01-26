@@ -39,11 +39,11 @@ class _LogoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
+    return TextButton(
+      onPressed: () {
         BlocProvider.of<UserBloc>(context).add(const UserEvent.logout());
       },
-      child: Text('로그아웃'),
+      child: const Text('로그아웃'),
     );
   }
 }

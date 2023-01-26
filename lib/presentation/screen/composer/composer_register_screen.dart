@@ -1,5 +1,3 @@
-import 'package:classic/bloc/composer/auto_complete/autocomplete_bloc.dart';
-import 'package:classic/bloc/composer/auto_complete/autocomplete_event.dart';
 import 'package:classic/bloc/composer/register/composer_register_bloc.dart';
 import 'package:classic/bloc/composer/register/composer_register_event.dart';
 import 'package:classic/bloc/composer/register/composer_register_state.dart';
@@ -51,11 +49,7 @@ class _ComposerRegisterScreenState extends State<ComposerRegisterScreen> {
       listener: (context, state) {
         state.status.whenOrNull(
           success: (code) {
-            if (code == CODE_COMPOSER_REGISTER_SUCCESS) {
-              BlocProvider.of<AutoCompleteBloc>(context)
-                  .add(AutoCompleteEvent.add(composer));
-              context.pop();
-            }
+            if (code == CODE_COMPOSER_REGISTER_SUCCESS) {}
           },
         );
       },
@@ -165,7 +159,6 @@ class _SubmitButton extends StatelessWidget {
                 '확인',
                 style: TextStyle(
                   fontSize: 16.sp,
-                  color: lightColorTheme.primaryColor,
                 ),
               );
             },

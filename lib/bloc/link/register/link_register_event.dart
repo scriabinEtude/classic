@@ -1,4 +1,3 @@
-import 'package:classic/bloc/composer/auto_complete/autocomplete_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'link_register_event.freezed.dart';
@@ -9,7 +8,6 @@ class LinkRegisterEvent with _$LinkRegisterEvent {
   factory LinkRegisterEvent.regist(
     String userId,
     String url,
-    AutoCompleteState autoCompleteState,
   ) = LinkRegisterEventRegist;
   factory LinkRegisterEvent.linkValidate(String url) =
       LinkRegisterEventLinkValidate;

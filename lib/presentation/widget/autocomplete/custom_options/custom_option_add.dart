@@ -24,9 +24,8 @@ class CustomOptionIconAndText extends Autocompletable {
         child: Row(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: lightColorTheme.primaryColor,
               ),
               child: Icon(
                 icon,

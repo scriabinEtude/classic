@@ -22,9 +22,7 @@ class LoginScreenFilledButton extends StatelessWidget {
     return Opacity(
       opacity: enable ? 1 : 0.3,
       child: OutlinedButton(
-        style: OutlinedButton.styleFrom(
-          backgroundColor: lightColorTheme.primaryColor,
-        ),
+        style: OutlinedButton.styleFrom(),
         onPressed: enable && !loading ? onPressed : null,
         child: SizedBox(
           height: 50,

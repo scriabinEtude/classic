@@ -8,16 +8,11 @@ class _GoUser extends StatelessWidget {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         if (state.isLogin) {
-          return InkWell(
-            onTap: () {
+          return IconButton(
+            onPressed: () {
               context.goNamed(UserScreen.routeName);
             },
-            child: Row(
-              children: const [
-                Icon(Icons.person),
-                SizedBox(width: 20),
-              ],
-            ),
+            icon: const Icon(Icons.person),
           );
         }
 

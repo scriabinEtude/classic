@@ -5,11 +5,11 @@ class _SearchButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
+    return IconButton(
+      onPressed: () {
         SearchScreen.push(context, SearchType.homeSearch);
       },
-      child: const Icon(Icons.search),
+      icon: const Icon(Icons.search),
     );
   }
 }

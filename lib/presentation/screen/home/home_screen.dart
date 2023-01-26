@@ -1,11 +1,8 @@
-import 'package:classic/bloc/composer/auto_complete/autocomplete_bloc.dart';
-import 'package:classic/bloc/composer/auto_complete/autocomplete_event.dart';
 import 'package:classic/bloc/home/home_bloc.dart';
 import 'package:classic/bloc/home/home_state.dart';
 import 'package:classic/bloc/user/user_bloc.dart';
 import 'package:classic/bloc/user/user_state.dart';
 import 'package:classic/data/enum/search_type.dart';
-import 'package:classic/presentation/color/light_color.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
 import 'package:classic/presentation/screen/link/link_screen.dart';
 import 'package:classic/presentation/screen/login/login_screen.dart';
@@ -18,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 part 'components/user_button.dart';
 part 'components/search_button.dart';
+part 'components/link_register_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -39,19 +37,11 @@ class HomeScreen extends StatelessWidget {
                 "Largo",
               ),
               actions: [
+                const _LinkRegisterButton(),
                 const _SearchButton(),
-                SizedBox(width: 16.w),
                 const _GoUser(),
+                SizedBox(width: 6.w),
               ],
-            ),
-            floatingActionButton: FloatingActionButton.small(
-              backgroundColor: lightColorTheme.primaryColor,
-              child: const Icon(Icons.add),
-              onPressed: () {
-                BlocProvider.of<AutoCompleteBloc>(context)
-                    .add(AutoCompleteEvent.resetSelect());
-                context.goNamed(LinkRegisterScreen.routeName);
-              },
             ),
             body: const LinkScreen(),
           );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:classic/bloc/route/route_bloc.dart';
-import 'package:classic/presentation/color/light_color.dart';
+import 'package:classic/presentation/color/color_scheme.dart';
 
 class Classic extends StatelessWidget {
   const Classic({super.key});
@@ -17,20 +17,9 @@ class Classic extends StatelessWidget {
           routeBloc.state.goRouter.routeInformationProvider,
       title: 'classic',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        primarySwatch: Colors.red,
-        primaryColor: lightColorTheme.primaryColor,
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        backgroundColor: Colors.white,
-        scaffoldBackgroundColor: Colors.white,
-        appBarTheme: const AppBarTheme(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-        ),
-      ),
+      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
+      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+      themeMode: ThemeMode.dark,
     );
   }
 }

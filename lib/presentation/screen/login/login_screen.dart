@@ -97,12 +97,11 @@ class _RegisterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () => context.goNamed(RegisterScreen.routeName),
-      child: Center(
+      child: const Center(
         child: Text(
           '회원가입',
           style: TextStyle(
             fontSize: 16,
-            color: lightColorTheme.primaryColor,
             fontWeight: FontWeight.w600,
           ),
         ),
