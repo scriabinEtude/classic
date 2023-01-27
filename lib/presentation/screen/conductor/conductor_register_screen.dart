@@ -9,9 +9,17 @@ import 'package:classic/data/const/code.dart';
 import 'package:classic/data/model/conductor.dart';
 
 class ConductorRegisterScreen extends StatefulWidget {
-  const ConductorRegisterScreen({super.key});
+  const ConductorRegisterScreen({
+    super.key,
+    required this.name,
+  });
 
-  static const String routeName = "/link/register/conductor";
+  final String name;
+  static const String routeName = "conductorRegist";
+
+  static push(BuildContext context, String name) {
+    context.pushNamed(routeName, params: {'name': name});
+  }
 
   @override
   State<ConductorRegisterScreen> createState() =>
@@ -20,13 +28,9 @@ class ConductorRegisterScreen extends StatefulWidget {
 
 class _ConductorRegisterScreenState extends State<ConductorRegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-
-  String? name;
-
+  late final String? name;
   String? fullname;
-
   String? engName;
-
   String? engFullname;
 
   Conductor get conductor => Conductor(

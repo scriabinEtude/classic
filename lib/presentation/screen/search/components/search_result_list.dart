@@ -29,6 +29,7 @@ class _SearchResultList extends StatelessWidget {
             onTap: () {
               switch (state.type) {
                 case SearchType.homeSearch:
+                  RegisterChoiceBottomSheet.show(context, state.keyword);
                   break;
                 case SearchType.linkRegisterMusic:
                   MusicRegisterScreen.route(context, state.keyword);
@@ -38,6 +39,9 @@ class _SearchResultList extends StatelessWidget {
                   break;
                 case SearchType.linkRegisterConductor:
                   // TODO: Handle this case.
+                  break;
+                case SearchType.musicRegisterConductor:
+                  PersonRegisterScreen.route(context, state.keyword);
                   break;
               }
             },

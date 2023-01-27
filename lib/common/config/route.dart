@@ -22,6 +22,7 @@ import 'package:classic/presentation/screen/login/login_screen.dart';
 import 'package:classic/presentation/screen/login/register_screen.dart';
 import 'package:classic/presentation/screen/splash_screen.dart';
 import 'package:classic/presentation/screen/user_info/user_screen.dart';
+import 'package:classic/presentation/screen/person/person_register_screen.dart';
 
 class GrassRouter {
   final List<String> noLoginRequireds;
@@ -127,6 +128,13 @@ class GrassRouter {
                 ),
               ),
               GoRoute(
+                path: 'person/regist/:name',
+                name: PersonRegisterScreen.routeName,
+                builder: (context, state) => PersonRegisterScreen(
+                  name: state.params['name']!,
+                ),
+              ),
+              GoRoute(
                   path: 'link/detail/:linkId',
                   name: LinkDetailScreen.routeName,
                   builder: ((context, state) {
@@ -156,13 +164,6 @@ class GrassRouter {
                       builder: (context, state) => BlocProvider(
                           create: (context) => ComposerRegisterBloc(),
                           child: const PlayerRegisterScreen()),
-                    ),
-                    GoRoute(
-                      path: 'conductor',
-                      name: ConductorRegisterScreen.routeName,
-                      builder: (context, state) => BlocProvider(
-                          create: (context) => ComposerRegisterBloc(),
-                          child: const ConductorRegisterScreen()),
                     ),
                     GoRoute(
                       path: ':composerId/musicalForm',

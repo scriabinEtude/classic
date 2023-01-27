@@ -1,4 +1,7 @@
 import 'package:classic/common/imports.dart';
+import 'package:classic/data/enum/search_type.dart';
+import 'package:classic/presentation/screen/search/search_screen.dart';
+import 'package:classic/presentation/widget/app_text_form_field.dart';
 
 class MusicRegisterScreen extends StatefulWidget {
   const MusicRegisterScreen({
@@ -32,57 +35,38 @@ class _MusicRegisterScreenState extends State<MusicRegisterScreen> {
             child: ListView(
               itemExtent: 80,
               children: [
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    label: Text('작곡가'),
-                    suffixIcon: Icon(Icons.search),
-                    icon: Icon(Icons.person_outline_outlined),
-                  ),
+                AppTextFormField(
+                  label: "작곡가",
+                  suffixIcon: const Icon(Icons.search),
+                  icon: const Icon(Icons.person_outline_outlined),
                   readOnly: true,
-                  onTap: () {},
+                  onTap: () {
+                    SearchScreen.push(
+                      context,
+                      SearchType.musicRegisterConductor,
+                    );
+                  },
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    label: Text('시대'),
-                  ),
+                const AppTextFormField(
+                  label: "시대",
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    label: Text('음악형식'),
-                  ),
+                const AppTextFormField(
+                  label: "음악형식",
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    label: Text('작곡년도'),
-                  ),
+                const AppTextFormField(
+                  label: "작곡년도",
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    label: Text('음악 이름 (한글)'),
-                  ),
+                const AppTextFormField(
+                  label: "음악 이름 (한글)",
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    label: Text('음악 이름 (영문)'),
-                  ),
+                const AppTextFormField(
+                  label: "음악 이름 (영문)",
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    label: Text('부제 (한글)'),
-                  ),
+                const AppTextFormField(
+                  label: "부제 (한글)",
                 ),
-                TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    label: Text('부제 (영문)'),
-                  ),
+                const AppTextFormField(
+                  label: "부제 (영문)",
                 ),
               ],
             ),
