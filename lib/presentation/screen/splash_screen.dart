@@ -1,7 +1,7 @@
 import 'package:classic/bloc/user/user_bloc.dart';
 import 'package:classic/bloc/user/user_event.dart';
 import 'package:classic/common/imports.dart';
-import 'package:classic/presentation/components/logo.dart';
+import 'package:classic/presentation/widget/logo.dart';
 import 'package:classic/presentation/screen/home/home_screen.dart';
 
 class SplashScreen extends StatefulWidget {

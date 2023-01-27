@@ -6,7 +6,7 @@ import 'package:classic/bloc/user/user_bloc.dart';
 import 'package:classic/bloc/user/user_event.dart';
 import 'package:classic/bloc/user/user_state.dart';
 import 'package:classic/presentation/color/light_color.dart';
-import 'package:classic/presentation/components/logo.dart';
+import 'package:classic/presentation/widget/logo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:classic/presentation/screen/home/home_screen.dart';
 import 'package:classic/presentation/screen/login/components/app_form.dart';

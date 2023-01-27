@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:classic/bloc/register/register_bloc.dart';
 import 'package:classic/bloc/register/register_event.dart';
 import 'package:classic/bloc/register/register_state.dart';
-import 'package:classic/presentation/components/logo.dart';
+import 'package:classic/presentation/widget/logo.dart';
 import 'package:classic/presentation/screen/login/components/filled_button.dart';
 
 import 'package:go_router/go_router.dart';
