@@ -33,6 +33,7 @@ class RegisterChoiceBottomSheet extends StatelessWidget {
             icon: const Icon(Icons.play_circle_outline),
             label: '유튜브',
             onTap: () {
+              context.pop();
               context.pushNamed(LinkRegisterScreen.routeName);
             },
           ),
@@ -40,6 +41,7 @@ class RegisterChoiceBottomSheet extends StatelessWidget {
             icon: const Icon(Icons.music_note),
             label: '음악',
             onTap: () {
+              context.pop();
               MusicRegisterScreen.route(context, name);
             },
           ),
@@ -47,6 +49,7 @@ class RegisterChoiceBottomSheet extends StatelessWidget {
             icon: const Icon(Icons.person),
             label: '인물 / 단체',
             onTap: () {
+              context.pop();
               PersonRegisterScreen.route(context, name);
             },
           ),

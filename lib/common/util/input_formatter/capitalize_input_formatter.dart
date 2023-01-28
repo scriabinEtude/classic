@@ -1,29 +1,7 @@
-import 'package:flutter/services.dart';
+import 'package:classic/common/util/input_formatter/simple_formatter.dart';
+import 'package:classic/common/util/string_util.dart';
 
-class CapitalizeInputFormatter extends TextInputFormatter {
-  String textToTitleCase(String text) {
-    if (text.length > 1) {
-      // return text[0].toUpperCase() + text.substring(1);
-      return text[0].toUpperCase() +
-          text.substring(1).toLowerCase(); // if you want absolute title case
-    } else if (text.length == 1) {
-      return text[0].toUpperCase();
-    }
-
-    return '';
-  }
-
+class CapitalizeInputFormatter extends SimpleFormatter {
   @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    String formattedText = newValue.text
-        .split(' ')
-        .map((element) => textToTitleCase(element))
-        .toList()
-        .join(' ');
-    return TextEditingValue(
-      text: formattedText,
-      selection: newValue.selection,
-    );
-  }
+  String format(String newValue) => newValue.capitalize;
 }

@@ -1,7 +1,7 @@
 import 'package:classic/common/imports.dart';
 import 'package:classic/data/enum/search_type.dart';
 import 'package:classic/presentation/screen/search/search_screen.dart';
-import 'package:classic/presentation/widget/app_text_form_field.dart';
+import 'package:classic/presentation/widget/form_field/app_text_form_field.dart';
 
 class MusicRegisterScreen extends StatefulWidget {
   const MusicRegisterScreen({
