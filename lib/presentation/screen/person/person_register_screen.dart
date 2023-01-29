@@ -3,11 +3,13 @@ import 'package:classic/common/util/input_formatter/capitalize_input_formatter.d
 import 'package:classic/common/util/input_formatter/continue_input_formatter.dart';
 import 'package:classic/common/util/input_formatter/eng_only_input_formatter.dart';
 import 'package:classic/common/util/input_formatter/kor_only_input_formatter.dart';
+import 'package:classic/common/util/input_formatter/max_length_input_formatter.dart';
+import 'package:classic/common/util/input_formatter/number_only_input_formatter.dart';
 import 'package:classic/data/enum/nation_code.dart';
 import 'package:classic/data/enum/person_type.dart';
 import 'package:classic/presentation/widget/form_field/app_text_form_field.dart';
 import 'package:classic/presentation/widget/form_field/form_text_init_value.dart';
-import 'package:classic/presentation/widget/test_border_container.dart';
+import 'package:classic/presentation/widget/form_field/form_error_text.dart';
 
 class PersonRegisterScreen extends StatefulWidget {
   const PersonRegisterScreen({
@@ -27,21 +29,39 @@ class PersonRegisterScreen extends StatefulWidget {
 }
 
 class _PersonRegisterScreenState extends State<PersonRegisterScreen> {
-  String birthYearChoice = "년도";
-  String diedYearChoice = "년도";
+  final _formKey = GlobalKey<FormState>();
+  final _personTypeController = TextEditingController();
+  String? _personTypeError;
 
-  void choiceBirthYear(String? value) {
-    if (value == null) return;
+  bool _personTypeValidate() {
     setState(() {
-      birthYearChoice = value;
+      _personTypeError = _personTypeValidator();
     });
+    if (_personTypeError != null) {
+      return false;
+    }
+    return true;
   }
 
-  void choiceDiedYear(String? value) {
-    if (value == null) return;
-    setState(() {
-      diedYearChoice = value;
-    });
+  String? _personTypeValidator() {
+    String text = _personTypeController.text;
+    if (text.isEmpty) {
+      return "유형을 입력하세요";
+    } else if (PersonType.searchEqualByLabel(text) == null) {
+      return "등록되지 않은 유형입니다.";
+    } else {
+      return null;
+    }
+  }
+
+  submit() async {
+    if (_formKey.currentState?.validate() == true || _personTypeValidate()) {
+      bool confirm = "".isEmpty
+          ? await _EmptyDeathFieldDialog.show(context) == true
+          : true;
+
+      if (confirm) {}
+    }
   }
 
   @override
@@ -51,8 +71,12 @@ class _PersonRegisterScreenState extends State<PersonRegisterScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('인물 / 단체 등록'),
+          actions: [
+            TextButton(onPressed: submit, child: const Text('완료')),
+          ],
         ),
         body: Form(
+          key: _formKey,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             child: ListView(
@@ -66,6 +90,12 @@ class _PersonRegisterScreenState extends State<PersonRegisterScreen> {
                     KorOnlyInputFormatter(),
                     ContinueSpaceInputFormatter(),
                   ],
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "이름을 입력해주세요.";
+                    }
+                    return null;
+                  },
                 ),
                 AppTextFormField(
                   label: '이름 (영문)',
@@ -76,29 +106,118 @@ class _PersonRegisterScreenState extends State<PersonRegisterScreen> {
                     ContinueDashInputFormatter(),
                     CapitalizeInputFormatter(),
                   ],
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "이름을 입력해주세요.";
+                    }
+                    return null;
+                  },
                 ),
-                const SizedBox(height: 50),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                // const SizedBox(height: 50),
+                SizedBox(
+                  height: 100,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      _NationField(),
-                      _PersonTypeField(),
+                    children: [
+                      Autocomplete(
+                        optionsBuilder: (value) =>
+                            NationCode.searchByKor(value.text),
+                        displayStringForOption: (nation) => nation.kor,
+                        fieldViewBuilder: (
+                          context,
+                          textEditingController,
+                          focusNode,
+                          onFieldSubmitted,
+                        ) {
+                          return SizedBox(
+                            width: 185,
+                            child: AppTextFormField(
+                              icon: const Icon(Icons.flag_outlined),
+                              label: '국가',
+                              controller: textEditingController,
+                              focusNode: focusNode,
+                              onFieldSubmitted: (value) => onFieldSubmitted,
+                              setHeight: false,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return "국가를 입력해주세요";
+                                } else if (NationCode.searchEqualByKor(value) ==
+                                    null) {
+                                  return "등록되지 않은 국가입니다.";
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          DropdownMenu<PersonType>(
+                            controller: _personTypeController,
+                            enableSearch: true,
+                            label: const Text('유형'),
+                            dropdownMenuEntries: PersonType.values
+                                .map((t) =>
+                                    DropdownMenuEntry(value: t, label: t.label))
+                                .toList(),
+                            inputDecorationTheme: const InputDecorationTheme(
+                              border: OutlineInputBorder(),
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 23,
+                                horizontal: 12,
+                              ),
+                            ),
+                          ),
+                          FormErrorText(error: _personTypeError),
+                        ],
+                      ),
                     ],
                   ),
                 ),
-                _YearField(
-                  groupValue: birthYearChoice,
-                  prefix: "출생",
-                  onChange: choiceBirthYear,
-                ),
-                _YearField(
-                  groupValue: diedYearChoice,
-                  prefix: "사망",
-                  onChange: choiceDiedYear,
-                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 185,
+                      child: AppTextFormField(
+                        label: '출생',
+                        icon: const Icon(Icons.cake_outlined),
+                        setHeight: false,
+                        inputFormatters: [MaxLengthInputFormatter(4)],
+                        validator: (value) => (value == null || value.isEmpty)
+                            ? "출생 년도를 입력해 주세요."
+                            : null,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Text(
+                        '~',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displaySmall!
+                            .copyWith(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 145,
+                      child: AppTextFormField(
+                        label: '사망',
+                        iconExist: false,
+                        setHeight: false,
+                        inputFormatters: [MaxLengthInputFormatter(4)],
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
@@ -108,112 +227,43 @@ class _PersonRegisterScreenState extends State<PersonRegisterScreen> {
   }
 }
 
-class _PersonTypeField extends StatelessWidget {
-  const _PersonTypeField();
+class _EmptyDeathFieldDialog extends StatelessWidget {
+  const _EmptyDeathFieldDialog();
 
-  @override
-  Widget build(BuildContext context) {
-    return DropdownMenu(
-      enableSearch: true,
-      label: const Text('유형'),
-      dropdownMenuEntries: PersonType.values
-          .map((t) => DropdownMenuEntry(value: t.name, label: t.label))
-          .toList(),
-      inputDecorationTheme: const InputDecorationTheme(
-        border: OutlineInputBorder(),
-        contentPadding: EdgeInsets.symmetric(vertical: 23, horizontal: 12),
-      ),
-    );
+  static Future<bool?> show(BuildContext context) {
+    return showDialog<bool?>(
+        context: context,
+        builder: (context) {
+          return const _EmptyDeathFieldDialog();
+        });
   }
-}
-
-class _NationField extends StatelessWidget {
-  const _NationField();
 
   @override
   Widget build(BuildContext context) {
-    return Autocomplete(
-      optionsBuilder: (value) => NationCode.searchByKor(value.text),
-      displayStringForOption: (nation) => nation.kor,
-      fieldViewBuilder: (
-        context,
-        textEditingController,
-        focusNode,
-        onFieldSubmitted,
-      ) {
-        return SizedBox(
-          width: 200,
-          child: AppTextFormField(
-            label: '국가',
-            controller: textEditingController,
-            focusNode: focusNode,
-            onFieldSubmitted: (value) => onFieldSubmitted,
-            autoComplete: true,
-          ),
-        );
-      },
-    );
-  }
-}
-
-class _YearField extends StatelessWidget {
-  const _YearField({
-    Key? key,
-    required this.prefix,
-    required this.groupValue,
-    required this.onChange,
-  }) : super(key: key);
-
-  final String prefix;
-  final String groupValue;
-  final void Function(String? value) onChange;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
+    return Dialog(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(width: 30),
-            RadioMenuButton(
-              value: '년도',
-              groupValue: groupValue,
-              onChanged: onChange,
-              child: const Text('년도'),
-            ),
-            RadioMenuButton(
-              value: '년대',
-              groupValue: groupValue,
-              onChanged: onChange,
-              child: const Text('년대'),
-            ),
+            const Text('사망 년도가 입력되지 않았습니다.\n입력을 완료하시겠습니까?'),
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                    onPressed: () => Navigator.pop(context, false),
+                    child: const Text('취소')),
+                TextButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    child: const Text('확인')),
+              ],
+            )
           ],
         ),
-        if (groupValue == "년도")
-          SizedBox(
-            width: 186,
-            child: AppTextFormField(
-              key: ValueKey('$prefix 년도'),
-              label: '$prefix 년도',
-              suffixText: 'year',
-              textAlign: TextAlign.end,
-              maxLength: 4,
-            ),
-          )
-        else
-          SizedBox(
-            width: 186,
-            child: AppTextFormField(
-              key: ValueKey('$prefix 년대'),
-              label: '$prefix 년대',
-              suffixText: '0\'s',
-              textAlign: TextAlign.end,
-              maxLength: 3,
-            ),
-          ),
-      ],
+      ),
     );
   }
 }

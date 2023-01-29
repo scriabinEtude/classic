@@ -3,10 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:classic/common/imports.dart';
 import 'package:classic/presentation/widget/form_field/form_text_init_value.dart';
 
+/// maxLength를 쓰고 싶으면 inputformatter 중 MaxLengthInputFormatter를 이용하라
 class AppTextFormField extends StatelessWidget {
+  /// maxLength를 쓰고 싶으면 inputformatter 중 MaxLengthInputFormatter를 이용하라
   const AppTextFormField({
     Key? key,
     required this.label,
+    this.iconExist = true,
     this.icon = const Icon(Icons.abc, color: Colors.transparent),
     this.suffixIcon,
     this.readOnly = false,
@@ -17,12 +20,18 @@ class AppTextFormField extends StatelessWidget {
     this.focusNode,
     this.onFieldSubmitted,
     this.suffixText,
-    this.autoComplete = false,
-    this.maxLength,
+    this.setHeight = true,
     this.textAlign,
+    this.validator,
+    this.keyboardType,
+    this.onEditingComplete,
   }) : super(key: key);
 
   final String label;
+  final bool iconExist;
+
+  /// icon이 없어도 투명한 아이콘이 앞에 붙는다.
+  /// 아예 없애고 싶으면 [iconExist]를 `false`
   final Widget? icon;
   final Widget? suffixIcon;
   final bool readOnly;
@@ -32,27 +41,27 @@ class AppTextFormField extends StatelessWidget {
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final void Function(String)? onFieldSubmitted;
-  final bool autoComplete;
+  final bool setHeight;
   final String? suffixText;
-  final int? maxLength;
   final TextAlign? textAlign;
+  final String? Function(String? value)? validator;
+  final TextInputType? keyboardType;
+  final void Function()? onEditingComplete;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: autoComplete ? null : 100.h,
+      height: setHeight ? 100 : null,
       child: TextFormField(
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: label,
           suffixIcon: suffixIcon,
-          icon: icon,
+          icon: iconExist ? icon : null,
           helperText: initalValue?.helperText,
           suffixText: suffixText,
-          counter: const SizedBox.shrink(),
         ),
         textAlign: textAlign ?? TextAlign.start,
-        maxLength: maxLength,
         onTap: onTap,
         readOnly: initalValue?.readOnly ?? readOnly,
         initialValue: initalValue?.initialValue,
@@ -60,6 +69,9 @@ class AppTextFormField extends StatelessWidget {
         focusNode: focusNode,
         controller: controller,
         inputFormatters: inputFormatters,
+        validator: validator,
+        keyboardType: keyboardType,
+        onEditingComplete: onEditingComplete,
       ),
     );
   }

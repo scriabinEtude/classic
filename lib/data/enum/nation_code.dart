@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:collection/collection.dart';
+
 enum NationCode {
   AND('AD', '안도라'),
   ARE('AE', '아랍에미리트'),
@@ -259,4 +261,7 @@ enum NationCode {
   static List<NationCode> searchByKor(String keyword) => keyword.isEmpty
       ? []
       : values.where((element) => element.kor.contains(keyword)).toList();
+
+  static NationCode? searchEqualByKor(String keyword) =>
+      values.firstWhereOrNull((nation) => nation.kor == keyword);
 }
