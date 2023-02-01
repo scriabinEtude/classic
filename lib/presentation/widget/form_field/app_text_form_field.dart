@@ -25,6 +25,7 @@ class AppTextFormField extends StatelessWidget {
     this.validator,
     this.keyboardType,
     this.onEditingComplete,
+    this.onSaved,
   }) : super(key: key);
 
   final String label;
@@ -47,6 +48,7 @@ class AppTextFormField extends StatelessWidget {
   final String? Function(String? value)? validator;
   final TextInputType? keyboardType;
   final void Function()? onEditingComplete;
+  final void Function(String?)? onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +74,7 @@ class AppTextFormField extends StatelessWidget {
         validator: validator,
         keyboardType: keyboardType,
         onEditingComplete: onEditingComplete,
+        onSaved: onSaved,
       ),
     );
   }

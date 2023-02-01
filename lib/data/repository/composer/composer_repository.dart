@@ -3,6 +3,7 @@ import 'package:classic/data/model/composer.dart';
 import 'package:classic/data/model/music.dart';
 import 'package:classic/data/model/musical_form.dart';
 
+@Deprecated("person")
 abstract class ComposerRepository {
   Future<Result<void>> register(Composer composer);
   Future<Result<List<Composer>>> getAllComposerSearch();

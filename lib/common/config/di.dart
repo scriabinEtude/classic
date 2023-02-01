@@ -15,6 +15,8 @@ import 'package:classic/data/repository/search/search_repository_test.dart';
 import 'package:classic/data/repository/user/user_repository_impl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:classic/data/repository/user/user_repository.dart';
+import 'package:classic/data/repository/person/person_repository.dart';
+import 'package:classic/data/repository/person/person_repository_impl.dart';
 
 final di = GetIt.instance;
 
@@ -29,10 +31,11 @@ class Di {
     di.registerSingleton<UserRepository>(UserRepositoryImpl(db));
     di.registerSingleton<LinkRegisterRepository>(
         LinkRegisterRepositoryImpl(db));
+    di.registerSingleton<SearchRepository>(SearchRepositoryTest());
     di.registerSingleton<LinkRepository>(LinkRepositoryImpl(db));
+    di.registerSingleton<PersonRepository>(PersonRepositoryImpl());
     di.registerSingleton<ComposerRepository>(ComposerRepositoryImpl(db));
     di.registerSingleton<PlayerRepository>(PlayerRepositoryImpl(db));
     di.registerSingleton<ConductorRepository>(ConductorRepositoryImpl(db));
-    di.registerSingleton<SearchRepository>(SearchRepositoryTest());
   }
 }

@@ -9,12 +9,12 @@ part 'person.g.dart';
 @freezed
 class Person with _$Person {
   factory Person({
-    required int personId,
+    int? personId,
     required String name,
     required String kor,
     required String type,
-    required DateTime birth,
-    DateTime? death,
+    required int birth,
+    int? death,
     required String nation,
     User? user,
     @Default([]) List<Music> musics,
