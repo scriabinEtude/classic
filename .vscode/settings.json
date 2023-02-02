@@ -1,1 +1,12 @@
-{}
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "dart.flutterSdkPath": ".fvm/flutter_sdk",
+    // 파일 검색에서 제거
+    "search.exclude": {
+        "**/.fvm": true
+    },
+    // 파일 변동사항 체크에서 제거
+    "files.watcherExclude": {
+        "**/.fvm": true
+    },
+}

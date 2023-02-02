@@ -1,24 +1,20 @@
-import 'package:classic/bloc/bloc/person_bloc.dart';
-import 'package:classic/bloc/bloc/person_event.dart';
-import 'package:classic/bloc/bloc/person_state.dart';
+import 'package:classic/bloc/person/person_bloc.dart';
+import 'package:classic/bloc/person/person_state.dart';
+import 'package:classic/bloc/person/person_event.dart';
 import 'package:classic/bloc/user/user_bloc.dart';
 import 'package:classic/common/imports.dart';
-import 'package:classic/common/object/status/status.dart';
-import 'package:classic/common/util/input_formatter/capitalize_input_formatter.dart';
-import 'package:classic/common/util/input_formatter/continue_input_formatter.dart';
-import 'package:classic/common/util/input_formatter/eng_only_input_formatter.dart';
-import 'package:classic/common/util/input_formatter/kor_only_input_formatter.dart';
-import 'package:classic/common/util/input_formatter/max_length_input_formatter.dart';
-import 'package:classic/common/util/input_formatter/number_only_input_formatter.dart';
 import 'package:classic/data/const/code.dart';
 import 'package:classic/data/enum/nation_code.dart';
 import 'package:classic/data/enum/person_type.dart';
 import 'package:classic/data/model/person.dart';
 import 'package:classic/data/model/user.dart';
+import 'package:classic/presentation/widget/dialog/text_dialog.dart';
 import 'package:classic/presentation/widget/form_field/app_text_form_field.dart';
-import 'package:classic/presentation/widget/form_field/form_text_init_value.dart';
 import 'package:classic/presentation/widget/form_field/form_error_text.dart';
 import 'package:classic/presentation/widget/snackbar/app_snack_bar.dart';
+import 'package:classic/presentation/widget/form_field/components/app_text_form_field_eng.dart';
+import 'package:classic/presentation/widget/form_field/components/app_text_form_field_kor.dart';
+import 'package:classic/presentation/widget/form_field/components/app_text_form_field_years.dart';
 
 class PersonRegisterScreen extends StatefulWidget {
   const PersonRegisterScreen({
@@ -71,12 +67,19 @@ class _PersonRegisterScreenState extends State<PersonRegisterScreen> {
     }
   }
 
+  Future<bool> _showEmptyDeathDialog() async =>
+      true ==
+      await TextDialog.show(
+        context,
+        text: '사망 년도가 입력되지 않았습니다.\n입력을 완료하시겠습니까?',
+      );
+
   submit() async {
     if (_formKey.currentState?.validate() == true && _personTypeValidate()) {
       _formKey.currentState!.save();
 
       bool confirm = (death == null || death!.isEmpty)
-          ? await _EmptyDeathFieldDialog.show(context) == true
+          ? await _showEmptyDeathDialog()
           : true;
 
       if (confirm) {
@@ -126,40 +129,14 @@ class _PersonRegisterScreenState extends State<PersonRegisterScreen> {
               child: ListView(
                 children: [
                   const SizedBox(height: 16),
-                  AppTextFormField(
-                    label: '이름 (한글)',
-                    icon: const Icon(Icons.person_outline),
-                    initalValue: InitValueKor(widget.name),
-                    inputFormatters: [
-                      KorOnlyInputFormatter(),
-                      ContinueSpaceInputFormatter(),
-                    ],
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "이름을 입력해주세요.";
-                      }
-                      return null;
-                    },
+                  AppTextFormFieldKor(
+                    initialValue: widget.name,
                     onSaved: (value) => kor = value,
                   ),
-                  AppTextFormField(
-                    label: '이름 (영문)',
-                    initalValue: InitValueNotKor(widget.name),
-                    inputFormatters: [
-                      EngOnlyInputFormatter(),
-                      ContinueSpaceInputFormatter(),
-                      ContinueDashInputFormatter(),
-                      CapitalizeInputFormatter(),
-                    ],
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "이름을 입력해주세요.";
-                      }
-                      return null;
-                    },
+                  AppTextFormFieldEng(
+                    initialValue: widget.name,
                     onSaved: (value) => name = value,
                   ),
-                  // const SizedBox(height: 50),
                   SizedBox(
                     height: 100,
                     child: Row(
@@ -226,93 +203,17 @@ class _PersonRegisterScreenState extends State<PersonRegisterScreen> {
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 185,
-                        child: AppTextFormField(
-                          label: '출생',
-                          icon: const Icon(Icons.cake_outlined),
-                          setHeight: false,
-                          inputFormatters: [MaxLengthInputFormatter(4)],
-                          validator: (value) => (value == null || value.isEmpty)
-                              ? "출생 년도를 입력해 주세요."
-                              : null,
-                          onSaved: (value) => birth = value,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 6),
-                        child: Text(
-                          '~',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displaySmall!
-                              .copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurfaceVariant),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 145,
-                        child: AppTextFormField(
-                          label: '사망',
-                          iconExist: false,
-                          setHeight: false,
-                          inputFormatters: [MaxLengthInputFormatter(4)],
-                          onSaved: (value) => death = value,
-                        ),
-                      ),
-                    ],
-                  )
+                  AppTextFormFieldYears(
+                    icon: const Icon(Icons.cake_outlined),
+                    startTitle: '출생',
+                    startOnSaved: (value) => birth = value,
+                    endTitle: "사망",
+                    endOnSaved: (value) => death = value,
+                  ),
                 ],
               ),
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _EmptyDeathFieldDialog extends StatelessWidget {
-  const _EmptyDeathFieldDialog();
-
-  static Future<bool?> show(BuildContext context) {
-    return showDialog<bool?>(
-        context: context,
-        builder: (context) {
-          return const _EmptyDeathFieldDialog();
-        });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('사망 년도가 입력되지 않았습니다.\n입력을 완료하시겠습니까?'),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                    onPressed: () => Navigator.pop(context, false),
-                    child: const Text('취소')),
-                TextButton(
-                    onPressed: () => Navigator.pop(context, true),
-                    child: const Text('확인')),
-              ],
-            )
-          ],
         ),
       ),
     );

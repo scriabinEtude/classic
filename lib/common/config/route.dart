@@ -5,7 +5,7 @@ import 'package:classic/bloc/user/user_event.dart';
 import 'package:classic/data/model/link.dart';
 import 'package:classic/presentation/screen/composer/composer_register_screen.dart';
 import 'package:classic/presentation/screen/composer/musical_form_register_screen.dart';
-import 'package:classic/presentation/screen/conductor/conductor_register_screen.dart';
+import 'package:classic/presentation/screen/era/era_register_screen.dart';
 import 'package:classic/presentation/screen/link/link_detail_screen.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
 import 'package:classic/presentation/screen/music/music_register_screen.dart';
@@ -131,6 +131,13 @@ class GrassRouter {
                 path: 'person/regist/:name',
                 name: PersonRegisterScreen.routeName,
                 builder: (context, state) => PersonRegisterScreen(
+                  name: state.params['name']!,
+                ),
+              ),
+              GoRoute(
+                path: 'era/regist/:name',
+                name: EraRegisterScreen.routeName,
+                builder: (context, state) => EraRegisterScreen(
                   name: state.params['name']!,
                 ),
               ),

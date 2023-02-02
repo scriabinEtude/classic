@@ -43,6 +43,9 @@ class _SearchResultList extends StatelessWidget {
                 case SearchType.musicRegisterConductor:
                   PersonRegisterScreen.route(context, state.keyword);
                   break;
+                case SearchType.musicRegisterEra:
+                  EraRegisterScreen.route(context, state.keyword);
+                  break;
               }
             },
           );

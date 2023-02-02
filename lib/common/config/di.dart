@@ -4,6 +4,8 @@ import 'package:classic/data/repository/composer/composer_repository.dart';
 import 'package:classic/data/repository/composer/composer_repository_impl.dart';
 import 'package:classic/data/repository/conductor/conductor_repository.dart';
 import 'package:classic/data/repository/conductor/conductor_repository_impl.dart';
+import 'package:classic/data/repository/era/era_repository.dart';
+import 'package:classic/data/repository/era/era_repository_impl.dart';
 import 'package:classic/data/repository/link/link/link_repository.dart';
 import 'package:classic/data/repository/link/link/link_repository_impl.dart';
 import 'package:classic/data/repository/link/register/link_register_repository.dart';
@@ -34,6 +36,7 @@ class Di {
     di.registerSingleton<SearchRepository>(SearchRepositoryTest());
     di.registerSingleton<LinkRepository>(LinkRepositoryImpl(db));
     di.registerSingleton<PersonRepository>(PersonRepositoryImpl());
+    di.registerSingleton<EraRepository>(EraRepositoryImpl());
     di.registerSingleton<ComposerRepository>(ComposerRepositoryImpl(db));
     di.registerSingleton<PlayerRepository>(PlayerRepositoryImpl(db));
     di.registerSingleton<ConductorRepository>(ConductorRepositoryImpl(db));

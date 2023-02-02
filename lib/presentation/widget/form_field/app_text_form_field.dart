@@ -6,11 +6,11 @@ import 'package:classic/presentation/widget/form_field/form_text_init_value.dart
 /// maxLength를 쓰고 싶으면 inputformatter 중 MaxLengthInputFormatter를 이용하라
 class AppTextFormField extends StatelessWidget {
   /// maxLength를 쓰고 싶으면 inputformatter 중 MaxLengthInputFormatter를 이용하라
-  const AppTextFormField({
+  AppTextFormField({
     Key? key,
     required this.label,
     this.iconExist = true,
-    this.icon = const Icon(Icons.abc, color: Colors.transparent),
+    this.icon,
     this.suffixIcon,
     this.readOnly = false,
     this.onTap,
@@ -33,7 +33,7 @@ class AppTextFormField extends StatelessWidget {
 
   /// icon이 없어도 투명한 아이콘이 앞에 붙는다.
   /// 아예 없애고 싶으면 [iconExist]를 `false`
-  final Widget? icon;
+  Widget? icon;
   final Widget? suffixIcon;
   final bool readOnly;
   final void Function()? onTap;
@@ -52,6 +52,8 @@ class AppTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    icon ??= const Icon(Icons.abc, color: Colors.transparent);
+
     return SizedBox(
       height: setHeight ? 100 : null,
       child: TextFormField(

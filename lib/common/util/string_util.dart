@@ -15,4 +15,9 @@ extension StringExtension on String {
         .toList()
         .join(' ');
   }
+
+  int? get toInt {
+    if (isEmpty) return null;
+    return int.parse(this);
+  }
 }

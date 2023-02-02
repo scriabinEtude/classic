@@ -4,7 +4,7 @@ import 'package:classic/bloc/search/search_state.dart';
 import 'package:classic/common/imports.dart';
 import 'package:classic/data/model/search_result.dart';
 import 'package:classic/data/enum/search_type.dart';
-import 'package:classic/presentation/screen/conductor/conductor_register_screen.dart';
+import 'package:classic/presentation/screen/era/era_register_screen.dart';
 import 'package:classic/presentation/screen/music/music_register_screen.dart';
 import 'package:classic/presentation/screen/person/person_register_screen.dart';
 import 'package:classic/presentation/screen/search/components/register_choice_bottom_sheet.dart';

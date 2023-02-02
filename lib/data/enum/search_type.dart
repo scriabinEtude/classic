@@ -4,4 +4,5 @@ enum SearchType {
   linkRegisterPlayer,
   linkRegisterConductor,
   musicRegisterConductor,
+  musicRegisterEra,
 }

@@ -47,25 +47,43 @@ class _MusicRegisterScreenState extends State<MusicRegisterScreen> {
                     );
                   },
                 ),
-                const AppTextFormField(
+                AppTextFormField(
                   label: "시대",
+                  suffixIcon: const Icon(Icons.search_outlined),
+                  icon: const Icon(Icons.menu_book_outlined),
+                  readOnly: true,
+                  onTap: () {
+                    SearchScreen.push(
+                      context,
+                      SearchType.musicRegisterEra,
+                    );
+                  },
                 ),
-                const AppTextFormField(
+                AppTextFormField(
                   label: "음악형식",
+                  suffixIcon: const Icon(Icons.search_outlined),
+                  icon: const Icon(Icons.people),
+                  readOnly: true,
+                  onTap: () {
+                    SearchScreen.push(
+                      context,
+                      SearchType.musicRegisterEra,
+                    );
+                  },
                 ),
-                const AppTextFormField(
+                AppTextFormField(
                   label: "작곡년도",
                 ),
-                const AppTextFormField(
+                AppTextFormField(
                   label: "음악 이름 (한글)",
                 ),
-                const AppTextFormField(
+                AppTextFormField(
                   label: "음악 이름 (영문)",
                 ),
-                const AppTextFormField(
+                AppTextFormField(
                   label: "부제 (한글)",
                 ),
-                const AppTextFormField(
+                AppTextFormField(
                   label: "부제 (영문)",
                 ),
               ],

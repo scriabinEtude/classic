@@ -1,4 +1,5 @@
 import 'package:classic/common/imports.dart';
+import 'package:classic/presentation/screen/era/era_register_screen.dart';
 import 'package:classic/presentation/screen/link/link_register_screen.dart';
 import 'package:classic/presentation/screen/music/music_register_screen.dart';
 import 'package:classic/presentation/screen/person/person_register_screen.dart';
@@ -23,11 +24,11 @@ class RegisterChoiceBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200.h,
+      height: 310.h,
       padding: EdgeInsets.only(top: 60.h),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        runSpacing: 50,
         children: [
           _Item(
             icon: const Icon(Icons.play_circle_outline),
@@ -53,8 +54,67 @@ class RegisterChoiceBottomSheet extends StatelessWidget {
               PersonRegisterScreen.route(context, name);
             },
           ),
+          _Item(
+            icon: const Icon(Icons.menu_book_outlined),
+            label: '시대',
+            onTap: () {
+              context.pop();
+              EraRegisterScreen.route(context, name);
+            },
+          ),
+          _Item.empty(),
+          _Item.empty(),
         ],
       ),
+      // child: Column(
+      //   children: [
+      //     Row(
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         _Item(
+      //           icon: const Icon(Icons.play_circle_outline),
+      //           label: '유튜브',
+      //           onTap: () {
+      //             context.pop();
+      //             context.pushNamed(LinkRegisterScreen.routeName);
+      //           },
+      //         ),
+      //         _Item(
+      //           icon: const Icon(Icons.music_note),
+      //           label: '음악',
+      //           onTap: () {
+      //             context.pop();
+      //             MusicRegisterScreen.route(context, name);
+      //           },
+      //         ),
+      //         _Item(
+      //           icon: const Icon(Icons.person),
+      //           label: '인물 / 단체',
+      //           onTap: () {
+      //             context.pop();
+      //             PersonRegisterScreen.route(context, name);
+      //           },
+      //         ),
+      //       ],
+      //     ),
+      //     const SizedBox(height: 50),
+      //     Row(
+      //       crossAxisAlignment: CrossAxisAlignment.start,
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         _Item(
+      //           icon: const Icon(Icons.menu_book_outlined),
+      //           label: '시대',
+      //           onTap: () {
+      //             context.pop();
+      //             context.pushNamed(EraRegisterScreen.routeName);
+      //           },
+      //         ),
+      //       ],
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
@@ -65,6 +125,14 @@ class _Item extends StatelessWidget {
     required this.label,
     required this.onTap,
   });
+
+  factory _Item.empty() => _Item(
+      icon: const Icon(
+        Icons.abc,
+        color: Colors.transparent,
+      ),
+      label: "",
+      onTap: () {});
 
   final Widget icon;
   final String label;

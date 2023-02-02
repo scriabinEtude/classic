@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:classic/bloc/bloc/person_event.dart';
-import 'package:classic/bloc/bloc/person_state.dart';
+import 'package:classic/bloc/person/person_event.dart';
+import 'package:classic/bloc/person/person_state.dart';
 import 'package:classic/common/config/di.dart';
 import 'package:classic/common/object/status/status.dart';
 import 'package:classic/data/const/code.dart';
